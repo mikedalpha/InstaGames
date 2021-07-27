@@ -1,0 +1,247 @@
+﻿@using GroupProject.WebApp.Models.ManageViewModels
+@model GroupProject.WebApp.Models.ManageViewModels.IndexViewModel
+@{
+    ViewBag.Title = "Manage -InstaGames";
+}
+
+<!-- loader Start -->
+<div id="loading">
+    <div id="loading-center">
+    </div>
+</div>
+<!-- loader END -->
+
+<!-- MainContent -->
+<section class="m-profile setting-wrapper">
+    <div class="container">
+        <h4 class="main-title mb-4">Account Setting</h4>
+        <div class="row">
+           
+            @Html.Partial("UploadPhoto", new UploadPhotoViewModel(){Username = Model.Username, RegistrationDate = Model.RegistrationDate, Photo = Model.Photo})
+
+            <div class="col-lg-8">
+                <div class="sign-user_card">
+                    <h5 class="mb-3 pb-3 a-border">Personal Details</h5>
+                    <div class="row align-items-center justify-content-between mb-3">
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Username</span>
+                            <p class="mb-0">@Model.Username</p>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center justify-content-between mb-3">
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Email</span>
+                            <p class="mb-0">@Model.Email</p>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center justify-content-between mb-3">
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Password</span>
+                            <p class="mb-0">**********</p>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center justify-content-between mb-3">
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">First Name</span>
+                            <p class="mb-0">@Model.FirstName</p>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center justify-content-between mb-3">
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Last Name</span>
+                            <p class="mb-0">@Model.LastName</p>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center justify-content-between mb-3">
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Age</span>
+                            <p class="mb-0">@Model.Age</p>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-between mb-3">
+                        <div class="col-md-12 text-md-right text-left">
+                            @Html.ActionLink("Change your password", "ChangePassword", "Manage", new { @class = "text-primary pull-left" })
+                            <a href="#" class="btn btn-outline-primary" onclick="EditModal()">Edit Profile</a>
+                        </div>
+                    </div>
+
+                    @if (Model.ExpireDate != null)
+                    {
+                        <!-- Already a subscriber -->
+                        <h5 class="mb-3 mt-4 pb-3 a-border">Billing Details</h5>
+                        <div class="row justify-content-between mb-3">
+
+                            @if (@DateTime.Now > @Model.ExpireDate)
+                            {
+                                <div class="col-md-8 r-mb-15">
+                                    <p>Your subscription expired @Model.ExpireDate.Value.ToString("dd MMMM yyyy HH:mm:ss")</p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-8 r-mb-15">
+                                    <p class="text-success">Your next billing date.</p>
+                                    <p> @Model.ExpireDate.Value.ToString("dd MMMM yyyy HH:mm:ss")</p>
+                                    <p class="text-success">Days Left</p>
+                                    <p>@Model.ExpireDate.Value.Subtract(DateTime.Now).Days</p>
+                                </div>
+                            }
+                        </div>
+
+                        <h5 class="mb-3 mt-4 pb-3 a-border">Plan Details</h5>
+                        <div class="row justify-content-between mb-3">
+                            @if (@DateTime.Now > @Model.ExpireDate)
+                            {
+                                <div class="col-md-8">
+                                    <p class="text-primary">Last Active Plan &nbsp;</p>
+                                    <p>@Model.SubscribePlan.ToString()</p>
+                                    <p>Currently you don't have an active plan :(</p>
+                                </div>
+                                <div class="col-md-4 text-md-right text-left">
+                                    <a href="~/home/PricingPlan" class="text-primary">Reactivate Plan</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-8">
+                                    <p class="text-success">Current Plan &nbsp;</p>
+                                    <p>@Model.SubscribePlan.ToString()</p>
+                                </div>
+                                <div class="col-md-4 text-md-right text-left">
+                                    <a href="~/home/PricingPlan" class="text-primary">Add more game time!</a>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- NEW subscriber -->
+                        <h5 class="mb-3 mt-4 pb-3 a-border">Billing Details</h5>
+                        <div class="row justify-content-between mb-3">
+                            <div class="col-md-8 r-mb-15">
+                                <p>No active Subscription. Subscribe now!</p>
+                            </div>
+                        </div>
+                        <h5 class="mb-3 mt-4 pb-3 a-border">Plan Details</h5>
+
+                        <div class="row justify-content-between mb-3">
+                            <div class="col-md-8">
+                                <p class="text-primary">Don't Waste time &nbsp;</p>
+                                <p>Subscribe now to get full access to our games!</p>
+                            </div>
+                            <div class="col-md-4 text-md-right text-left">
+                                <a href="~/home/PricingPlan" class="text-primary">Activate Plan</a>
+                            </div>
+                        </div>
+
+                    }
+
+                    @*<h5 class="mb-3 pb-3 mt-4 a-border">Setting</h5>
+                        <div class="row">
+                            <div class="col-12 setting">
+                                <a href="#" class="text-body d-block mb-1">Recent device streaming activity</a>
+                                <a href="#" class="text-body d-block mb-1">Sign out of all devices </a>
+                                <a href="#" class="text-body d-block">Download your person information</a>
+                            </div>
+                        </div>*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- MainContent End-->
+<!--Modal-->
+<div class="modal fade" id="manageModal" tabindex="-1" role="dialog" aria-labelledby="manageModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="manageModalCenterTitle">Edit User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="modalBody" class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+<!-- back-to-top -->
+<div id="back-to-top">
+    <a class="top" href="#top" id="top"> <i class="fa fa-angle-up"></i> </a>
+</div>
+<!-- back-to-top End -->
+
+@Scripts.Render("~/bundles/jqueryval")
+@section scripts
+{
+    <script>
+
+        //EDIT USER
+
+        function EditModal() {
+
+            $(document).ready(function () {
+                $("#manageModal").modal();
+            });
+
+            EditProfile();
+
+            $(".close").click(function () { $("#manageModal").modal("hide"); });
+
+        }
+
+        $("#manageModal").hide();
+
+        function EditProfile() {
+            $("#modalBody").html(`
+                                    @using (Html.BeginForm("Index", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                    {
+                                           @Html.AntiForgeryToken()
+
+                                                   <div class="form-group">
+                                                       @Html.LabelFor(vm => vm.Username, new { @class = "text-primary"})
+                                                       @Html.EditorFor(vm => vm.Username, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off", placeholder = "Enter Username" } })
+                                                       @Html.ValidationMessageFor(vm => vm.Username, "", new { @class = "text-danger" })
+                                                   </div>
+
+
+                                                   <div class="form-group">
+                                                       @Html.LabelFor(vm => vm.Email, new { @class = "text-primary" })
+                                                       @Html.EditorFor(vm => vm.Email, new { htmlAttributes = new { @class = "form-control mb-0", placeholder = "Enter email" } })
+                                                       @Html.ValidationMessageFor(vm => vm.Email, "", new { @class = "text-danger" })
+                                                   </div>
+
+                                                   <div class="form-group">
+                                                       @Html.LabelFor(vm => vm.FirstName, new { @class = "text-primary" })
+                                                       @Html.EditorFor(vm => vm.FirstName, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off", placeholder = "First Name" } })
+                                                       @Html.ValidationMessageFor(vm => vm.FirstName, "", new { @class = "text-danger" })
+                                                   </div>
+
+                                                   <div class="form-group">
+                                                       @Html.LabelFor(vm => vm.LastName, new { @class = "text-primary" })
+                                                       @Html.EditorFor(vm => vm.LastName, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off", placeholder = "Last Name" } })
+                                                       @Html.ValidationMessageFor(vm => vm.LastName, "", new { @class = "text-danger" })
+                                                   </div>
+
+                                                   <div class="form-group">
+                                                       @Html.LabelFor(vm => vm.DateOfBirth, new { @class = "text-primary" })
+                                                       @Html.EditorFor(vm => vm.DateOfBirth, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off", placeholder = "Last Name" } })
+                                                       @Html.ValidationMessageFor(vm => vm.DateOfBirth, "", new { @class = "text-danger" })
+                                                   </div>
+
+                                           <button type="submit" class="btn btn-hover my-2">Save Changes</button>
+                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          }
+                                            `);}
+
+    </script>
+}

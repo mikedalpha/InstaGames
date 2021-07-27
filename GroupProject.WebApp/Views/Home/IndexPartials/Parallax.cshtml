@@ -1,0 +1,64 @@
+﻿@model GroupProject.WebApp.Models.HomeViewModel.IndexViewModel
+
+<section id="parallex" class="parallax-window">
+    <div class="container-fluid h-100">
+        <div class="row align-items-center justify-content-center h-100 parallaxt-details">
+            <div class="col-lg-4 r-mb-23">
+                <div class="text-left">
+                    <a href="javascript:void(0);">
+                        <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft" data-delay-in="0.6">
+                            @Model.RandomGame.Title
+                        </h1>
+                    </a>
+                    <div class="parallax-ratting d-flex align-items-center mt-3 mb-3">
+                        <div class="slider-ratting d-flex align-items-center mr-4 mt-2 mt-md-3">
+
+                            <!--Rating Logic -->
+                            <ul class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
+                                @for (int i = 0; i < Model.RandomGame.Rating; i++)
+                                {
+                                    <li>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </li>
+                                }
+                                @for (int i = 0; i < 5 - Model.RandomGame.Rating; i++)
+                                {
+                                    <li>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    </li>
+                                }
+                            </ul>
+                            @if (Model.RandomGame.Rating == 0)
+                            {
+                                <span class="text-white ml-2">Unrated</span>
+                            }
+                            else
+                            {
+                                <span class="text-white ml-2">@Model.RandomGame.Rating <small style="font-size:10px">(User Score)</small></span>
+                            }
+                        </div>
+                        <div class="d-flex align-items-center mt-2 mt-md-3">
+                            <span class="ml-3">Pegi &nbsp;</span>
+                            <img src="@Model.RandomGame.Pegi" alt="Alternate Text" class="p-2 " width="50" />
+                        </div>
+                    </div>
+                    <p>@Model.RandomGame.Description</p>
+                    <div class="parallax-buttons">
+                        <a href="~/game/play/@Model.RandomGame.GameId" class="btn btn-hover iq-button">
+                            <i class="fa fa-play mr-2"
+                               aria-hidden="true"></i>Play Now
+                        </a>
+                        <a href="movie-details.html" class="btn btn-link">More details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="parallax-img">
+                    <a href="movie-details.html">
+                        <img src="@Model.RandomGame.Photo" class="img-fluid w-100" alt="bailey">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

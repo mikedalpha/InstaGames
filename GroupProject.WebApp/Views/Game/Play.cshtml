@@ -1,0 +1,108 @@
+﻿@model GroupProject.Entities.Game
+@{
+    ViewBag.Title = "Play Now -InstaGames";
+    //Layout = "~/Views/Shared/_EmptyLayout.cshtml";
+}
+
+@*<div class="alert hide">
+        <span class="fa fa-exclamation-circle">
+            <span class="msg">
+                This Early Access game is not complete and may or may not change further. If you are not excited to play this game in its current state,
+        then you should wait to see if the game progresses further in development.
+            </span>
+            <span class="close-btn">
+                <span class="fa fa-times"></span>
+            </span>
+        </span>
+    </div>*@
+
+<div class="iq-breadcrumb-one  iq-bg-over iq-over-dark-50" style=" background-image: url(/Content/images/about-us/about.jpg);">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <nav aria-label="breadcrumb" class="text-center iq-breadcrumb-two">
+                    <h2 class="title">@Model.Title</h2>
+                    <ol class="breadcrumb main-bg">
+                        <li class="breadcrumb-item"><a href="~/home/index">Home</a></li>
+                        <li class="breadcrumb-item active">Play</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (TempData.ContainsKey("ShowAlert"))
+{
+    if ((bool)TempData["ShowAlert"])
+    {
+        <div class="container">
+            <div class="col-sm-2 col-lg-4 position-fixed flipOutX fixed-center">
+                <div class="alert alert-primary showAlert bg-info" role="alert">
+                    <div class="iq-alert-text">
+                        <button type="button" class="close text-muted" data-dismiss="alert" aria-label="Close">
+                            <i class="ri-close-line text-primary"></i>
+                        </button>
+                        <h5 class="alert-heading text-white text-center">@User.Identity.Name!</h5>
+                        <hr />
+                        <p class="text-white text-center">
+                            <i class="ri-information-line"></i>
+                            This Early Access game is not complete and may or may not
+                            change further.If you are not excited to play this game in its current state,
+                            then you should wait to see if the game progresses further in development.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+<div class="container mt-2 mb-2">
+    <div id="loading">
+        <div id="loading-center">
+        </div>
+    </div>
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe id="embededGame" class="embed-responsive-item" scrolling="no" seamless="seamless" src="@Model.GameUrl" style="width: 100%; height: 100%; border: 0"></iframe>
+    </div>
+    <button class="btn btn-outline-primary mt-2 mb-3 pull-right" onclick="goFullscreen('embededGame');return false;"><i class="fa fa-expand"></i></button>
+</div>
+
+
+
+
+@section scripts{
+    <script>
+
+            function goFullscreen(id) {
+                var element = document.getElementById(id);
+                if (element.mozRequestFullScreen) {
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullScreen) {
+                    element.webkitRequestFullScreen();
+                }
+            }
+
+            @*if (@Model.IsEarlyAccess === true) {
+                EarlyAccessAlert();
+            }
+
+            function EarlyAccessAlert() {
+                $('.alert').removeClass("hide");
+                $('.alert').addClass("show");
+                $('.alert').addClass("showAlert");
+                setTimeout(function () {
+                    $('.alert').addClass("hide");
+                    $('.alert').removeClass("show");
+                }, 5000);
+                $('.close-btn').click(function () {
+                    $('.alert').addClass("hide");
+                    $('.alert').removeClass("show");
+                });
+            }*@
+
+    </script>
+}

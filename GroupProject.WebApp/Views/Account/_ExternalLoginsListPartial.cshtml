@@ -1,0 +1,64 @@
+﻿@model GroupProject.WebApp.Models.AccountViewModels.ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+<link href="~/Content/cssfrontend/slick-theme.css" rel="stylesheet" />
+
+<h5 class="text-center">Use another service to log in </h5>
+<hr/>
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    if (loginProviders.Count() == 0) {
+        <div>
+            <p>
+                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support logging in via external services.
+            </p>
+        </div>
+    }
+    else {
+        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
+            @Html.AntiForgeryToken()
+            <div id="socialLoginList">
+                <p>
+                    
+                    <div class="row text-center">
+                        <div class="col-12">
+
+                            @foreach (AuthenticationDescription p in loginProviders)
+                            {
+                                if (p.Caption == "Facebook")
+                                {
+                                    <button class="register"  type="submit"  id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType"><i class="fa fa-facebook m-3"></i></button>
+
+                                    //<button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                                }
+                                else if (p.Caption == "Google")
+                                {
+                                    
+                                    <button  class="register" type="submit" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType"><i class="fa fa-google-plus m-3"></i></button>
+                                }
+
+                            }
+                        </div>
+                    </div>
+
+                   
+                </p>
+            </div>
+        }
+    }
+}
+
+<style>
+    .register {
+        background: transparent !important;
+        color: var(--iq-body) !important;
+        border: none;
+        -webkit-transition: 0.75s;
+    }
+
+    .register:hover {
+        color: var(--iq-primary) !important;
+        -webkit-transition: 0.75s;
+    }
+    
+</style>

@@ -1,0 +1,30 @@
+﻿@model GroupProject.WebApp.Models.HomeViewModel.IndexViewModel
+<!-- loader Start -->
+<div id="loading">
+    <div id="loading-center">
+    </div>
+</div>
+<!-- loader END -->
+<!-- Slider Start -->
+
+@Html.Partial("~/Views/Home/IndexPartials/Slider.cshtml")
+
+<!-- Slider End -->
+<!-- MainContent -->
+
+@Html.Partial("~/Views/Home/IndexPartials/Latest.cshtml")
+
+@Html.Partial("~/Views/Home/IndexPartials/Upcoming.cshtml")
+
+@Html.Partial("~/Views/Home/IndexPartials/TopFive.cshtml")
+
+
+@Html.Partial("~/Views/Home/IndexPartials/Suggested.cshtml")
+
+@Html.Partial("~/Views/Home/IndexPartials/Parallax.cshtml")
+
+@Html.Partial("~/Views/Home/IndexPartials/Trending.cshtml")
+
+@Html.Partial("~/Views/Home/IndexPartials/DevelopedBy.cshtml")
+
+<!-- MainContent End-->

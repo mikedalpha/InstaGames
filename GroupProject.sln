@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupProject.Database", "GroupProject.Database\GroupProject.Database.csproj", "{72DA8434-DC6A-4EF1-BA6E-E870B0B3B364}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupProject.Entities", "GroupProject.Entities\GroupProject.Entities.csproj", "{BE58DCC1-5E6F-4BDF-A023-3989A7EB0A84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupProject.RepositoryService", "GroupProject.RepositoryService\GroupProject.RepositoryService.csproj", "{1ADF92F2-67F7-4321-8F6B-A2D35A0C44DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupProject.WebApp", "GroupProject.WebApp\GroupProject.WebApp.csproj", "{FE2721E5-7F18-4AA8-B4B1-C332B1C37C39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionLogger", "ExceptionLogger\ExceptionLogger.csproj", "{3436A4B5-1500-45A6-94BE-939E74759F81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckSubscribersJob", "CheckSubscribersJob\CheckSubscribersJob.csproj", "{41AB8C85-EDC9-4948-8C6B-CBDF5EBD9912}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{72DA8434-DC6A-4EF1-BA6E-E870B0B3B364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72DA8434-DC6A-4EF1-BA6E-E870B0B3B364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72DA8434-DC6A-4EF1-BA6E-E870B0B3B364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72DA8434-DC6A-4EF1-BA6E-E870B0B3B364}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE58DCC1-5E6F-4BDF-A023-3989A7EB0A84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE58DCC1-5E6F-4BDF-A023-3989A7EB0A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE58DCC1-5E6F-4BDF-A023-3989A7EB0A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE58DCC1-5E6F-4BDF-A023-3989A7EB0A84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ADF92F2-67F7-4321-8F6B-A2D35A0C44DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ADF92F2-67F7-4321-8F6B-A2D35A0C44DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ADF92F2-67F7-4321-8F6B-A2D35A0C44DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ADF92F2-67F7-4321-8F6B-A2D35A0C44DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE2721E5-7F18-4AA8-B4B1-C332B1C37C39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE2721E5-7F18-4AA8-B4B1-C332B1C37C39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE2721E5-7F18-4AA8-B4B1-C332B1C37C39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE2721E5-7F18-4AA8-B4B1-C332B1C37C39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3436A4B5-1500-45A6-94BE-939E74759F81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3436A4B5-1500-45A6-94BE-939E74759F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3436A4B5-1500-45A6-94BE-939E74759F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3436A4B5-1500-45A6-94BE-939E74759F81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41AB8C85-EDC9-4948-8C6B-CBDF5EBD9912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41AB8C85-EDC9-4948-8C6B-CBDF5EBD9912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41AB8C85-EDC9-4948-8C6B-CBDF5EBD9912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41AB8C85-EDC9-4948-8C6B-CBDF5EBD9912}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {851CD422-1CCD-49F9-9CEC-38BE58EDD2B0}
+	EndGlobalSection
+EndGlobal

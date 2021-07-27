@@ -1,0 +1,108 @@
+﻿@using GroupProject.WebApp.Models.AccountViewModels
+@model GroupProject.WebApp.Models.AccountViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
+}
+<link href="~/Content/cssfrontend/fixed.css" rel="stylesheet" />
+
+<section class="sign-in-page">
+
+    <div class="video-background">
+        <div class="video-wrap">
+            <div id="video">
+                <video id="bgvid"autoplay loop muted playsinline>
+                    <source src="~/Content/video/Zombie-Trailer-mini.mp4" type="video/mp4"/>
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center height-self-center">
+            <div class="col-lg-5 col-md-12 align-self-center">
+                <div class="sign-user_card ">
+                    <div class="sign-in-page-data">
+                        <div class="sign-in-from w-100 m-auto">
+                            <h3 class="mb-3 text-center">Sign in</h3>
+                            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+
+                                    @Html.EditorFor(m => m.UserName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+
+                                    @Html.EditorFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="sign-info">
+                                    <button type="submit" class="btn btn-hover">Sign in</button>
+                                    <div class="custom-control custom-checkbox d-inline-block">
+                                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "custom-control-input" })
+                                        @Html.LabelFor(m => m.RememberMe, new { @class = "custom-control-label" })
+
+                                        @*<input type="checkbox" name="RememberMe" class="custom-control-input" id="customCheck" value="true" >
+                                            <label class="custom-control-label" for="customCheck">Remember Me</label>*@
+                                    </div>
+                                </div>
+                            }
+                            <br />
+                            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="d-flex justify-content-center links">
+                            Don't have an account? @Html.ActionLink("Register here", "Register", null, new { @class = "text-primary ml-2" })
+                        </div>
+                        <div class="d-flex justify-content-center links">
+                            <p>
+                                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid p-5">
+
+        <img src="~/Content/images/login/gamesSignIn.jpg" width="100%" />
+
+        <div class="row">
+            <div class="col-lg-8 mt-4">
+                <h2>Play dozens of games online!</h2>
+                <hr />
+                <p>
+                    Hi, gamer! Welcome to Instagames!
+                </p>
+                <p>
+                    We have dozens of online games that you can play in single player mode. They also work on your favorite mobile devices. Try them out on a laptop, a smartphone, or a tablet.
+                    There's something here for players of all ages so, no matter how old you are, you'll find something fun to play!
+                </p>
+            </div>
+            <div class="col-lg-4">
+                @*Add mia eikona edw se deutero xrono -mixalis*@
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@*Ekana comment afto mpas kai to xrisimopoiisoyme sto mellon -mixalis*@
+@*<div class="col-md-4">
+        <section id="socialLoginForm">
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
+    </div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

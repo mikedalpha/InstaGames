@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Error -InstaGames";
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
+}
+
+<!-- loader Start -->
+<div id="loading">
+    <div id="loading-center">
+    </div>
+</div>
+<!-- loader END -->
+<!-- Wrapper Start -->
+<div class="wrapper">
+    <div class="container pt-5">
+        <div class="row no-gutters height-self-center">
+            <div class="col-sm-12 text-center align-self-center">
+                <div class="iq-error position-relative">
+                    <img src="~/Content/images/error/500.png" class="img-fluid iq-error-img" alt="">
+                    <h1 class="text-in-box">500</h1>
+                    <h2 class="mb-0">Oops! This Page is Not Working.</h2>
+                    <p>The requested is Internal Server Error.</p>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-hover my-2" href="~/home/index"><i class="ri-home-4-line"></i>Back to Home</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-hover my-2" href="~/Account/login"><i class="ri-home-4-line"></i>Back</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Wrapper END -->
