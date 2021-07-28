@@ -1,277 +1,123 @@
-﻿<section id="iq-trending" class="s-margin">
+﻿@model GroupProject.WebApp.Models.HomeViewModel.IndexViewModel
+<section id="iq-trending" class="s-margin">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 overflow-hidden">
                 <div class="iq-main-header d-flex align-items-center justify-content-between">
-                    <h4 class="main-title">PEGI</h4>
+                    <h4 class="main-title">Games</h4>
                 </div>
                 <div class="trending-contens">
-                    @*<ul id="trending-slider-nav" class="list-inline p-0 mb-0 row align-items-center">
-                        <li>
-                            <a href="javascript:void(0);">
-                                <div class="movie-slick position-relative">
-                                    <img src="~/Content/images/trending/01.jpg" class="img-fluid" alt="">
-                                </div>
-                            </a>
-                        </li>
-                    </ul>*@
-                    <ul id="trending-slider" class="list-inline p-0 m-0  d-flex align-items-center">
-                        <li>
-                            <div class="tranding-block position-relative"
-                                 style="background-image: url(images/trending/01.jpg);">
-                                <div class="trending-custom-tab">
-                                    <div class="tab-title-info position-relative">
-                                        <ul class="trending-pills d-flex nav nav-pills justify-content-center align-items-center text-center"
-                                            role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active show" data-toggle="pill" href="#trending-data1"
-                                                   role="tab" aria-selected="true">Games</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#trending-data2" role="tab"
-                                                   aria-selected="false">3+</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#trending-data3" role="tab"
-                                                   aria-selected="false">7+</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#trending-data4" role="tab"
-                                                   aria-selected="false">12+</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#trending-data5" role="tab"
-                                                   aria-selected="false">16+</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#trending-data6" role="tab"
-                                                   aria-selected="false">18+</a>
-                                            </li>
-                                        </ul>
+                    <ul id="trending-slider-nav" class="list-inline p-0 mb-0 row align-items-center">
+                        @foreach (var game in Model.Games)
+                        {
+
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <div class="movie-slick position-relative">
+                                        <img src="@game.Photo" class="img-fluid" alt="">
                                     </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <ul id="trending-slider" class="list-inline p-0 m-0  d-flex align-items-center">
+                        @foreach (var game in Model.Games)
+                        {
+                            <li>
+                                <div class="tranding-block position-relative"
+                                     style="background-image: url(@game.Photo);">
+
                                     <div class="trending-content">
                                         <div id="trending-data1" class="overview-tab tab-pane fade active show">
                                             <div class="trending-info align-items-center w-100 animated fadeInUp">
                                                 <a href="javascript:void(0);" tabindex="0">
                                                     <div class="res-logo">
                                                         <div class="channel-logo">
-                                                            <img src="~/Content/images/logo.png" class="c-logo" alt="streamit">
+                                                            <img src="/Content/images/logo.png" class="c-logo" alt="InstaGames">
                                                         </div>
                                                     </div>
                                                 </a>
-                                                <h1 class="trending-text big-title text-uppercase">GAMES FOR ALL AGES</h1>
+                                                <h1 class="trending-text big-title text-uppercase">@game.Title</h1>
 
+                                                <div class="d-flex align-items-center text-white text-detail">
+                                                    <img src="@game.Pegi" alt="Alternate Text" class="p-2" width="50" />
+                                                    <span class="ml-3">@game.Tag</span>
+                                                    <span class="trending-year">@game.ReleaseDate.Year</span>
+                                                </div>
                                                 <div class="d-flex align-items-center series mb-4">
-                                                    <a href="javascript:void(0);">
-                                                        <img src="~/Content/images/Pegi/pegi.jpg"
-                                                             class="img-fluid" alt="">
-                                                    </a>
+                                                    <ul class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
+                                                        @for (int i = 0; i < @game.Rating; i++)
+                                                        {
+                                                            <li>
+                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                            </li>
+                                                        }
+                                                        @for (int i = 0; i < 5 - @game.Rating; i++)
+                                                        {
+                                                            <li>
+                                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                    @if (game.Rating == 0)
+                                                    {
+                                                        <span class="text-white ml-2">Unrated</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-white ml-2">@game.Rating <small style="font-size:10px">(User Score)</small></span>
+                                                    }
                                                 </div>
                                                 <p class="trending-dec">
-                                                    Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                                    @game.Description
                                                 </p>
-
-                                            </div>
-                                        </div>
-                                        <div id="trending-data2" class="overlay-tab tab-pane fade">
-                                            <div class="trending-info align-items-center w-100 animated fadeInUp">
-                                                <a href="show-details.html" tabindex="0">
-                                                    <div class="channel-logo">
-                                                        <img src="~/Content/images/logo.png" class="c-logo" alt="stramit">
-                                                    </div>
-                                                </a>
-                                                <h1 class="trending-text big-title text-uppercase">3+</h1>
-
-                                                <div class="episodes-contens mt-4">
-                                                    <div class="owl-carousel owl-theme episodes-slider1 list-inline p-0 mb-0">
-
-                                                        @foreach (var game in Model.Games3)
+                                                <div class="p-btns">
+                                                    <div class="d-flex align-items-center p-0">
+                                                        @if (game.IsReleased)
                                                         {
-                                                            <div class="e-item">
-                                                                <div class="block-image position-relative">
-                                                                    <a href="show-details.html">
-                                                                        <img src="@game.Photo" class="img-fluid" alt="">
-
-                                                                    </a>
-                                                                    <div class="episode-play-info">
-                                                                        <div class="episode-play">
-                                                                            <a href="show-details.html" tabindex="0">
-                                                                                <i class="ri-play-fill"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="episodes-description text-body">
-                                                                  
-                                                                    <p class="mb-0">
-                                                                        @game.Title
-                                                                    </p>
-                                                                </div>
-                                                            </div>
+                                                            <a href="~/game/play/@game.GameId" class="btn btn-hover mr-2" tabindex="0">
+                                                                <i class="fa fa-play mr-2" aria-hidden="true"></i>Play Now
+                                                            </a>
                                                         }
-
+                                                        else
+                                                        {
+                                                            <a href="~/game/details/@game.GameId" class="btn btn-hover mr-2" tabindex="0">
+                                                                <i class="fa fa-info mr-2" aria-hidden="true"></i>Details
+                                                            </a>
+                                                        }
+                                                        <a href="javascript:void(0);" class="btn btn-link" tabindex="0">
+                                                            <i class="ri-add-line"></i>My
+                                                            List
+                                                        </a>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div id="trending-data3" class="overlay-tab tab-pane fade">
-                                            <div class="trending-info align-items-center w-100 animated fadeInUp">
-                                                <a href="javascript:void(0);" tabindex="0">
-                                                    <div class="channel-logo">
-                                                        <img src="~/Content/images/logo.png" class="c-logo" alt="stramit">
+                                                <div class="trending-list mt-4">
+                                                    <div class="text-primary title">
+                                                        Developers:
+                                                        <span class="text-body">
+                                                            @foreach (var dev in game.GameDevelopers)
+                                                            {
+                                                                <span>@dev.FirstName &nbsp;</span>
+                                                            }
+                                                        </span>
                                                     </div>
-                                                </a>
-                                                <h1 class="trending-text big-title text-uppercase">7+</h1>
-                                                <div class="episodes-contens mt-4">
-                                                    <div class="owl-carousel owl-theme episodes-slider1 list-inline p-0 mb-0">
-                                                        @foreach (var game in Model.Games7)
-                                                        {
-                                                            <div class="e-item">
-                                                                <div class="block-image position-relative">
-                                                                    <a href="watch-video.html" target="_blank">
-                                                                        <img src="@game.Photo" class="img-fluid" alt="">
-                                                                    </a>
-
-                                                                    <div class="episode-play-info">
-                                                                        <div class="episode-play">
-                                                                            <a href="watch-video.html" target="_blank" tabindex="0">
-                                                                                <i class="ri-play-fill"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="episodes-description text-body">
-
-                                                                    <p class="mb-0">
-                                                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        }
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="trending-data4" class="overlay-tab tab-pane fade">
-                                            <div class="trending-info align-items-center w-100 animated fadeInUp">
-                                                <a href="javascript:void(0);" tabindex="0">
-                                                    <div class="channel-logo">
-                                                        <img src="~/Content/images/logo.png" class="c-logo" alt="stramit">
-                                                    </div>
-                                                </a>
-                                                <h1 class="trending-text big-title text-uppercase">12+</h1>
-                                                <div class="episodes-contens mt-4">
-                                                    <div class="owl-carousel owl-theme episodes-slider1 list-inline p-0 mb-0">
-                                                        @foreach (var game in Model.Games12)
-                                                        {
-                                                            <div class="e-item">
-                                                                <div class="block-image position-relative">
-                                                                    <a href="show-details.html">
-                                                                        <img src="@game.Photo" class="img-fluid" alt="">
-
-                                                                    </a>
-                                                                    <div class="episode-play-info">
-                                                                        <div class="episode-play">
-                                                                            <a href="show-details.html" tabindex="0">
-                                                                                <i class="ri-play-fill"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="episodes-description text-body">
-
-                                                                    <p class="mb-0">
-                                                                        @game.Title
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="trending-data5" class="overlay-tab tab-pane fade">
-                                            <div class="trending-info align-items-center w-100 animated fadeInUp">
-                                                <a href="javascript:void(0);" tabindex="0">
-                                                    <div class="channel-logo">
-                                                        <img src="~/Content/images/logo.png" class="c-logo" alt="stramit">
-                                                    </div>
-                                                </a>
-                                                <h1 class="trending-text big-title text-uppercase">16+</h1>
-                                                <div class="episodes-contens mt-4">
-                                                    <div class="owl-carousel owl-theme episodes-slider1 list-inline p-0 mb-0">
-                                                        @foreach (var game in Model.Games16)
-                                                        {
-                                                            <div class="e-item">
-                                                                <div class="block-image position-relative">
-                                                                    <a href="show-details.html">
-                                                                        <img src="@game.Photo" class="img-fluid" alt="">
-
-                                                                    </a>
-                                                                    <div class="episode-play-info">
-                                                                        <div class="episode-play">
-                                                                            <a href="show-details.html" tabindex="0">
-                                                                                <i class="ri-play-fill"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="episodes-description text-body">
-
-                                                                    <p class="mb-0">
-                                                                        @game.Title
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="trending-data6" class="overlay-tab tab-pane fade">
-                                            <div class="trending-info align-items-center w-100 animated fadeInUp">
-                                                <a href="javascript:void(0);" tabindex="0">
-                                                    <div class="channel-logo">
-                                                        <img src="~/Content/images/logo.png" class="c-logo" alt="stramit">
-                                                    </div>
-                                                </a>
-                                                <h1 class="trending-text big-title text-uppercase">18+</h1>
-                                                <div class="episodes-contens mt-4">
-                                                    <div class="owl-carousel owl-theme episodes-slider1 list-inline p-0 mb-0">
-                                                        @foreach (var game in Model.Games18)
-                                                        {
-                                                            <div class="e-item">
-                                                                <div class="block-image position-relative">
-                                                                    <a href="show-details.html">
-                                                                        <img src="@game.Photo" class="img-fluid" alt="">
-
-                                                                    </a>
-                                                                    <div class="episode-play-info">
-                                                                        <div class="episode-play">
-                                                                            <a href="show-details.html" tabindex="0">
-                                                                                <i class="ri-play-fill"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="episodes-description text-body">
-
-                                                                    <p class="mb-0">
-                                                                        @game.Title
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        }
+                                                    <div class="text-primary title">
+                                                        Genres:
+                                                        <span class="text-body">
+                                                            @foreach (var cat in game.GameCategories)
+                                                            {
+                                                                <span>@cat.Type &nbsp;</span>
+                                                            }
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>

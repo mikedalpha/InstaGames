@@ -6,26 +6,13 @@ using GroupProject.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Quartz;
-using Quartz.Impl;
 
 
 namespace CheckSubscribersJob
 {
-    public class Job : IJob
+    [DisallowConcurrentExecution]
+    public class RemoveSubscribeJob : IJob
     {
-       
-        private static Job instanse = null;
-        public  static Job GetInstanse
-        {
-            get {
-
-                return instanse;
-                
-                }
-        }
-
-        private Job() { }
-
         public Task Execute(IJobExecutionContext context)
         {
             using (var db = new ApplicationDbContext())
@@ -45,29 +32,6 @@ namespace CheckSubscribersJob
             }
 
             return Task.CompletedTask;
-        }
-    }
-    public class JobSheduler
-    {
-        public static async void Start()
-        {
-            StdSchedulerFactory factory = new StdSchedulerFactory();
-            IScheduler scheduler = await factory.GetScheduler();
-
-            await scheduler.Start();
-
-            IJobDetail job = JobBuilder.Create<Job>().Build();
-
-            ITrigger trigger = TriggerBuilder.Create()
-                .WithDailyTimeIntervalSchedule
-                (s =>
-                    s.WithIntervalInHours(24)
-                        .OnEveryDay()
-                        .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(23, 04))
-                )
-                .Build();
-
-            await scheduler.ScheduleJob(job, trigger);
         }
     }
 }
