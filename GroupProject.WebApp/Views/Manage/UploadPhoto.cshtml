@@ -2,25 +2,34 @@
 
 <div class="col-lg-4 mb-3">
     <div class="sign-user_card text-center">
-        @if (Model.Photo == null)
-        {
-            <img src="~/Content/images/user/user.jpg" class="rounded-circle img-fluid d-block mx-auto mb-3" alt="user" height="150" width="150">
-        }
-        else
-        {
-            <img src="@Model.Photo" class="rounded-circle img-fluid d-block mx-auto mb-3" alt="user" height="150" width="150">
-        }
+        <div class="upload_profile d-inline-block">
+
+            @if (Model.Photo == null)
+            {
+                <img src="~/Content/images/user/user.jpg" class="rounded-circle img-fluid d-block mx-auto mb-3" alt="user" height="150" width="150">
+            }
+            else
+            {
+                <img src="@Model.Photo" class="rounded-circle img-fluid d-block mx-auto mb-3" alt="user" height="150" width="150">
+            }
+            <div class="p-image">
+                <i class="ri-pencil-line upload-button"></i>
+            </div>
+                @using (Html.BeginForm("UploadPhoto", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.TextBoxFor(m => m.PhotoCreate, new { @class = "file-upload", type = "file", accept = "image/*" })
+                    @Html.ValidationMessageFor(m => m.PhotoCreate, "", new { @class = "text-primary" })
+                    @*<i class="ri-save-line upload-button"></i>*@
+                    <input type="submit" value="Upload" />
+                }
+            
+        </div>
+
 
         <h4 class="mb-3">@Model.Username</h4>
         <p><strong>Member since: </strong>@Model.RegistrationDate </p>
-        @using (Html.BeginForm("UploadPhoto", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.TextBoxFor(m => m.PhotoCreate, new { type = "file", accept = "image/*" })
-            @Html.ValidationMessageFor(m => m.PhotoCreate, "Only .jpg files allowed", new { @class = "text-primary" })
-            @*<input type="file" name="Photo" id="Photo" onchange="fileCheck(this);" />*@
-            <input type="submit" value="Upload" />
-        }
-        @*<a href="#" class="edit-icon text-primary">Edit</a>*@
+
+
     </div>
 </div>

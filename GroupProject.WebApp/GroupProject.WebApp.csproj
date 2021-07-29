@@ -241,6 +241,7 @@
     <Compile Include="Models\AccountViewModels\RegisterViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="Models\ManageViewModels\UploadPhotoViewModel.cs" />
+    <Compile Include="Models\ManageViewModels\Validations\JpgValidation.cs" />
     <Compile Include="Models\ManageViewModels\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="PayPalConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
