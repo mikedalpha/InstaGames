@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GroupProject.RepositoryService.Repositories
 {
@@ -24,7 +25,16 @@ namespace GroupProject.RepositoryService.Repositories
             return Context.Set<TEntity>().ToList();
         }
 
-     
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        {
+            return await Context.Set<TEntity>().ToListAsync();
+        }
+
+        public async Task<TEntity> FindByIdAsync(int? id)
+        {
+            return await Context.Set<TEntity>().FindAsync(id);
+        }
+
 
         //public TEntity FindRandomGame()
         //{

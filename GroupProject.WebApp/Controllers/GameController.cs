@@ -1,34 +1,40 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using GroupProject.Database;
+using GroupProject.RepositoryService;
 
 namespace GroupProject.WebApp.Controllers
 {
     [Authorize]
     public class GameController : Controller
     {
+        private IUnitOfWork unitOfWork;
 
-        ApplicationDbContext db = new ApplicationDbContext();
+        public GameController()
+        {
+            unitOfWork = new UnitOfWork();
+        }
 
         public ActionResult MultiPlayerGames()
         {
             return View();
         }
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null) return Redirect("~/Error/PageNotFound");
 
-            var game = db.Games.Find(id);
+            var game = await unitOfWork.Games.FindByIdAsync(id);
 
             if (game == null) return Redirect("~/Error/InternalServerError");
 
             return View(game);
         }
 
-        public ActionResult Play(int? id)
+        public async Task<ActionResult> Play(int? id)
         {
             if (id == null) return Redirect("~/Error/PageNotFound");
 
-            var game = db.Games.Find(id);
+            var game = await unitOfWork.Games.FindByIdAsync(id);
 
             if (game == null) return Redirect("~/Error/InternalServerError");
 

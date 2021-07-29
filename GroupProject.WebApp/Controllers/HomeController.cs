@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using GroupProject.Database;
 using GroupProject.WebApp.Models;
 using System.Linq;
+using System.Threading.Tasks;
 using ExceptionLogger;
 using GroupProject.RepositoryService;
 using GroupProject.WebApp.Models.HomeViewModel;
@@ -15,7 +16,6 @@ namespace GroupProject.WebApp.Controllers
         private readonly IUnitOfWork unitOfWork;
 
         private ILog iLog;
-        ApplicationDbContext db = new ApplicationDbContext();
 
         public HomeController()
         {
@@ -30,13 +30,10 @@ namespace GroupProject.WebApp.Controllers
             this.Redirect("~/Error/InternalServerError").ExecuteResult(this.ControllerContext);
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            IndexViewModel vm = new IndexViewModel(unitOfWork)
-            {
-                
-                
-            };
+            var games = await unitOfWork.Games.GetAllAsync();
+            IndexViewModel vm = new IndexViewModel(games.ToList());
 
             return View(vm);
         }

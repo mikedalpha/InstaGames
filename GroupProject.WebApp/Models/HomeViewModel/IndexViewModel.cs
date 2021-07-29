@@ -8,16 +8,16 @@ namespace GroupProject.WebApp.Models.HomeViewModel
 {
     public class IndexViewModel
     {
-        private readonly IUnitOfWork unitOfWork;
+        private List<Game> allGames;
 
-        public IndexViewModel(IUnitOfWork unitOfWork)
+        public IndexViewModel(List<Game> games)
         {
-            this.unitOfWork = unitOfWork;
+            allGames = games;
         }
 
         public List<Game> Games
         {
-            get { return unitOfWork.Games.Get().ToList(); }
+            get { return allGames; }
         }
 
         public List<Game> SliderGames
@@ -50,7 +50,7 @@ namespace GroupProject.WebApp.Models.HomeViewModel
         {
             get
             {
-                return unitOfWork.Games.FindById(4);
+                return allGames.Find(g=>g.GameId==4);
             }
         }
 
@@ -78,7 +78,5 @@ namespace GroupProject.WebApp.Models.HomeViewModel
         {
             get { return Games.Where(g => g.Pegi == "/Content/images/Pegi/18.jpg").OrderBy(g => g.ReleaseDate).ToList(); }
         }
-
-        public List<Category> Categories { get; set; }
     }
 } 
