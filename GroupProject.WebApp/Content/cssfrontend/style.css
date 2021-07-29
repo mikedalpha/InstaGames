@@ -4073,7 +4073,7 @@ h3.icon-box-title > span {
 }
 
 div.wpcf7-validation-errors, div.wpcf7-acceptance-missing, .wpcf7-not-valid-tip {
-    display: none !important;
+    /*display: none !important;*/
 }
 
 .contact-form .cfield {

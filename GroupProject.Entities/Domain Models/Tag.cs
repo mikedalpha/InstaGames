@@ -1,4 +1,4 @@
-﻿namespace GroupProject.Entities
+﻿namespace GroupProject.Entities.Domain_Models
 {
     public enum Tag : byte
     {

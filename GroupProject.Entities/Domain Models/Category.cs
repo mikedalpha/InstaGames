@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GroupProject.Entities
+namespace GroupProject.Entities.Domain_Models
 {
     public class Category
     {

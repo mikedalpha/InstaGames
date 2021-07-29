@@ -1,5 +1,5 @@
 ﻿using GroupProject.Database;
-using GroupProject.Entities;
+using GroupProject.Entities.Domain_Models;
 
 namespace GroupProject.RepositoryService.Repositories
 {

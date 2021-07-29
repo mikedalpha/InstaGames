@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
-using GroupProject.Database;
 using GroupProject.RepositoryService;
 
 namespace GroupProject.WebApp.Controllers

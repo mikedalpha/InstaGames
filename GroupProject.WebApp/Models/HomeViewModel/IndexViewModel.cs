@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using GroupProject.Entities;
-using GroupProject.RepositoryService;
+using GroupProject.Entities.Domain_Models;
 
 namespace GroupProject.WebApp.Models.HomeViewModel
 {
@@ -22,7 +20,7 @@ namespace GroupProject.WebApp.Models.HomeViewModel
 
         public List<Game> SliderGames
         {
-            get { return Games.OrderByDescending(g => g.Rating).Take(3).ToList(); }
+             get { return Games.OrderByDescending(g => g.Rating).Take(3).ToList(); }
         }
 
         public List<Game> LatestGames

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using GroupProject.Entities.Domain_Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -17,6 +19,13 @@ namespace GroupProject.Entities
         public DateTime? SubscriptionDay { get; set; }
         public DateTime RegistrationDate { get; set; }
         public DateTime? ExpireDate { get; set; }
+
+        public virtual ICollection<Message> Messages { get; set; }
+
+        public ApplicationUser()
+        {
+            Messages = new HashSet<Message>();
+        }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

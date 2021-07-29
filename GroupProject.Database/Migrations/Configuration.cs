@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GroupProject.Entities;
+using GroupProject.Entities.Domain_Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -7,7 +7,6 @@ namespace GroupProject.Database.Migrations
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 

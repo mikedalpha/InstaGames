@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace GroupProject.Entities
+namespace GroupProject.Entities.Domain_Models
 {
     public class Developer
     {

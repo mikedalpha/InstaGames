@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using GroupProject.Database.EntitiesConfiguration;
 using GroupProject.Entities;
+using GroupProject.Entities.Domain_Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GroupProject.Database
@@ -10,6 +11,7 @@ namespace GroupProject.Database
         public DbSet<Game> Games { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Developer> Developers { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         public ApplicationDbContext(): base("GroupProject")
         {
@@ -27,6 +29,7 @@ namespace GroupProject.Database
             modelBuilder.Configurations.Add(new GameConfig());
             modelBuilder.Configurations.Add(new DeveloperConfig());
             modelBuilder.Configurations.Add(new CategoryConfig());
+            modelBuilder.Configurations.Add(new MessageConfig());
         }
     }
 }
