@@ -369,7 +369,7 @@ namespace GroupProject.WebApp.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email , FirstName = loginInfo.DefaultUserName});
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email , UserName = loginInfo.DefaultUserName});
             }
         }
 
@@ -398,12 +398,11 @@ namespace GroupProject.WebApp.Controllers
 
                     UserName = model.UserName,
                     Email = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
+                    RegistrationDate = DateTime.Now,
+                    //FirstName = model.FirstName,
+                    //LastName = model.LastName,
                     DateOfBirth = model.DateOfBirth,
-                    RegistrationDate = DateTime.Now
-
-
+                    //RegistrationDate = DateTime.Now
                 };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
@@ -411,8 +410,14 @@ namespace GroupProject.WebApp.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
+
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(user.Id, "Confirm your account", callbackUrl);
+
+                        return View("PreConfirmEmail");
+                        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        //return RedirectToLocal(returnUrl);
                     }
                 }
                 AddErrors(result);

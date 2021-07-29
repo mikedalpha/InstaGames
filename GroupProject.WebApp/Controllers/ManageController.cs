@@ -141,7 +141,8 @@ namespace GroupProject.WebApp.Controllers
             user.SubscribePlan = model.SubscribePlan; 
             await UserManager.UpdateAsync(user);
 
-            return RedirectToAction("PaymentWithPaypal", "PayPal", user);
+            return user.PasswordHash is null || user.FirstName is null || user.LastName is null
+                ? RedirectToAction("GetExternalUserData", user) : RedirectToAction("PaymentWithPaypal", "PayPal", user);
         }
 
 
