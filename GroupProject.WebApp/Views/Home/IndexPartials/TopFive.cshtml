@@ -13,7 +13,7 @@
                         @foreach (var game in Model.TopFive)
                         {
                             <li class="slick-bg">
-                                <a href="movie-details.html">
+                                <a href="~/game/details/@game.GameId">
                                     <img src="@game.Photo" class="img-fluid w-100" alt="">
                                 </a>
                             </li>
@@ -25,7 +25,7 @@
                             {
                                 <li>
                                     <div class="block-images position-relative">
-                                        <a href="movie-details.html">
+                                        <a href="~/game/details/@game.GameId">
                                             <img src="@game.Photo" class="img-fluid w-100" alt="">
                                         </a>
                                         <div class="block-description">

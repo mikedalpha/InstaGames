@@ -226,6 +226,7 @@
     <Compile Include="Models\AccountViewModels\ExternalLoginListViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ForgotViewModel.cs" />
     <Compile Include="Models\AccountViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\HomeViewModel\ContactViewModel.cs" />
     <Compile Include="Models\HomeViewModel\IndexViewModel.cs" />
     <Compile Include="Models\HomeViewModel\PricingPlanViewModel.cs" />
     <Compile Include="Models\ManageViewModels\AddPhoneNumberViewModel.cs" />
@@ -553,7 +554,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -609,6 +609,7 @@
     <Content Include="Views\Manage\UploadPhoto.cshtml" />
     <Content Include="Views\Game\MultiPlayerGames.cshtml" />
     <Content Include="Views\Manage\GetExternalUserData.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

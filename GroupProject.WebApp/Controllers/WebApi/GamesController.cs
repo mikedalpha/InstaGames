@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using GroupProject.Database;
-using GroupProject.Entities;
+using GroupProject.Entities.Domain_Models;
 
 namespace GroupProject.WebApp.Controllers.WebApi
 {

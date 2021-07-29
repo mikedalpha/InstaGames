@@ -61,9 +61,14 @@
     <Compile Include="EntitiesConfiguration\CategoryConfig.cs" />
     <Compile Include="EntitiesConfiguration\DeveloperConfig.cs" />
     <Compile Include="EntitiesConfiguration\GameConfig.cs" />
+    <Compile Include="EntitiesConfiguration\MessageConfig.cs" />
     <Compile Include="Migrations\202107241219479_Initial.cs" />
     <Compile Include="Migrations\202107241219479_Initial.designer.cs">
       <DependentUpon>202107241219479_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107291740439_MessageEntity.cs" />
+    <Compile Include="Migrations\202107291740439_MessageEntity.designer.cs">
+      <DependentUpon>202107291740439_MessageEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +86,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202107241219479_Initial.resx">
       <DependentUpon>202107241219479_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107291740439_MessageEntity.resx">
+      <DependentUpon>202107291740439_MessageEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

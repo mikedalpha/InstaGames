@@ -1,5 +1,5 @@
-﻿using GroupProject.Entities;
-using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration;
+using GroupProject.Entities.Domain_Models;
 
 namespace GroupProject.Database.EntitiesConfiguration
 {

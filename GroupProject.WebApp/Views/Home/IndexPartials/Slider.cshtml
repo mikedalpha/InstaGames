@@ -1,4 +1,6 @@
-﻿<section id="home" class="iq-main-slider p-0">
+﻿@model GroupProject.WebApp.Models.HomeViewModel.IndexViewModel
+
+<section id="home" class="iq-main-slider p-0">
     <div id="home-slider" class="slider m-0 p-0">
 
         @foreach (var game in Model.SliderGames)
@@ -83,7 +85,7 @@
                                         <i class="fa fa-play mr-2"
                                            aria-hidden="true"></i>Play Now
                                     </a>
-                                    <a href="show-details.html" class="btn btn-link">More details</a>
+                                    <a href="~/game/details/@game.GameId" class="btn btn-link">More details</a>
                                 </div>
                             </div>
                         </div>

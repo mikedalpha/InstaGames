@@ -1,4 +1,6 @@
-﻿<div class="main-content">
+﻿@model GroupProject.WebApp.Models.HomeViewModel.IndexViewModel
+
+<div class="main-content">
     <section id="iq-favorites">
         <div class="container-fluid">
             <div class="row">
@@ -18,7 +20,7 @@
                                             <img src="@game.Photo" class="img-fluid" alt="">
                                         </div>
                                         <div class="block-description">
-                                            <h6 class="iq-title"><a href="movie-details.html">@game.Title</a></h6>
+                                            <h6 class="iq-title"><a href="~/game/details/@game.GameId">@game.Title</a></h6>
                                             <div class="movie-time d-flex align-items-center my-2">
                                                 <img src="@game.Pegi" alt="Alternate Text" class="p-2 mr-2" width="40" />
                                                 @if (game.IsEarlyAccess == true)
