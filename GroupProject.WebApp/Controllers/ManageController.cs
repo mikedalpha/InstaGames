@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ExceptionLogger;
+using GroupProject.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -83,7 +84,7 @@ namespace GroupProject.WebApp.Controllers
                 Username = user.UserName,
                 Email = user.Email,
                 DateOfBirth = user.DateOfBirth,
-                HasPassword = HasPassword(),
+                HasPassword = HasPassword(user),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
@@ -463,14 +464,9 @@ namespace GroupProject.WebApp.Controllers
             }
         }
 
-        private bool HasPassword()
+        private bool HasPassword(ApplicationUser user)
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PasswordHash != null;
-            }
-            return false;
+            return user.PasswordHash !=null;
         }
 
         private bool HasPhoneNumber()
