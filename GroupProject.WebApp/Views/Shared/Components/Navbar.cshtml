@@ -1,4 +1,5 @@
-﻿<header id="main-header">
+﻿@using Microsoft.AspNet.Identity
+<header id="main-header">
     <div class="main-header">
         <div class="container-fluid">
             <div class="row">
@@ -115,7 +116,7 @@
                                     <li>
                                         <a href="#" class="iq-user-dropdown search-toggle d-flex align-items-center">
                                                 
-                                            <img src="~/Content/images/user/user.jpg" class="img-fluid avatar-40 rounded-circle"
+                                            <img src="@Url.Action("GetUserImage", "Account", new {UserId = User.Identity.GetUserId()})" class="img-fluid avatar-40 rounded-circle"
                                                  alt="user">
                                         </a>
                                         <div class="iq-sub-dropdown iq-user-dropdown">
@@ -235,7 +236,7 @@
                                 <li class="nav-item nav-icon">
                                     <a href="#" class="iq-user-dropdown search-toggle p-0 d-flex align-items-center"
                                        data-toggle="search-toggle">
-                                        <img src="~/Content/images/user/user.jpg" class="img-fluid avatar-40 rounded-circle" alt="user">
+                                        <img src="@Url.Action("GetUserImage", "Account", new {UserId = User.Identity.GetUserId()})" class="img-fluid profile-pic avatar-40 rounded-circle" alt="user">
                                     </a>
                                     <div class="iq-sub-dropdown iq-user-dropdown">
                                         <div class="iq-card shadow-none m-0">

@@ -520,9 +520,11 @@ Index Of Script
 						jQuery(".profile-pic").attr("src", e.target.result)
 					}, t.readAsDataURL(e.files[0])
 				}
+				$("#photo-form").submit();
 			}(this)
 		}), jQuery(".upload-button").on("click", function () {
 			jQuery(".file-upload").click();
+            
 		});
 		// new WOW().init();
 		// var swiper = new Swiper('.swiper-container', {

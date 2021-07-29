@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -452,6 +453,18 @@ namespace GroupProject.WebApp.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        public async Task<FileResult> GetUserImage(string userId)
+        {
+            var user = await UserManager.FindByIdAsync(userId);
+
+            if (user.PhotoUrl != null)
+            {
+                return File(user.PhotoUrl, "image/jpg");
+            }
+
+            return File("~/Content/images/user/user.jpg", "image/jpg");
         }
 
         protected override void Dispose(bool disposing)

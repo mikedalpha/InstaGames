@@ -10,26 +10,22 @@
             }
             else
             {
-                <img src="@Model.Photo" class="rounded-circle img-fluid d-block mx-auto mb-3" alt="user" height="150" width="150">
+                <img src="@Model.Photo" class="rounded-circle profile-pic img-fluid d-block mx-auto mb-3" alt="user" height="150" width="150">
             }
             <div class="p-image">
-                <i class="ri-pencil-line upload-button"></i>
-            </div>
-                @using (Html.BeginForm("UploadPhoto", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                <i id="submit-form" class="ri-pencil-line upload-button"></i>
+
+                @using (Html.BeginForm("UploadPhoto", "Manage", FormMethod.Post, new { id = "photo-form", enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.TextBoxFor(m => m.PhotoCreate, new { @class = "file-upload", type = "file", accept = "image/*" })
                     @Html.ValidationMessageFor(m => m.PhotoCreate, "", new { @class = "text-primary" })
-                    @*<i class="ri-save-line upload-button"></i>*@
-                    <input type="submit" value="Upload" />
                 }
-            
+            </div>
         </div>
-
-
+        <div class="text-danger"><small>Only .jpg images allowed</small></div>
         <h4 class="mb-3">@Model.Username</h4>
         <p><strong>Member since: </strong>@Model.RegistrationDate </p>
-
 
     </div>
 </div>
