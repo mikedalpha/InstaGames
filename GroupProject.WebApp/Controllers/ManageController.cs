@@ -139,15 +139,9 @@ namespace GroupProject.WebApp.Controllers
             user.SubscribePlan = model.SubscribePlan; 
             await UserManager.UpdateAsync(user);
 
-            if (user.PasswordHash == null || user.FirstName == null || user.LastName == null)
-            {
-                return RedirectToAction("GetExternalUserData", model);
-            }
-            else
-            {
-                return RedirectToAction("PaymentWithPaypal", "PayPal", user);
-            }
-              
+            return user.PasswordHash == null || user.FirstName == null || user.LastName == null
+                ? RedirectToAction("GetExternalUserData", model)
+                : RedirectToAction("PaymentWithPaypal", "PayPal", user);
         }
 
         //GET
@@ -181,8 +175,8 @@ namespace GroupProject.WebApp.Controllers
 
             user.UserName = model.UserName;
             user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.PasswordHash = model.Password;
+            user.LastName = model.LastName; 
+            await UserManager.AddPasswordAsync(user.Id, model.Password);
 
             var result = await UserManager.UpdateAsync(user);
 

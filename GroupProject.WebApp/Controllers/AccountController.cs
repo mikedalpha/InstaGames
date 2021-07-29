@@ -187,11 +187,7 @@ namespace GroupProject.WebApp.Controllers
 
             if (result.Succeeded)
             {
-                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Confirm your account", callbackUrl);
-
-                return View("PreConfirmEmail");
+                return await SendEmail(user);
             }
 
             AddErrors(result);
@@ -259,10 +255,9 @@ namespace GroupProject.WebApp.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            if (code == null)
-                return Redirect("~/Error/InternalServerError");
-            else
-                return View();
+            if (code == null) return Redirect("~/Error/InternalServerError");
+            
+            return View();
         }
 
 
@@ -411,11 +406,7 @@ namespace GroupProject.WebApp.Controllers
 
                     if (!user.EmailConfirmed)
                     {
-                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        await UserManager.SendEmailAsync(user.Id, "Confirm your account", callbackUrl);
-
-                        return View("PreConfirmEmail");
+                        return await SendEmail(user);
                     }
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -436,6 +427,8 @@ namespace GroupProject.WebApp.Controllers
             return View(model);
         }
 
+       
+
 
         // POST: /Account/LogOff
         [HttpPost]
@@ -452,6 +445,17 @@ namespace GroupProject.WebApp.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        //Send Email
+        private async Task<ActionResult> SendEmail(ApplicationUser user)
+        {
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
+                protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(user.Id, "Confirm your account", callbackUrl);
+
+            return View("PreConfirmEmail");
         }
 
         protected override void Dispose(bool disposing)

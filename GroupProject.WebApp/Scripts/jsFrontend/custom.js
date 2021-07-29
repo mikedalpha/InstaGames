@@ -513,15 +513,15 @@ Index Of Script
 			Custom File Uploader
 		-----------------------------------------------------------------------*/
 		jQuery(".file-upload").on("change", function () {
-			! function (e) {
-				if (e.files && e.files[0]) {
-					var t = new FileReader;
-					t.onload = function (e) {
-						jQuery(".profile-pic").attr("src", e.target.result)
-					}, t.readAsDataURL(e.files[0])
-				}
-			}(this)
-		}), jQuery(".upload-button").on("click", function () {
+            ! function(e) {
+                if (e.files && e.files[0]) {
+                    var t = new FileReader;
+                    t.onload = function(e) {
+                        jQuery(".profile-pic").attr("src", e.target.result);
+                    }, t.readAsDataURL(e.files[0])
+                }
+            }(this);
+        }), jQuery(".upload-button").on("click", function () {
 			jQuery(".file-upload").click();
 		});
 		// new WOW().init();
