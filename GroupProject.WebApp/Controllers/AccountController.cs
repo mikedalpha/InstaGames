@@ -28,7 +28,7 @@ namespace GroupProject.WebApp.Controllers
         {
             iLog.LogException(filterContext.Exception.ToString());
             filterContext.ExceptionHandled = true;
-            this.RedirectToAction("InternalServerError","Error").ExecuteResult(this.ControllerContext);
+            this.RedirectToAction("InternalServerError", "Error").ExecuteResult(this.ControllerContext);
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -61,7 +61,7 @@ namespace GroupProject.WebApp.Controllers
             }
         }
 
-        
+
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -70,7 +70,7 @@ namespace GroupProject.WebApp.Controllers
             return View();
         }
 
-       
+
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -100,7 +100,7 @@ namespace GroupProject.WebApp.Controllers
             }
         }
 
-        
+
         // GET: /Account/VerifyCode
         [Authorize]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
@@ -113,7 +113,7 @@ namespace GroupProject.WebApp.Controllers
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        
+
         // POST: /Account/VerifyCode
         [HttpPost]
         [Authorize]
@@ -143,7 +143,7 @@ namespace GroupProject.WebApp.Controllers
             }
         }
 
-        
+
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -151,7 +151,7 @@ namespace GroupProject.WebApp.Controllers
             return View();
         }
 
-       
+
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -198,7 +198,7 @@ namespace GroupProject.WebApp.Controllers
             return View(model);
         }
 
-        
+
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
@@ -212,7 +212,7 @@ namespace GroupProject.WebApp.Controllers
             return result.Succeeded ? (ActionResult)View() : Redirect("~/Error/PageNotFound");
         }
 
-        
+
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
@@ -220,7 +220,7 @@ namespace GroupProject.WebApp.Controllers
             return View();
         }
 
-        
+
         // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
@@ -253,7 +253,7 @@ namespace GroupProject.WebApp.Controllers
             return View();
         }
 
-        
+
         // GET: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
@@ -264,7 +264,7 @@ namespace GroupProject.WebApp.Controllers
                 return View();
         }
 
-       
+
         // POST: /Account/ResetPassword
         [HttpPost]
         [AllowAnonymous]
@@ -290,7 +290,7 @@ namespace GroupProject.WebApp.Controllers
             return View();
         }
 
-       
+
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
@@ -308,7 +308,7 @@ namespace GroupProject.WebApp.Controllers
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
-        
+
         // GET: /Account/SendCode
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
@@ -323,7 +323,7 @@ namespace GroupProject.WebApp.Controllers
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        
+
         // POST: /Account/SendCode
         [HttpPost]
         [AllowAnonymous]
@@ -343,7 +343,7 @@ namespace GroupProject.WebApp.Controllers
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
 
-        
+
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
@@ -353,6 +353,7 @@ namespace GroupProject.WebApp.Controllers
             {
                 return RedirectToAction("Login");
             }
+
 
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
@@ -369,11 +370,11 @@ namespace GroupProject.WebApp.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email , UserName = loginInfo.DefaultUserName});
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email, UserName = loginInfo.DefaultUserName });
             }
         }
 
-        
+
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
@@ -393,34 +394,32 @@ namespace GroupProject.WebApp.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser 
-                {   
-
+                var user = new ApplicationUser
+                {
                     UserName = model.UserName,
                     Email = model.Email,
                     RegistrationDate = DateTime.Now,
-                    //FirstName = model.FirstName,
-                    //LastName = model.LastName,
                     DateOfBirth = model.DateOfBirth,
-                    //RegistrationDate = DateTime.Now
+
                 };
                 var result = await UserManager.CreateAsync(user);
+
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
-                    if (result.Succeeded)
-                    {
 
+                    if (!user.EmailConfirmed)
+                    {
                         string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         await UserManager.SendEmailAsync(user.Id, "Confirm your account", callbackUrl);
 
                         return View("PreConfirmEmail");
-                        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        //return RedirectToLocal(returnUrl);
                     }
+
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    return RedirectToLocal(returnUrl);
                 }
-                AddErrors(result);
             }
 
             ViewBag.ReturnUrl = returnUrl;
@@ -437,7 +436,7 @@ namespace GroupProject.WebApp.Controllers
             return RedirectToAction("Login");
         }
 
-        
+
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
