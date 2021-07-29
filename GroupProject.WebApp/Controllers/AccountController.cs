@@ -170,6 +170,7 @@ namespace GroupProject.WebApp.Controllers
                 ModelState.AddModelError("Email", @"This Email is already in use try a different one.");
                 ModelState.AddModelError("UserName", @"This Username is already in use try a different one.");
                 return View(model);
+
             }
 
             var user = new ApplicationUser
@@ -420,6 +421,15 @@ namespace GroupProject.WebApp.Controllers
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     return RedirectToLocal(returnUrl);
                 }
+            }
+            var isEmailAlreadyExists = UserManager.Users.Any(x => x.Email == model.Email);
+            var isUserNameAlreadyExists = UserManager.Users.Any(x => x.UserName == model.UserName);
+            if (isEmailAlreadyExists || isUserNameAlreadyExists)
+            {
+                ModelState.AddModelError("Email", @"This Email is already in use try a different one.");
+                ModelState.AddModelError("UserName", @"This Username is already in use try a different one.");
+                return View(model);
+
             }
 
             ViewBag.ReturnUrl = returnUrl;

@@ -1,0 +1,109 @@
+﻿@model GroupProject.WebApp.Models.ManageViewModels.ExternalUserDataViewModel
+@{
+    ViewBag.Title = "Register";
+
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
+}
+
+
+<section class="sign-in-page">
+    <div class="container">
+        <div class="row justify-content-center align-items-center height-self-center">
+            <div class="col-lg-7 col-md-12 align-self-center">
+                <div class="sign-user_card ">
+                    <div class="sign-in-page-data">
+                        <div class="sign-in-from w-100 m-auto">
+                            <h3>Create your InstaGames account!! Use this username and your password to login!</h3>
+
+                            @using (Html.BeginForm("GetExternalUserData", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(vm => vm.UserName, new { @class = "text-primary" })<text class="text-primary"> *</text>
+                                            @Html.EditorFor(vm => vm.UserName, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off", placeholder = "Enter Username" } })
+                                            @Html.ValidationMessageFor(vm => vm.UserName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    @if (string.IsNullOrEmpty(Model.FirstName))
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(vm => vm.FirstName, new { @class = "text-primary" })<text class="text-primary"> *</text>
+                                                @Html.EditorFor(vm => vm.FirstName, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off", placeholder = "First Name" } })
+                                                @Html.ValidationMessageFor(vm => vm.FirstName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        @Html.HiddenFor(vm => vm.FirstName)
+                                    }
+
+                                    @if (string.IsNullOrEmpty(Model.LastName))
+                                    {
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(vm => vm.LastName, new { @class = "text-primary" })<text class="text-primary"> *</text>
+                                                @Html.EditorFor(vm => vm.LastName, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off", placeholder = "Last Name" } })
+                                                @Html.ValidationMessageFor(vm => vm.LastName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        @Html.HiddenFor(vm => vm.LastName)
+                                    }
+
+                                    @if (!Model.HasPassword)
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(vm => vm.Password, new { @class = "text-primary" })<text class="text-primary"> *</text>
+                                                @Html.EditorFor(vm => vm.Password, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off", placeholder = "Password" } })
+                                                @Html.ValidationMessageFor(vm => vm.Password, "Password must be at least 6 characters long with one uppercase letter and 1 number", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(vm => vm.ConfirmPassword, new { @class = "text-primary" })<text class="text-primary"> *</text>
+                                                @Html.EditorFor(vm => vm.ConfirmPassword, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off", placeholder = "Password" } })
+                                                @Html.ValidationMessageFor(vm => vm.ConfirmPassword, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        @Html.HiddenFor(vm => vm.Password)
+
+                                        { 
+                                            Model.ConfirmPassword = Model.Password;
+                                        }
+
+                                        @Html.HiddenFor(vm=>vm.ConfirmPassword)
+                                    }
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <button type="submit" class="btn btn-hover my-2">Save Changes</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

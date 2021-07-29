@@ -231,6 +231,7 @@
     <Compile Include="Models\ManageViewModels\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\ManageViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="Models\ManageViewModels\ConfigureTwoFactorViewModel.cs" />
+    <Compile Include="Models\ManageViewModels\ExternalUserDataViewModel.cs" />
     <Compile Include="Models\ManageViewModels\ManageLoginsViewModel.cs" />
     <Compile Include="Models\ManageViewModels\FactorViewModel.cs" />
     <Compile Include="Models\ManageViewModels\IndexViewModels.cs" />
@@ -606,6 +607,7 @@
     <Content Include="Views\PayPal\PaymentSuccess.cshtml" />
     <Content Include="Views\Manage\UploadPhoto.cshtml" />
     <Content Include="Views\Game\MultiPlayerGames.cshtml" />
+    <Content Include="Views\Manage\GetExternalUserData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

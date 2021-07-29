@@ -15,7 +15,6 @@ namespace GroupProject.WebApp.Models.AccountViewModels
         [Display(Name = "Username")]
         [MinLength(4, ErrorMessage = "Username must be at least 4 characters long.")]
         [MaxLength(20, ErrorMessage = "Username must be less than 20 characters long.")]
-
         public string UserName { get; set; }
 
         //[Required(ErrorMessage = "This field is required")]

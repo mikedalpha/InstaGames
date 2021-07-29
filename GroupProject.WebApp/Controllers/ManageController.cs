@@ -95,6 +95,7 @@ namespace GroupProject.WebApp.Controllers
             };
             return View(model);
         }
+        
 
         //Edit User
         [HttpPost]
@@ -130,10 +131,6 @@ namespace GroupProject.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SubscriptionPlan(PricingPlanViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("PricingPlan", "Home", model);
-            }
 
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
 
@@ -142,9 +139,59 @@ namespace GroupProject.WebApp.Controllers
             user.SubscribePlan = model.SubscribePlan; 
             await UserManager.UpdateAsync(user);
 
-            return user.PasswordHash is null || user.FirstName is null || user.LastName is null
-                ? RedirectToAction("GetExternalUserData", user) : RedirectToAction("PaymentWithPaypal", "PayPal", user);
+            if (user.PasswordHash == null || user.FirstName == null || user.LastName == null)
+            {
+                return RedirectToAction("GetExternalUserData", model);
+            }
+            else
+            {
+                return RedirectToAction("PaymentWithPaypal", "PayPal", user);
+            }
+              
         }
+
+        //GET
+        public async Task<ActionResult> GetExternalUserData()
+        {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (user == null) Redirect("~/Error/InternalServerError");
+
+            var vm = new ExternalUserDataViewModel()
+            {
+                UserName = user.UserName,
+                HasPassword = HasPassword(user),
+                Password = user.PasswordHash,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> GetExternalUserData(ExternalUserDataViewModel model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("PricingPlan", "Home", model);
+            }
+
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (user == null) Redirect("~/Error/InternalServerError");
+
+            user.UserName = model.UserName;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.PasswordHash = model.Password;
+
+            var result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded) Redirect("~/Error/InternalServerError");
+
+            return RedirectToAction("PaymentWithPaypal", "PayPal", user);
+        }
+
+
 
 
         // POST: /Manage/UploadPhoto
