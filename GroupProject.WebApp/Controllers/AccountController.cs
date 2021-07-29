@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -337,6 +336,7 @@ namespace GroupProject.WebApp.Controllers
             {
                 return Redirect("~/Error/InternalServerError");
             }
+
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
 
@@ -446,6 +446,17 @@ namespace GroupProject.WebApp.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        //Send Email
+        private async Task<ActionResult> SendEmail(ApplicationUser user)
+        {
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
+                protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(user.Id, "Confirm your account", callbackUrl);
+
+            return View("PreConfirmEmail");
         }
 
         public async Task<FileResult> GetUserImage(string userId)
