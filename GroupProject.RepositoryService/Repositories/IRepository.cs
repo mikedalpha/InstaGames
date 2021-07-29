@@ -11,5 +11,8 @@ namespace GroupProject.RepositoryService.Repositories
 
         TEntity FindById(int? id);
         IEnumerable<TEntity> Get();
+
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<TEntity> FindByIdAsync(int? id);
     }
 }
