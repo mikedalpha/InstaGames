@@ -30,13 +30,13 @@
                                 @Html.AntiForgeryToken()
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2" })
 
                                     @Html.EditorFor(m => m.UserName, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 " })
 
                                     @Html.EditorFor(m => m.Password, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
@@ -47,9 +47,7 @@
                                     <div class="custom-control custom-checkbox d-inline-block">
                                         @Html.CheckBoxFor(m => m.RememberMe, new { @class = "custom-control-input" })
                                         @Html.LabelFor(m => m.RememberMe, new { @class = "custom-control-label" })
-
-                                        @*<input type="checkbox" name="RememberMe" class="custom-control-input" id="customCheck" value="true" >
-                                            <label class="custom-control-label" for="customCheck">Remember Me</label>*@
+                                      
                                     </div>
                                 </div>
                             }
