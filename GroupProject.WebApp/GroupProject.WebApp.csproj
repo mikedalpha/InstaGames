@@ -554,7 +554,7 @@
     <Content Include="Views\Home\IndexPartials\Parallax.cshtml" />
     <Content Include="Views\Home\IndexPartials\Trending.cshtml" />
     <Content Include="Views\Home\IndexPartials\DevelopedBy.cshtml" />
-    <Content Include="Views\Game\Details.cshtml" />
+    <Content Include="Views\Game\SinglePlayer.cshtml" />
     <Content Include="Views\Game\Play.cshtml" />
     <Content Include="Views\PayPal\PaymentSuccess.cshtml" />
     <Content Include="Views\Manage\UploadPhoto.cshtml" />

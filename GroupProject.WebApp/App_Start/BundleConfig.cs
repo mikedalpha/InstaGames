@@ -11,9 +11,6 @@ namespace GroupProject.WebApp
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 "~/Scripts/jquery-{version}.js"));
 
-            //bundles.Add(new ScriptBundle("~/bundles/popper").Include(
-            //            "~/Scripts/jsFrontend/popper.min.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/popper").Include(
                 "~/Scripts/umd/popper.js"));
 
@@ -37,6 +34,9 @@ namespace GroupProject.WebApp
 
             bundles.Add(new ScriptBundle("~/bundles/MainSearchScript").Include(
                         "~/Scripts/jsFrontend/MainSearchScript.js"));
+            
+            bundles.Add(new ScriptBundle("~/bundles/DetailsModalScript").Include(
+                        "~/Scripts/jsFrontend/DetailsModalScript.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
