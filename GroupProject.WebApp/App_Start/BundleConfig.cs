@@ -9,32 +9,35 @@ namespace GroupProject.WebApp
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jsFrontend/jquery-3.4.1.min.js")); 
-            
+                "~/Scripts/jquery-{version}.js"));
+
+            //bundles.Add(new ScriptBundle("~/bundles/popper").Include(
+            //            "~/Scripts/jsFrontend/popper.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/popper").Include(
-                        "~/Scripts/jsFrontend/popper.min.js"));
+                "~/Scripts/umd/popper.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/slick").Include(
-                        "~/Scripts/jsFrontend/slick.min.js")); 
-            
+                        "~/Scripts/slick.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/owl.carousel").Include(
-                        "~/Scripts/jsFrontend/owl.carousel.min.js")); 
-            
+                        "~/Scripts/owl.carousel.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(
-                        "~/Scripts/jsFrontend/select2.min.js")); 
-            
+                        "~/Scripts/select2.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/magnific-popup").Include(
-                        "~/Scripts/jsFrontend/jquery.magnific-popup.min.js")); 
-            
+                        "~/Scripts/jquery.magnific-popup.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/slick-animation").Include(
-                        "~/Scripts/jsFrontend/slick-animation.min.js")); 
-            
+                        "~/Scripts/slick-animation.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
-                        "~/Scripts/jsFrontend/custom.js")); 
-            
+                        "~/Scripts/jsFrontend/custom.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/MainSearchScript").Include(
                         "~/Scripts/jsFrontend/MainSearchScript.js"));
-            
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
