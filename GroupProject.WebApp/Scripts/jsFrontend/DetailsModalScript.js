@@ -144,13 +144,19 @@ function ModalBodyTemplating(game) {
 }
 
 //Stars Logic
-function DisplayRatingStars(Rating) {
-    if (Rating > 0) {
+function DisplayRatingStars(rating) {
+    if (rating > 0) {
         let temp = '';
-        for (let i = 0; i < Rating; i++) {
+        for (let i = 0; i < rating; i++) {
             temp += '<li><i class="fa fa-star" aria-hidden="true"></i></li>';
         }
         return temp;
+    } else {
+        return ` <li> <i class="fa fa-star-o" aria-hidden="true"></i></li>
+                 <li> <i class="fa fa-star-o" aria-hidden="true"></i></li>
+                 <li> <i class="fa fa-star-o" aria-hidden="true"></i></li>
+                 <li> <i class="fa fa-star-o" aria-hidden="true"></i></li>
+                 <li> <i class="fa fa-star-o" aria-hidden="true"></i></li>`;
     }
 }
 
@@ -158,8 +164,7 @@ function CheckGameRating(rating) {
     if (rating == 0) {
         return '<span class="text-white ml-2">Unrated</span>';
     } else {
-        return `<span class="text-white ml-2">${rating
-            }<small style="font-size: 10px">(User Score)</small></span>`;
+        return `<span class="text-white ml-2">${rating}<small style="font-size: 10px">(User Score)</small></span>`;
     }
 }
 

@@ -18,15 +18,9 @@ namespace GroupProject.WebApp.Controllers
         {
             return View();
         }
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> SinglePlayer()
         {
-            if (id == null) return Redirect("~/Error/PageNotFound");
-
-            var game = await unitOfWork.Games.FindByIdAsync(id);
-
-            if (game == null) return Redirect("~/Error/InternalServerError");
-
-            return View(game);
+            return View();
         }
 
         public async Task<ActionResult> Play(int? id)
