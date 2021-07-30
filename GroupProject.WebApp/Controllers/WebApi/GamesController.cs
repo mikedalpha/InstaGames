@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -31,10 +32,11 @@ namespace GroupProject.WebApp.Controllers.WebApi
                 GameId = g.GameId,
                 Title = g.Title,
                 Photo=g.Photo,
-                Descripition =g.Description,
+                Description = g.Description,
                 Pegi = g.Pegi,
                 ReleaseDate =g.ReleaseDate.Year,
                 IsRealeased = g.IsReleased,
+                IsEarlyAccess = g.IsEarlyAccess,
                 Rating = g.Rating,
                 Tag = g.Tag.ToString()
             }).ToList());
@@ -55,20 +57,21 @@ namespace GroupProject.WebApp.Controllers.WebApi
                 GameId=game.GameId,
                 Title=game.Title,
                 Photo = game.Photo,
-                Descripition = game.Description,
+                Description = game.Description,
                 Pegi = game.Pegi,
                 ReleaseDate = game.ReleaseDate.Year,
                 Rating = game.Rating,
                 IsRealeased=game.IsReleased,
-                Tag=game.Tag.ToString(),
-                Categories = new
+                IsEarlyAccess = game.IsEarlyAccess,
+                Tag =game.Tag.ToString(),
+                Categories = game.GameCategories.Select(c => new
                 {
-                    Type = game.GameCategories.Select(c=>c.Type)
-                },
-                Developer = new
+                    Type = c.Type
+                }),
+                Developer = game.GameDevelopers.Select(d => new
                 {
-                    Name =game.GameDevelopers.Select(d => d.FirstName +" " + d.LastName)
-                }
+                    Name = $"{d.FirstName + " " + d.LastName}"
+                })
             });
         }
 
