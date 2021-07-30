@@ -161,7 +161,10 @@
     .trending-pills.nav-pills .nav-item a{margin: 0 10px;}
     .page-numbers li .page-numbers{height: 35px; width: 35px; line-height: 35px;}
     .page-numbers li .page-numbers.current{height: 35px; width: 35px;}
-  
+
+      .iq-card .iq-card-header {display: block !important;text-align: center;}
+      .iq-card .iq-card-header > .d-flex {display: block !important;margin-top: 10px;}
+
     .iq-pricing-card-two {padding: 22px 30px 30px;}
     }
     /*---------------header menu----------------*/

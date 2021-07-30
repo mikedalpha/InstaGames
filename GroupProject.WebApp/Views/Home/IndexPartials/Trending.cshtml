@@ -37,7 +37,7 @@
                                                         </div>
                                                     </div>
                                                 </a>
-                                                <h1 class="trending-text big-title text-uppercase">@game.Title</h1>
+                                                <h1 class="trending-text big-title text-uppercase"><a class="detailsView" href="#"> @game.Title</a></h1>
 
                                                 <div class="d-flex align-items-center text-white text-detail">
                                                     <img src="@game.Pegi" alt="Alternate Text" class="p-2" width="50" />
@@ -81,8 +81,8 @@
                                                         }
                                                         else
                                                         {
-                                                            <a href="~/game/details/@game.GameId" class="btn btn-hover mr-2" tabindex="0">
-                                                                <i class="fa fa-info mr-2" aria-hidden="true"></i>Details
+                                                            <a href="#" class="detailsView btn btn-hover mr-2" tabindex="0">
+                                                                <i class="fa fa-info mr-2" aria-hidden="true"></i>More Info
                                                             </a>
                                                         }
                                                         <a href="javascript:void(0);" class="btn btn-link" tabindex="0">

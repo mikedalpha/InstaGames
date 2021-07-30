@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-sm-12 overflow-hidden">
                 <div class="iq-main-header d-flex align-items-center justify-content-between">
-                    <h4 class="main-title iq-title topten-title-sm">Top 10 in India</h4>
+                    <h4 class="main-title iq-title topten-title-sm">Top 5 of InstaGames</h4>
                 </div>
                 <div class="topten-contens">
                     <h4 class="main-title iq-title topten-title">Top 5 Based on User Rating</h4>
@@ -13,7 +13,7 @@
                         @foreach (var game in Model.TopFive)
                         {
                             <li class="slick-bg">
-                                <a href="~/game/details/@game.GameId">
+                                <a class="detailsView" href="#">
                                     <img src="@game.Photo" class="img-fluid w-100" alt="">
                                 </a>
                             </li>
@@ -25,7 +25,7 @@
                             {
                                 <li>
                                     <div class="block-images position-relative">
-                                        <a href="~/game/details/@game.GameId">
+                                        <a class="detailsView" href="#">
                                             <img src="@game.Photo" class="img-fluid w-100" alt="">
                                         </a>
                                         <div class="block-description">
@@ -35,7 +35,7 @@
                                                 <span class="text-white">&nbsp; <i class="text-primary fa fa-star"></i>  @game.Rating</span>
                                             </div>
                                             <div class="hover-buttons">
-                                                <a href="~/game/play/@game.GameId" class="btn btn-hover" tabindex="0">
+                                                <a href="~/game/play/@game.GameId" class="btn btn-hover btn-sm" tabindex="0">
                                                     <i class="fa fa-play mr-1" aria-hidden="true"></i> Play Now
                                                 </a>
                                             </div>

@@ -85,9 +85,9 @@ function ViewGames(game) {
                                          <img src="${game.Photo}" class="img-fluid img-zoom" alt="">
                                          <div class="episode-number text-center">${game.Title}</div>
                                          <div class="episode-play-info">
-                                             <div class="episode-play">
-                                                 <a href="/game/details/${game.GameId}">
-                                                     <i class="fa fa-info"></i>
+                                             <div id="playBtn" class="episode-play">
+                                                 <a href="/game/play/${game.GameId}">
+                                                     <i class="fa fa-play"></i>
                                                  </a>
                                              </div>
                                          </div>
@@ -97,7 +97,7 @@ function ViewGames(game) {
                                              <span class="text-white">${game.ReleaseDate}</span>
                                              <img src="${game.Pegi}" width="20" />
                                          </div>
-                                         <a href="/game/details/${game.GameId}">
+                                         <a class="detailsView" href="#">
                                              <h6 class="epi-name text-white mb-0">
                                                 ${game.Descripition}
                                              </h6>
@@ -109,6 +109,7 @@ function ViewGames(game) {
 
     let gameElement = $(gamesTemplate);
     $("#gamesSection").append(gameElement);
+
 }
 
 //Return No Data View
@@ -133,3 +134,4 @@ function NoGamesAvailable() {
 
     $("#MainContent").append(element);
 }
+
