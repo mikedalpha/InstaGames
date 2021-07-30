@@ -48,13 +48,13 @@
                             <i class="fa fa-play mr-2"
                                aria-hidden="true"></i>Play Now
                         </a>
-                        <a href="#" class="detailsView btn btn-link">More info</a>
+                        <a href="#" class="detailsView btn btn-link" data-id="@Model.RandomGame.GameId">More info</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-8">
                 <div class="parallax-img">
-                    <a class="detailsView" href="#">
+                    <a class="detailsView" data-id="@Model.RandomGame.GameId" href="#">
                         <img src="@Model.RandomGame.Photo" class="img-fluid w-100" alt="bailey">
                     </a>
                 </div>

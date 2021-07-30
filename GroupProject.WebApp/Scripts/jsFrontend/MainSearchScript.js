@@ -56,12 +56,12 @@ function StartSearch(data, searchInput) {
 //Make a new HTML View
 function MainTemplate() {
     let mainTemplate = `
-                                  <div class="main-content mt-5">
-                                        <section class="container-fluid seasons">
-                                            <div class="tab-content">
-                                                <div id="episodes" class="tab-pane fade active show" role="tabpanel">
-                                                    <div class="block-space">
-                                                        <div id="gamesSection" class="row">
+                                 <div class="main-content mt-5">
+                                       <section class="container-fluid seasons">
+                                           <div class="tab-content">
+                                               <div class="tab-pane fade active show" role="tabpanel">
+                                                   <div class="block-space">
+                                                       <div id="gamesSection" class="row">
 
 
                                                        </div>
@@ -85,11 +85,9 @@ function ViewGames(game) {
                                          <img src="${game.Photo}" class="img-fluid img-zoom" alt="">
                                          <div class="episode-number text-center">${game.Title}</div>
                                          <div class="episode-play-info">
-                                             <div id="playBtn" class="episode-play">
-                                                 <a href="/game/play/${game.GameId}">
-                                                     <i class="fa fa-play"></i>
-                                                 </a>
-                                             </div>
+                                            
+                                                ${PlayButtonMainSearch(game)}
+                                            
                                          </div>
                                      </div>
                                      <div class="epi-desc p-3">
@@ -99,7 +97,7 @@ function ViewGames(game) {
                                          </div>
                                          <a class="detailsView" href="#">
                                              <h6 class="epi-name text-white mb-0">
-                                                ${game.Descripition}
+                                                ${game.Description}
                                              </h6>
                                          </a>
                                      </div>
@@ -135,3 +133,15 @@ function NoGamesAvailable() {
     $("#MainContent").append(element);
 }
 
+//Play Button Show or Not
+function PlayButtonMainSearch(game) {
+
+    if (game.IsRealeased || game.IsEarlyAccess) {
+        return   `<div id = "playBtn" class="episode-play">
+                       <a href="/game/play/${game.GameId}"><i class="fa fa-play"></i></a>
+                  </div>`;
+    } else {
+        return '';
+    }
+
+}
