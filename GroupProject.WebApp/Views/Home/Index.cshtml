@@ -27,4 +27,143 @@
 
 @Html.Partial("~/Views/Home/IndexPartials/DevelopedBy.cshtml")
 
+<!-- Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalTitle"><i class="fa fa-info-circle"></i> More Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-primary" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               
+                    <div class="iq-card iq-card-block iq-card-stretch iq-card-height iq-mb-3">
+                        <img src="/Content/images/Games/ProphetImage.PNG" class="card-img-top" alt="#">
+                        <div class="iq-card-body">
+                            <h4 class="card-title">Prophet</h4>
+                            <p class="card-text">Description </p>
+                            <a href="~/game/play/5" class="btn btn-hover iq-button">Play</a>
+                        </div>
+                    </div>
+                
+                    <div class="row align-items-center  h-100">
+                        <div class="col-xl-6 col-lg-12 col-md-12">
+                            <a href="javascript:void(0);">
+                                <div class="channel-logo" data-animation-in="fadeInLeft" data-delay-in="0.5">
+                                    <img src="~/Content/images/logo.png" class="c-logo" alt="InstaGames">
+                                </div>
+                            </a>
+                            <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft"
+                                data-delay-in="0.6">
+                                @Model.RandomGame.Title
+                            </h1>
+
+                            <div class="d-flex flex-wrap align-items-center fadeInLeft animated" data-animation-in="fadeInLeft" style="opacity: 1;">
+                                <div class="slider-ratting d-flex align-items-center mr-4 mt-2 mt-md-3">
+
+                                    <!--Rating Logic -->
+                                    <ul class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
+                                        @for (int i = 0; i < @Model.RandomGame.Rating; i++)
+                                        {
+                                            <li>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </li>
+                                        }
+                                        @for (int i = 0; i < 5 - @Model.RandomGame.Rating; i++)
+                                        {
+                                            <li>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </li>
+                                        }
+                                    </ul>
+                                    @if (Model.RandomGame.Rating == 0)
+                                    {
+                                        <span class="text-white ml-2">Unrated</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-white ml-2">@Model.RandomGame.Rating <small style="font-size:10px">(User Score)</small></span>
+                                    }
+                                </div>
+                                <!--Rating Logic End -->
+
+                                <div class="d-flex align-items-center mt-2 mt-md-3">
+                                    <span class="ml-3">Pegi &nbsp;</span>
+                                    <img src="@Model.RandomGame.Pegi" alt="Alternate Text" class="p-2 " width="50" />
+                                </div>
+                            </div>
+
+                            <p data-animation-in="fadeInUp" data-delay-in="1.2">
+                                @Model.RandomGame.Description
+                            </p>
+                            <div class="trending-list" data-wp_object-in="fadeInUp" data-delay-in="1.2">
+                                <div class="text-primary title starring">
+                                    Developed By: <span class="text-body">
+                                        @foreach (var developer in @Model.RandomGame.GameDevelopers)
+                                        {
+                                            <text>@developer.FirstName @developer.LastName&nbsp;</text>
+                                        }
+                                    </span>
+                                </div>
+                                <div class="text-primary title genres">
+                                    Categories:<span class="text-body">
+                                        @foreach (var category in @Model.RandomGame.GameCategories)
+                                        {
+                                            @category.Type <text>&nbsp; </text>
+                                        }
+                                    </span>
+                                </div>
+                                <div class="text-primary title tag">
+
+                                    Tag: <span class="text-body">@Model.RandomGame.Tag.ToString()</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center r-mb-23" data-animation-in="fadeInUp" data-delay-in="1.2">
+                                <a href="~/game/play/@Model.RandomGame.GameId" class="btn btn-hover iq-button">
+                                    <i class="fa fa-play mr-2"
+                                       aria-hidden="true"></i>Play Now
+                                </a>
+                                <a href="#" data-id="@Model.RandomGame.GameId" class="detailsView btn btn-link">More info</a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <!-- MainContent End-->
+
+@section scripts{
+    <script>
+        //Toggle Modal
+        jQuery(".detailsView").click(function(e) {
+            e.preventDefault();
+            $("#detailsModal").modal('toggle');
+            FindGame($(this).data('id'));
+        });
+
+        //Find Game
+        function FindGame(id) {
+            let url = "https://localhost:44384/api/games/?";
+            $.ajax({
+                type: "Get",
+                url: url,
+                data: {"id":id},
+                dataType: "json",
+                success: function(response) {
+                    ModalBodyTemplating(response);
+                }
+            });
+        }
+
+
+    </script>
+}
