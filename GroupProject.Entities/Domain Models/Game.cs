@@ -20,11 +20,13 @@ namespace GroupProject.Entities.Domain_Models
         public virtual Pegi Pegi { get; set; }
         public virtual ICollection<Category> GameCategories { get; set; }
         public virtual ICollection<Developer> GameDevelopers { get; set; }
+        public virtual ICollection<ApplicationUser> Subscribers { get; set; }
 
         public Game()
         {
             GameCategories = new HashSet<Category>();
             GameDevelopers = new HashSet<Developer>();
+            Subscribers = new HashSet<ApplicationUser>();
         }
     }
 }

@@ -68,9 +68,67 @@
     </div>
 </div>
 
+<!--My List View Modal -->
+<div class="modal fade" id="addedToListModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-l" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-primary" aria-hidden="true">&times;</span>
+                </button>
+                <br/><br /><br />
+                <!--Main Content-->
+                <div  id="Main">
+                </div>
+                <div class="modal-footer mt-5">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 <!-- MainContent End-->
 @section scripts{
     @Scripts.Render("~/bundles/DetailsModalScript")
+    
+    <script>
+        //modal for successfully add in list
+        jQuery('.addToList').click(function (e) {
+            e.preventDefault();
+            $("#addedToListModal").modal('toggle');
+            AddToList($(this).data('id'));
+        });
+        function AddToList(id) {
+            let url = "https://localhost:44384/api/games/?";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: { "id": id },
+                dataType: "json",
+                success: function (response) {
+                    AddedToListModal(response)
+                }
+            });
+        }
+        function AddedToListModal(game) {
+            let addedToListTemplate = `
+                                        <div class="row align-items-center h-100">
+                                            <div class="col-12 text-center">
+                                                <a href="javascript:void(0);"></a>
+                                                 <p data-animation-in="fadeInUp" data-delay-in="1.2">
+                                                    <strong>
+                                                    You successfully added ${game.Title} to your list!                                                    </strong>
+                                                 </p>
+                                            </div>
+                                        </div>
+                                    `;
+            let message = $(addedToListTemplate);
+            $("#Main").html(message);
+        }
+    </script>
+}
 }

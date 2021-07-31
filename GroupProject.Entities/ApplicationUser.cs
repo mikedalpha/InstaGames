@@ -21,10 +21,12 @@ namespace GroupProject.Entities
         public DateTime? ExpireDate { get; set; }
 
         public virtual ICollection<Message> Messages { get; set; }
+        public virtual ICollection<Game> UserList { get; set; }
 
         public ApplicationUser()
         {
             Messages = new HashSet<Message>();
+            UserList = new HashSet<Game>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -34,11 +36,5 @@ namespace GroupProject.Entities
             // Add custom user claims here
             return userIdentity;
         }
-    }
-
-    public enum Plan
-    {
-        Basic,
-        Premium
     }
 }

@@ -150,6 +150,10 @@ function DisplayRatingStars(rating) {
         for (let i = 0; i < rating; i++) {
             temp += '<li><i class="fa fa-star" aria-hidden="true"></i></li>';
         }
+
+        for (let j = rating; j < 5; j++) {
+            temp += '<li> <i class="fa fa-star-o" aria-hidden="true"></i></li>';
+        }
         return temp;
     } else {
         return ` <li> <i class="fa fa-star-o" aria-hidden="true"></i></li>

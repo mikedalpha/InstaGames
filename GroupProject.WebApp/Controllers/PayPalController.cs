@@ -18,13 +18,9 @@ namespace GroupProject.WebApp.Controllers
         private ILog iLog;
         private ApplicationUserManager _userManager;
 
-        public PayPalController()
-        {
-            iLog = Log.GetInstance;
-        }
-
         public PayPalController(ApplicationUserManager userManager)
         {
+            iLog = Log.GetInstance;
             UserManager = userManager;
         }
 
@@ -114,7 +110,7 @@ namespace GroupProject.WebApp.Controllers
             try
             {
                 string payerId = Request.Params["PayerID"];
-                if (String.IsNullOrEmpty(payerId))
+                if (string.IsNullOrEmpty(payerId))
                 {
                     string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/PayPal/PaymentWithPaypal?";
                     var guid = Convert.ToString(new Random().Next(100000));
@@ -173,6 +169,16 @@ namespace GroupProject.WebApp.Controllers
             await UserManager.UpdateAsync(user);
 
             return View("PaymentSuccess");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _userManager !=null)
+            {
+                _userManager.Dispose();
+                _userManager = null;
+            }
+            base.Dispose(disposing);
         }
     }
 }

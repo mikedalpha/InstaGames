@@ -62,6 +62,8 @@
     <Compile Include="Repositories\DeveloperRepos.cs" />
     <Compile Include="Repositories\GameRepos.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\MessageRepos.cs" />
+    <Compile Include="Repositories\PegiRepos.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

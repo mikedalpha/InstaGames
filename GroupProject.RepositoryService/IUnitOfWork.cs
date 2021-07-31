@@ -8,6 +8,8 @@ namespace GroupProject.RepositoryService
         GameRepos Games { get; }
         DeveloperRepos Developer { get; }
         CategoryRepos Category { get; }
+        MessageRepos Message { get; }
+        PegiRepos Pegi { get; }
 
         void Save();
     }

@@ -60,5 +60,14 @@ namespace GroupProject.WebApp.Controllers
 
             return User.IsInRole("Subscriber") ? (ActionResult)View(game) : Redirect("~/Home/PricingPlan");
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                unitOfWork.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
