@@ -1,10 +1,8 @@
 ﻿//Get Data on Input from Mobile search
 
-
-
 $('#MainSearchMobile').on('input', function () {
         let searchInput = $('#MainSearchMobile').val();
-        $("#MainContent").empty();
+        $("#BodyContent").empty();
 
         $.ajax({
             type: "GET",
@@ -24,7 +22,7 @@ function Error(error) {
 $('#MainSearch').on('input',
     function () {
         let searchInput = $('#MainSearch').val();
-        $("#MainContent").empty();
+        $("#BodyContent").empty();
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -56,23 +54,24 @@ function StartSearch(data, searchInput) {
 //Make a new HTML View
 function MainTemplate() {
     let mainTemplate = `
-                                 <div class="main-content mt-5">
-                                       <section class="container-fluid seasons">
-                                           <div class="tab-content">
-                                               <div class="tab-pane fade active show" role="tabpanel">
-                                                   <div class="block-space">
-                                                       <div id="gamesSection" class="row">
+                       <div class="main-content mt-5 mb-5">
+                             <section class="container-fluid seasons">
+                                 <div class="tab-content">
+                                     <div class="tab-pane fade active show" role="tabpanel">
+                                         <div class="block-space">
+                                             <a class="iq-view-all mt-5" href="/game/singleplayer">View All</a>
+                                             <div id="gamesSection" class="row mb-5">
 
 
-                                                       </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </section>
-                                   </div>
-                               `;
+                                             </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </section>
+                         </div>
+                      `;
     let element = $(mainTemplate);
-    $("#MainContent").append(element);
+    $("#BodyContent").append(element);
 }
 
 
@@ -95,11 +94,9 @@ function ViewGames(game) {
                                              <span class="text-white">${game.ReleaseDate}</span>
                                              <img src="${game.Pegi}" width="20" />
                                          </div>
-                                         <a class="detailsView" href="#">
                                              <h6 class="epi-name text-white mb-0">
                                                 ${game.Description}
                                              </h6>
-                                         </a>
                                      </div>
                                  </div>
                              </div>
@@ -130,7 +127,7 @@ function NoGamesAvailable() {
 
     let element = $(template);
 
-    $("#MainContent").append(element);
+    $("#BodyContent").append(element);
 }
 
 //Play Button Show or Not

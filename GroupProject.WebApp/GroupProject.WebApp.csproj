@@ -487,10 +487,8 @@
     <Content Include="Content\cssfrontend\variable.css" />
     <Content Include="Scripts\jsFrontend\custom.js" />
     <Content Include="Scripts\flatpickr.min.js" />
-    <Content Include="Scripts\jsFrontend\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery.magnific-popup.min.js" />
     <Content Include="Scripts\owl.carousel.min.js" />
-    <Content Include="Scripts\jsFrontend\popper.min.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\slick-animation.min.js" />
     <Content Include="Scripts\slick.min.js" />
@@ -565,6 +563,9 @@
     <Content Include="Views\Game\SinglePlayerPartials\Slider.cshtml" />
     <Content Include="Views\Game\SinglePlayerPartials\GamesForChildren.cshtml" />
     <Content Include="Views\Game\SinglePlayerPartials\BestActionGames.cshtml" />
+    <Content Include="Views\Game\SinglePlayerPartials\DetailsViewModal.cshtml" />
+    <Content Include="Views\Home\IndexPartials\DetailsViewModal.cshtml" />
+    <Content Include="Views\Game\SinglePlayerPartials\GamesWeRecommend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
