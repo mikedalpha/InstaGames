@@ -102,6 +102,7 @@ namespace GroupProject.Database.Migrations
 
             #endregion
 
+
             #region Seed Games
             var g1 = new Game()
             {
@@ -193,7 +194,6 @@ namespace GroupProject.Database.Migrations
                 GameCategories = new Collection<Category>() { c3, c5 },
                 Photo = "/Content/images/Games/Penarium.jpg",
                 GameDevelopers = new Collection<Developer>() { d2, d3 }
-
             };
             var g7 = new Game()
             {
@@ -207,7 +207,6 @@ namespace GroupProject.Database.Migrations
                 GameCategories = new Collection<Category>() { c5, c3 },
                 Photo = "/Content/images/Games/overcooked.jpg",
                 GameDevelopers = new Collection<Developer>() { d1, d2 }
-
             };
 
             var g8 = new Game()
@@ -222,7 +221,6 @@ namespace GroupProject.Database.Migrations
                 GameCategories = new Collection<Category>() { c8 ,c6},
                 Photo = "/Content/images/Games/UntilDawn.png",
                 GameDevelopers = new Collection<Developer>() { d4, d1 }
-
             };
 
             var g9 = new Game()
@@ -279,7 +277,7 @@ namespace GroupProject.Database.Migrations
                 Pegi = p18,
                 GameCategories = new Collection<Category>() { c8 , c6},
                 Photo = "/Content/images/Games/left4dead.jpg",
-                GameDevelopers = new Collection<Developer>() { d1, d2 }
+                GameDevelopers = new Collection<Developer>() { d1 }
             };
             var g13 = new Game()
             {

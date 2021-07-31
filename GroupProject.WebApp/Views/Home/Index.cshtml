@@ -5,6 +5,7 @@
     </div>
 </div>
 <!-- loader END -->
+@Html.Partial("IndexPartials/DetailsViewModal")
 <!-- Slider Start -->
 
 @Html.Partial("~/Views/Home/IndexPartials/Slider.cshtml")
@@ -27,47 +28,6 @@
 
 @Html.Partial("~/Views/Home/IndexPartials/DevelopedBy.cshtml")
 
-<!--Details View Modal -->
-<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="detailsModalTitle"><i class="fa fa-info-circle"></i> More Info</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span class="text-primary" aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!--Photo Or Video-->
-                <div id="videoSection">
-
-                </div>
-                <!--Photo Or Video Section End-->
-                <!--Main Content-->
-                <div id="MainModalContent">
-
-                </div>
-                <!--Main Content End-->
-                <!--More Like This-->
-                <h5 class="mt-5">More Like this:</h5>
-                <div class="tab-content">
-                    <div class="tab-pane fade active show" role="tabpanel">
-                        <div class="block-space">
-                            <div id="MoreLikeThis" class="row">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--More Like This-->
-        </div>
-        <div class="modal-footer mt-5">
-            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-        </div>
-    </div>
-</div>
-
 <!--My List View Modal -->
 <div class="modal fade" id="addedToListModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-l" role="document">
@@ -87,9 +47,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 <!-- MainContent End-->
 @section scripts{

@@ -30,7 +30,7 @@
                                         </div>
                                     }
                                     <div class="block-description">
-                                        <h6 class="iq-title"><a href="#">@game.Title</a></h6>
+                                        <h6 class="iq-title"><a href="#" class="detailsView" data-id="@game.GameId">@game.Title</a></h6>
                                         <div class="movie-time d-flex align-items-center my-2">
                                             <img src="@game.Pegi.PegiPhoto" alt="Alternate Text" class="p-2 " width="50" />
                                             <span class="text-white">@game.Tag.ToString() &nbsp;</span>
@@ -45,7 +45,7 @@
                                             }
                                             else
                                             {
-                                                <a href="#" class="btn btn-hover">
+                                                <a href="#" data-id="@game.GameId" class="detailsView btn btn-hover">
                                                     <i class="fa fa-info mr-2"
                                                        aria-hidden="true"></i>More info
                                                 </a>
