@@ -7,10 +7,12 @@ namespace GroupProject.WebApp.Models.HomeViewModel
     public class IndexViewModel
     {
         private List<Game> allGames;
+        private Game _randomGame;
 
-        public IndexViewModel(List<Game> games)
+        public IndexViewModel(List<Game> games , Game randomGame)
         {
             allGames = games;
+            _randomGame = randomGame;
         }
 
         public List<Game> Games
@@ -44,37 +46,6 @@ namespace GroupProject.WebApp.Models.HomeViewModel
             get { return Games.Where(g => g.GameDevelopers.Any(d => d.IsInstaGamesDev) && g.IsReleased).OrderByDescending(g=>g.Rating).ToList(); }
         }
 
-        public Game RandomGame
-        {
-            get
-            {
-                return allGames.Find(g=>g.GameId==4);
-            }
-        }
-
-        public List<Game> Games3
-        {
-            get { return Games.Where(g => g.Pegi == "/Content/images/Pegi/3.jpg").OrderBy(g => g.ReleaseDate).ToList(); }
-        }
-
-        public List<Game> Games7
-        {
-            get { return Games.Where(g => g.Pegi == "/Content/images/Pegi/7.jpg").OrderBy(g => g.ReleaseDate).ToList(); }
-        }
-
-        public List<Game> Games12
-        {
-            get { return Games.Where(g => g.Pegi == "/Content/images/Pegi/12.jpg").OrderBy(g => g.ReleaseDate).ToList(); }
-        }
-
-        public List<Game> Games16
-        {
-            get { return Games.Where(g => g.Pegi == "/Content/images/Pegi/16.jpg").OrderBy(g => g.ReleaseDate).ToList(); }
-        }
-
-        public List<Game> Games18
-        {
-            get { return Games.Where(g => g.Pegi == "/Content/images/Pegi/18.jpg").OrderBy(g => g.ReleaseDate).ToList(); }
-        }
+        public Game RandomGame => _randomGame;
     }
 } 

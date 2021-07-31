@@ -1,6 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using ExceptionLogger;
 using GroupProject.RepositoryService;
+using GroupProject.WebApp.Models.GameViewModels;
 
 namespace GroupProject.WebApp.Controllers
 {
@@ -8,10 +12,17 @@ namespace GroupProject.WebApp.Controllers
     public class GameController : Controller
     {
         private IUnitOfWork unitOfWork;
-
+        private ILog iLog;
         public GameController()
         {
+            iLog = Log.GetInstance;
             unitOfWork = new UnitOfWork();
+        }
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            iLog.LogException(filterContext.Exception.ToString());
+            filterContext.ExceptionHandled = true;
+            this.Redirect("~/Error/InternalServerError").ExecuteResult(this.ControllerContext);
         }
 
         public ActionResult MultiPlayerGames()
@@ -20,7 +31,19 @@ namespace GroupProject.WebApp.Controllers
         }
         public async Task<ActionResult> SinglePlayer()
         {
-            return View();
+            var games = await unitOfWork.Games.GetAllAsync();
+            if (games == null) return RedirectToAction("InternalServerError", "Error");
+
+            var id = new Random().Next(1,5);
+            var game = await unitOfWork.Games.FindByIdAsync(id);
+            if (game == null) return RedirectToAction("InternalServerError", "Error");
+
+            var categories = await unitOfWork.Category.GetAllAsync();
+            if(categories == null) return RedirectToAction("InternalServerError", "Error");
+
+            var vm = new SinglePlayerViewModel(games.ToList(),game , categories.ToList());
+
+            return View(vm);
         }
 
         public async Task<ActionResult> Play(int? id)

@@ -12,6 +12,7 @@ namespace GroupProject.Database
         public DbSet<Category> Categories { get; set; }
         public DbSet<Developer> Developers { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Pegi> Pegi { get; set; }
 
         public ApplicationDbContext(): base("GroupProject")
         {
@@ -30,6 +31,7 @@ namespace GroupProject.Database
             modelBuilder.Configurations.Add(new DeveloperConfig());
             modelBuilder.Configurations.Add(new CategoryConfig());
             modelBuilder.Configurations.Add(new MessageConfig());
+            modelBuilder.Configurations.Add(new PegiConfig());
         }
     }
 }
