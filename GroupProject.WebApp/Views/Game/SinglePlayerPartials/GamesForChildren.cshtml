@@ -1,32 +1,56 @@
-﻿@model GroupProject.WebApp.Models.HomeViewModel.IndexViewModel
+﻿@model GroupProject.WebApp.Models.GameViewModels.SinglePlayerViewModel
 
-<section id="iq-suggestede" class="s-margin">
+<section id="iq-favorites">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 overflow-hidden">
                 <div class="iq-main-header d-flex align-items-center justify-content-between">
-                    <h4 class="main-title">Suggested For You</h4>
-                    <a class="iq-view-all" href="movie-category.html">View All</a>
+                    <h4 class="main-title">Children & Family</h4>
                 </div>
-                <div class="suggestede-contens">
-                    <ul class="list-inline favorites-slider row p-0 mb-0">
-                        @foreach (var game in Model.LatestGames)
+                <div class="favorites-contens">
+                    <ul class="favorites-slider list-inline  row p-0 mb-0">
+                        @foreach (var game in Model.GamesForChildren)
                         {
                             <li class="slide-item">
                                 <div class="block-images position-relative">
-                                    <div class="img-box">
-                                        <img src="@game.Photo" class="img-fluid" alt="game photo">
-                                    </div>
+                                    @if (string.IsNullOrEmpty(@game.Trailer))
+                                    {
+                                        <div class="img-box">
+                                            <img src="@game.Photo" class="img-fluid" alt="">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="video-wrap">
+                                            <div id="video">
+                                                <video id="bgvid" autoplay loop muted playsinline>
+                                                    <source src="@game.Trailer" type="video/mp4" />
+                                                </video>
+                                            </div>
+                                        </div>
+                                    }
                                     <div class="block-description">
-                                        <h6 class="iq-title"><a class="detailsView" data-id="@game.GameId" href="#">@game.Title</a></h6>
+                                        <h6 class="iq-title"><a href="#">@game.Title</a></h6>
                                         <div class="movie-time d-flex align-items-center my-2">
                                             <img src="@game.Pegi.PegiPhoto" alt="Alternate Text" class="p-2 " width="50" />
+                                            <span class="text-white">@game.Tag.ToString() &nbsp;</span>
                                         </div>
                                         <div class="hover-buttons">
-                                            <a href="~/game/play/@game.GameId" class="btn btn-hover iq-button">
-                                                <i class="fa fa-play mr-1" aria-hidden="true"></i>
-                                                Play Now
-                                            </a>
+                                            @if (game.IsReleased || game.IsEarlyAccess.HasValue)
+                                            {
+                                                <a href="~/game/play/@Model.SelectedGame.GameId" class="btn btn-hover">
+                                                    <i class="fa fa-play mr-2"
+                                                       aria-hidden="true"></i>Play Now
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a href="#" class="btn btn-hover">
+                                                    <i class="fa fa-info mr-2"
+                                                       aria-hidden="true"></i>More info
+                                                </a>
+                                            }
+
                                         </div>
                                     </div>
                                     <div class="block-social-info">
@@ -46,6 +70,7 @@
                                                 <span class="count-box">19+</span>
                                             </li>
                                             <li><span><i class="ri-add-line"></i></span></li>
+
                                         </ul>
                                     </div>
                                 </div>

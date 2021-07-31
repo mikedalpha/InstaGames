@@ -37,7 +37,7 @@ namespace GroupProject.Database.Migrations
                 FirstName = "Kostas",
                 LastName = "Korliaftis",
                 IsInstaGamesDev = true
-                
+
             };
 
             var d2 = new Developer()
@@ -85,6 +85,23 @@ namespace GroupProject.Database.Migrations
             }
             #endregion
 
+            #region Seed Pegi
+
+            var p3 = new Pegi { PegiAge = 3, PegiPhoto = "/Content/images/Pegi/3.jpg" };
+            var p7 = new Pegi { PegiAge = 7, PegiPhoto = "/Content/images/Pegi/7.jpg", };
+            var p12 = new Pegi { PegiAge = 12, PegiPhoto = "/Content/images/Pegi/12.jpg", };
+            var p16 = new Pegi { PegiAge = 16, PegiPhoto = "/Content/images/Pegi/16.jpg", };
+            var p18 = new Pegi { PegiAge = 18, PegiPhoto = "/Content/images/Pegi/18.jpg", };
+
+            var pegiList = new List<Pegi> { p3, p7, p12, p16, p18 };
+
+            foreach (var pegi in pegiList)
+            {
+                context.Pegi.AddOrUpdate(p => p.PegiAge, pegi);
+            }
+
+            #endregion
+
             #region Seed Games
             var g1 = new Game()
             {
@@ -96,7 +113,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 4,
                 Tag = Tag.Singleplayer,
                 IsReleased = true,
-                Pegi = "/Content/images/Pegi/3.jpg",
+                Pegi = p3,
                 Photo = "/Content/images/Games/BrickBreaker.png",
                 GameUrl = "https://i.simmer.io/@InstaGames/brick-breaker",
                 GameCategories = new Collection<Category>() { c1, c3, c4 },
@@ -111,7 +128,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 4,
                 Tag = Tag.Singleplayer,
                 IsReleased = true,
-                Pegi = "/Content/images/Pegi/3.jpg",
+                Pegi = p3,
                 Photo = "/Content/images/Games/NumberWizzard.png",
                 GameUrl = "https://i.simmer.io/@InstaGames/guessing-game",
                 GameCategories = new Collection<Category>() { c3, c4 },
@@ -126,7 +143,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/3.jpg",
+                Pegi = p3,
                 GameCategories = new Collection<Category>() { c3, c4, c5 },
                 Photo = "/Content/images/Games/ObstacleAvoiding.png",
                 GameUrl = "https://i.simmer.io/@InstaGames/obstacle-avoiding-aplha",
@@ -142,7 +159,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 3,
                 Tag = Tag.Singleplayer,
                 IsReleased = true,
-                Pegi = "/Content/images/Pegi/7.jpg",
+                Pegi = p7,
                 GameCategories = new Collection<Category>() { c4, c6 },
                 Photo = "/Content/images/Games/ProphetImage.png",
                 GameUrl = @"https://i.simmer.io/@InstaGames/the-prophet",
@@ -157,7 +174,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 5,
                 Tag = Tag.Singleplayer,
                 IsReleased = true,
-                Pegi = "/Content/images/Pegi/3.jpg",
+                Pegi = p3,
                 GameCategories = new Collection<Category>() { c1, c3, c4 },
                 Photo = "/Content/images/Games/tictactoe.png",
                 GameUrl = @"https://i.simmer.io/@InstaGames/tictactoe",
@@ -172,7 +189,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/3.jpg",
+                Pegi = p3,
                 GameCategories = new Collection<Category>() { c3, c5 },
                 Photo = "/Content/images/Games/Penarium.jpg",
                 GameDevelopers = new Collection<Developer>() { d2, d3 }
@@ -186,8 +203,8 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/3.jpg",
-                GameCategories = new Collection<Category>() { c5 , c3},
+                Pegi = p3,
+                GameCategories = new Collection<Category>() { c5, c3 },
                 Photo = "/Content/images/Games/overcooked.jpg",
                 GameDevelopers = new Collection<Developer>() { d1, d2 }
 
@@ -201,8 +218,8 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/18.jpg",
-                GameCategories = new Collection<Category>() { c8 },
+                Pegi = p18,
+                GameCategories = new Collection<Category>() { c8 ,c6},
                 Photo = "/Content/images/Games/UntilDawn.png",
                 GameDevelopers = new Collection<Developer>() { d4, d1 }
 
@@ -216,8 +233,8 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/18.jpg",
-                GameCategories = new Collection<Category>() { c8 },
+                Pegi = p18,
+                GameCategories = new Collection<Category>() { c8,c6 },
                 Photo = "/Content/images/Games/Outlast.jpg",
                 GameDevelopers = new Collection<Developer>() { d3, d4 }
             };
@@ -230,7 +247,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/16.jpg",
+                Pegi = p16,
                 GameCategories = new Collection<Category>() { c5 },
                 Photo = "/Content/images/Games/half-life.jpg",
                 GameDevelopers = new Collection<Developer>() { d1, d2 }
@@ -245,7 +262,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/16.jpg",
+                Pegi = p16,
                 GameCategories = new Collection<Category>() { c5 },
                 Photo = "/Content/images/Games/portal.jpg",
                 GameDevelopers = new Collection<Developer>() { d4 }
@@ -259,8 +276,8 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/18.jpg",
-                GameCategories = new Collection<Category>() { c8 },
+                Pegi = p18,
+                GameCategories = new Collection<Category>() { c8 , c6},
                 Photo = "/Content/images/Games/left4dead.jpg",
                 GameDevelopers = new Collection<Developer>() { d1, d2 }
             };
@@ -272,7 +289,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/12.jpg",
+                Pegi = p12,
                 GameCategories = new Collection<Category>() { c7 },
                 Photo = "/Content/images/Games/civilization.jpg",
                 GameDevelopers = new Collection<Developer>() { d1, d4 }
@@ -285,8 +302,8 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/18.jpg",
-                GameCategories = new Collection<Category>() { c7 },
+                Pegi = p12,
+                GameCategories = new Collection<Category>() { c7,c6 },
                 Photo = "/Content/images/Games/Assassins.jpg",
                 GameDevelopers = new Collection<Developer>() { d3 }
             };
@@ -298,7 +315,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/16.jpg",
+                Pegi = p16,
                 GameCategories = new Collection<Category>() { c6 },
                 Photo = "/Content/images/Games/fable.jpg",
                 GameDevelopers = new Collection<Developer>() { d4 }
@@ -311,7 +328,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/7.jpg",
+                Pegi = p7,
                 GameCategories = new Collection<Category>() { c6 },
                 Photo = "/Content/images/Games/Kbyte.jpg",
                 GameDevelopers = new Collection<Developer>() { d4 }
@@ -325,7 +342,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/7.jpg",
+                Pegi = p7,
                 GameCategories = new Collection<Category>() { c4 },
                 Photo = "/Content/images/Games/ToastTime.jpg",
                 GameDevelopers = new Collection<Developer>() { d2 }
@@ -338,7 +355,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/12.jpg",
+                Pegi = p12,
                 GameCategories = new Collection<Category>() { c4 },
                 Photo = "/Content/images/Games/WolfQuest.jpg",
                 GameDevelopers = new Collection<Developer>() { d2 }
@@ -351,7 +368,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/7.jpg",
+                Pegi = p7,
                 GameCategories = new Collection<Category>() { c4 },
                 Photo = "/Content/images/Games/MathFun.jpg",
                 GameDevelopers = new Collection<Developer>() { d2 }
@@ -365,7 +382,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/12.jpg",
+                Pegi = p12,
                 GameCategories = new Collection<Category>() { c4 },
                 Photo = "/Content/images/Games/AirForte.jpg",
                 GameDevelopers = new Collection<Developer>() { d2 }
@@ -381,7 +398,7 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/16.jpg",
+                Pegi = p16,
                 GameCategories = new Collection<Category>() { c4 },
                 Photo = "/Content/images/Games/CanyonCapers.jpg",
                 GameDevelopers = new Collection<Developer>() { d2 }
@@ -395,24 +412,17 @@ namespace GroupProject.Database.Migrations
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = "/Content/images/Pegi/12.jpg",
+                Pegi = p12,
                 GameCategories = new Collection<Category>() { c4 },
                 Photo = "/Content/images/Games/MonsterHunterStories.jpg",
                 GameDevelopers = new Collection<Developer>() { d2 }
             };
 
-
-
-
-
-
-
-
             var games = new List<Game>() { g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22 };
             foreach (var game in games)
             {
                 context.Games.AddOrUpdate(c => c.Title, game);
-            } 
+            }
             #endregion
 
             context.SaveChanges();

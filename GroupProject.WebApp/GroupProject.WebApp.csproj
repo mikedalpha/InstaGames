@@ -226,6 +226,7 @@
     <Compile Include="Models\AccountViewModels\ExternalLoginListViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ForgotViewModel.cs" />
     <Compile Include="Models\AccountViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\GameViewModels\SinglePlayerViewModel.cs" />
     <Compile Include="Models\HomeViewModel\ContactViewModel.cs" />
     <Compile Include="Models\HomeViewModel\IndexViewModel.cs" />
     <Compile Include="Models\HomeViewModel\PricingPlanViewModel.cs" />
@@ -561,6 +562,9 @@
     <Content Include="Views\Game\MultiPlayerGames.cshtml" />
     <Content Include="Views\Manage\GetExternalUserData.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Game\SinglePlayerPartials\Slider.cshtml" />
+    <Content Include="Views\Game\SinglePlayerPartials\GamesForChildren.cshtml" />
+    <Content Include="Views\Game\SinglePlayerPartials\BestActionGames.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,7 +24,15 @@ namespace GroupProject.Database.EntitiesConfiguration
 
             Property(g => g.IsEarlyAccess)
                 .IsOptional();
-            
+
+
+
+            //Game Pegi One to Many relation
+            HasRequired(g => g.Pegi)
+                .WithMany(p => p.Games)
+                .Map(m=>m.MapKey("PegiId"))
+                .WillCascadeOnDelete(false);
+
             //Game-Category many to many relation
             HasMany(g => g.GameCategories)
                  .WithMany(c => c.CategoryGames)

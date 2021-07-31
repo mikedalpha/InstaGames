@@ -53,8 +53,13 @@ namespace GroupProject.WebApp.Controllers
         public async Task<ActionResult> Index()
         {
             var games = await unitOfWork.Games.GetAllAsync();
+            if (games == null) return RedirectToAction("InternalServerError", "Error");
 
-            IndexViewModel vm = new IndexViewModel(games.ToList());
+            var id = new Random().Next(1,5);
+            var randomGame = await unitOfWork.Games.FindByIdAsync(id);
+            if (randomGame == null) return RedirectToAction("InternalServerError", "Error");
+
+            IndexViewModel vm = new IndexViewModel(games.ToList(),randomGame);
 
             return View(vm);
         }
