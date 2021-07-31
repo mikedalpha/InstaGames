@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -145,6 +144,7 @@ namespace GroupProject.WebApp.Controllers.WebApi
         {
             if (disposing)
             {
+                unitOfWork.Dispose();
                 db.Dispose();
             }
             base.Dispose(disposing);

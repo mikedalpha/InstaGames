@@ -60,19 +60,6 @@
                 .PrimaryKey(t => t.PegiId);
             
             CreateTable(
-                "dbo.Messages",
-                c => new
-                    {
-                        MessageId = c.Int(nullable: false, identity: true),
-                        Text = c.String(nullable: false),
-                        SubmitDate = c.DateTime(nullable: false, storeType: "date"),
-                        CreatorId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => t.MessageId)
-                .ForeignKey("dbo.AspNetUsers", t => t.CreatorId, cascadeDelete: true)
-                .Index(t => t.CreatorId);
-            
-            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
@@ -127,6 +114,19 @@
                 .Index(t => t.UserId);
             
             CreateTable(
+                "dbo.Messages",
+                c => new
+                    {
+                        MessageId = c.Int(nullable: false, identity: true),
+                        Text = c.String(nullable: false),
+                        SubmitDate = c.DateTime(nullable: false, storeType: "date"),
+                        CreatorId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.MessageId)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatorId, cascadeDelete: true)
+                .Index(t => t.CreatorId);
+            
+            CreateTable(
                 "dbo.AspNetUserRoles",
                 c => new
                     {
@@ -175,13 +175,28 @@
                 .Index(t => t.GameId)
                 .Index(t => t.DeveloperId);
             
+            CreateTable(
+                "dbo.SubscriberGames",
+                c => new
+                    {
+                        GameId = c.Int(nullable: false),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.GameId, t.UserId })
+                .ForeignKey("dbo.Games", t => t.GameId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.GameId)
+                .Index(t => t.UserId);
+            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Messages", "CreatorId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.SubscriberGames", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.SubscriberGames", "GameId", "dbo.Games");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Messages", "CreatorId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Games", "PegiId", "dbo.Pegi");
@@ -189,6 +204,8 @@
             DropForeignKey("dbo.GamesDevelopers", "GameId", "dbo.Games");
             DropForeignKey("dbo.GamesCategories", "CategoryId", "dbo.Categories");
             DropForeignKey("dbo.GamesCategories", "GameId", "dbo.Games");
+            DropIndex("dbo.SubscriberGames", new[] { "UserId" });
+            DropIndex("dbo.SubscriberGames", new[] { "GameId" });
             DropIndex("dbo.GamesDevelopers", new[] { "DeveloperId" });
             DropIndex("dbo.GamesDevelopers", new[] { "GameId" });
             DropIndex("dbo.GamesCategories", new[] { "CategoryId" });
@@ -196,19 +213,20 @@
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.Messages", new[] { "CreatorId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Messages", new[] { "CreatorId" });
             DropIndex("dbo.Games", new[] { "PegiId" });
+            DropTable("dbo.SubscriberGames");
             DropTable("dbo.GamesDevelopers");
             DropTable("dbo.GamesCategories");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.Messages");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.Messages");
             DropTable("dbo.Pegi");
             DropTable("dbo.Developers");
             DropTable("dbo.Games");

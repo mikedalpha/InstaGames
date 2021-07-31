@@ -1534,9 +1534,11 @@ li.slide-item .block-description .parallax-ratting span {
     height: 100%;
     padding: 100px 0;
     position: relative;
-    background: url(../images/Games/ProphetImage.png)center center;
+
+    /*I Wrote them inline */
+    /*  background: url(../images/Games/ProphetImage.png)center center;
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: fixed;*/
 }
 .parallax-window::after { position: absolute; content: ""; top: 0; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.8); }
 .parallaxt-details { z-index: 9; position: relative; }
@@ -1545,9 +1547,11 @@ li.slide-item .block-description .parallax-ratting span {
     height: 100%;
     padding: 100px 0;
     position: relative;
-    background: url(../images/Games/ProphetImage.png)center center;
+
+    /*I Wrote them inline */
+    /*background: url(../images/Games/ProphetImage.png)center center;
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: fixed;*/
 }
 
     .parallax-window::after {

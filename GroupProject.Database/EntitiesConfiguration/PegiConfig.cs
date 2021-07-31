@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity.ModelConfiguration;
-using System.Threading;
 using GroupProject.Entities.Domain_Models;
 
 namespace GroupProject.Database.EntitiesConfiguration
@@ -8,7 +7,6 @@ namespace GroupProject.Database.EntitiesConfiguration
     {
         internal PegiConfig()
         {
-
             ToTable("Pegi");
 
             Property(p => p.PegiAge)

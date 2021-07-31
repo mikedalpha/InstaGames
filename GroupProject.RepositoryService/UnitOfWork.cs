@@ -10,6 +10,8 @@ namespace GroupProject.RepositoryService
         public GameRepos Games { get; }
         public DeveloperRepos Developer { get; }
         public CategoryRepos Category { get; }
+        public MessageRepos Message { get; }
+        public PegiRepos Pegi { get; }
 
         public UnitOfWork()
         {
@@ -17,7 +19,8 @@ namespace GroupProject.RepositoryService
             Games = new GameRepos(context);
             Developer = new DeveloperRepos(context);
             Category = new CategoryRepos(context);
-            
+            Message = new MessageRepos(context);
+            Pegi = new PegiRepos(context);
         }
 
         public void Save()

@@ -13,7 +13,7 @@ namespace GroupProject.Database.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202107310921319_Initial"; }
+            get { return "202107312109496_Initial"; }
         }
         
         string IMigrationMetadata.Source

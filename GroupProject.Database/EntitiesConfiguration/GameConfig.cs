@@ -53,6 +53,16 @@ namespace GroupProject.Database.EntitiesConfiguration
                      map.MapRightKey("DeveloperId");
                  });
 
+            //Game-User many to many
+            HasMany(u=>u.Subscribers)
+                .WithMany(g=>g.UserList)
+                .Map(map =>
+                {
+                    map.ToTable("SubscriberGames");
+                    map.MapLeftKey("GameId");
+                    map.MapRightKey("UserId");
+                });
+
         }
     }
 }
