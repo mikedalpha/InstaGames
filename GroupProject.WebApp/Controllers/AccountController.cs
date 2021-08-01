@@ -191,7 +191,7 @@ namespace GroupProject.WebApp.Controllers
 
             AddErrors(result);
 
-            return View(model);
+            return RedirectToAction("Index","Home");
         }
 
 
