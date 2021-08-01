@@ -10,6 +10,7 @@ namespace GroupProject.WebApp.Models.ManageViewModels
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }
+        public bool HasConfirmedEmail { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }
 
         [Required(ErrorMessage = "This field is required")]

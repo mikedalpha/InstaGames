@@ -37,6 +37,15 @@ namespace GroupProject.WebApp.Models.GameViewModels
                 return _allGames.Where(g => g.IsReleased && g.GameDevelopers.Any(d => d.IsInstaGamesDev))
                     .OrderByDescending(g => g.Rating).ToList();
             }
+        }  
+        
+        public IEnumerable<Game> GamesReleased2021
+        {
+            get
+            {
+                return _allGames.Where(g => g.IsReleased && g.ReleaseDate.Year == 2021).OrderByDescending(g => g.Rating)
+                    .ToList();
+            }
         }
 
         public IEnumerable<Category> Categories

@@ -563,9 +563,9 @@
     <Content Include="Views\Game\SinglePlayerPartials\Slider.cshtml" />
     <Content Include="Views\Game\SinglePlayerPartials\GamesForChildren.cshtml" />
     <Content Include="Views\Game\SinglePlayerPartials\BestActionGames.cshtml" />
-    <Content Include="Views\Game\SinglePlayerPartials\DetailsViewModal.cshtml" />
-    <Content Include="Views\Home\IndexPartials\DetailsViewModal.cshtml" />
     <Content Include="Views\Game\SinglePlayerPartials\GamesWeRecommend.cshtml" />
+    <Content Include="Views\Shared\_DetailsViewModal.cshtml" />
+    <Content Include="Views\Game\SinglePlayerPartials\GamesReleased2021.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

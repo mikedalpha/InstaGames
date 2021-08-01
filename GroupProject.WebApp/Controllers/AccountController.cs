@@ -170,7 +170,6 @@ namespace GroupProject.WebApp.Controllers
                 ModelState.AddModelError("Email", @"This Email is already in use try a different one.");
                 ModelState.AddModelError("UserName", @"This Username is already in use try a different one.");
                 return View(model);
-
             }
 
             var user = new ApplicationUser
@@ -256,7 +255,7 @@ namespace GroupProject.WebApp.Controllers
         public ActionResult ResetPassword(string code)
         {
             if (code == null) return Redirect("~/Error/InternalServerError");
-            
+
             return View();
         }
 
@@ -385,6 +384,16 @@ namespace GroupProject.WebApp.Controllers
 
             if (ModelState.IsValid)
             {
+                var isEmailAlreadyExists = UserManager.Users.Any(x => x.Email == model.Email);
+                var isUserNameAlreadyExists = UserManager.Users.Any(x => x.UserName == model.UserName);
+                if (isEmailAlreadyExists || isUserNameAlreadyExists)
+                {
+                    ModelState.AddModelError("Email", @"This Email is already in use try a different one.");
+                    ModelState.AddModelError("UserName", @"This Username is already in use try a different one.");
+                    return View(model);
+
+                }
+
                 // Get the information about the user from the external login provider
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
                 if (info == null)
@@ -414,21 +423,12 @@ namespace GroupProject.WebApp.Controllers
                     return RedirectToLocal(returnUrl);
                 }
             }
-            var isEmailAlreadyExists = UserManager.Users.Any(x => x.Email == model.Email);
-            var isUserNameAlreadyExists = UserManager.Users.Any(x => x.UserName == model.UserName);
-            if (isEmailAlreadyExists || isUserNameAlreadyExists)
-            {
-                ModelState.AddModelError("Email", @"This Email is already in use try a different one.");
-                ModelState.AddModelError("UserName", @"This Username is already in use try a different one.");
-                return View(model);
-
-            }
 
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
 
-       
+
 
 
         // POST: /Account/LogOff
@@ -451,6 +451,20 @@ namespace GroupProject.WebApp.Controllers
         //Send Email
         private async Task<ActionResult> SendEmail(ApplicationUser user)
         {
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
+                protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(user.Id, "Confirm your account", callbackUrl);
+
+            return View("PreConfirmEmail");
+        }
+
+        public async Task<ActionResult> SendEmail(string userId)
+        {
+            var user = await UserManager.FindByIdAsync(userId);
+
+            if (user == null) return RedirectToAction("InternalServerError", "Error");
+
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
             var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
                 protocol: Request.Url.Scheme);
