@@ -33,5 +33,7 @@ namespace GroupProject.Database
             modelBuilder.Configurations.Add(new MessageConfig());
             modelBuilder.Configurations.Add(new PegiConfig());
         }
+
+        public System.Data.Entity.DbSet<GroupProject.Entities.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
