@@ -27,6 +27,7 @@ namespace GroupProject.WebApp.Controllers
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
+            iLog = Log.GetInstance;
             UserManager = userManager;
             SignInManager = signInManager;
         }
@@ -140,9 +141,10 @@ namespace GroupProject.WebApp.Controllers
             user.SubscribePlan = model.SubscribePlan; 
             await UserManager.UpdateAsync(user);
 
-            return user.PasswordHash == null || user.FirstName == null || user.LastName == null
-                ? RedirectToAction("GetExternalUserData", model)
-                : RedirectToAction("PaymentWithPaypal", "PayPal", user);
+            if (user.PasswordHash == null || user.FirstName == null || user.LastName == null)
+                return RedirectToAction("GetExternalUserData", model);
+            else
+                return RedirectToAction("PaymentWithPaypal", "PayPal", user);
         }
 
         //GET

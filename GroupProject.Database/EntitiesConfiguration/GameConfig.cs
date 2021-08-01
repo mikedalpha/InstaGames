@@ -54,8 +54,8 @@ namespace GroupProject.Database.EntitiesConfiguration
                  });
 
             //Game-User many to many
-            HasMany(u=>u.Subscribers)
-                .WithMany(g=>g.UserList)
+            HasMany(u => u.Subscribers)
+                .WithMany(g => g.UserList)
                 .Map(map =>
                 {
                     map.ToTable("SubscriberGames");
