@@ -325,9 +325,11 @@
     <Content Include="Content\images\texure.jpg" />
     <Content Include="Content\images\Games\zombie.jpg" />
     <Content Include="Content\images\user\user.jpg" />
+    <Content Include="Content\video\Assassins-Creed.mp4" />
     <Content Include="Content\video\Background-Video.mp4" />
     <Content Include="Content\video\Background-Video-1.mp4" />
     <Content Include="Content\video\SignInVideo.mp4" />
+    <Content Include="Content\video\starships-game.mp4" />
     <Content Include="Content\video\Zombie-Trailer-Mini.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

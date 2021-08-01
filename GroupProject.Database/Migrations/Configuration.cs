@@ -102,7 +102,6 @@ namespace GroupProject.Database.Migrations
 
             #endregion
 
-
             #region Seed Games
             var g1 = new Game()
             {
@@ -295,14 +294,15 @@ namespace GroupProject.Database.Migrations
             var g14 = new Game()
             {
                 Title = "Assassin’s Creed",
-                ReleaseDate = new DateTime(2021, 9, 12),
-                Description = "Pirates rule the Caribbean and have established their own lawless Republic where corruption, greediness and cruelty are commonplace.Among these outlaws is a brash young captain named Edward Kenway.",
+                ReleaseDate = new DateTime(2014, 9, 12),
+                Description = "The French Revolution was led by the people. They stood together and fought the oppression. This year, and for the 1st time in the Assassin's Creed® franchise, team up with friends to fight and destroy the symbols of oppression.",
                 Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
-                Pegi = p12,
-                GameCategories = new Collection<Category>() { c7,c6 },
+                Pegi = p18,
                 Photo = "/Content/images/Games/Assassins.jpg",
+                Trailer = "/Content/video/Assassins-Creed.mp4",
+                GameCategories = new Collection<Category>() {c5, c7,c6 },
                 GameDevelopers = new Collection<Developer>() { d3 }
             };
             var g15 = new Game()
