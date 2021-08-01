@@ -18,6 +18,8 @@ namespace GroupProject.WebApp.Controllers
         private ILog iLog;
         private ApplicationUserManager _userManager;
 
+        public PayPalController() { }
+
         public PayPalController(ApplicationUserManager userManager)
         {
             iLog = Log.GetInstance;

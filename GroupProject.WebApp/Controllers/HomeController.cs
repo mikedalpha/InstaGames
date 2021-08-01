@@ -28,6 +28,7 @@ namespace GroupProject.WebApp.Controllers
 
         public HomeController(ApplicationUserManager userManager)
         {
+            iLog = Log.GetInstance;
             _userManager = userManager;
         }
 
