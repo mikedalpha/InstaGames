@@ -85,6 +85,7 @@ namespace GroupProject.WebApp.Controllers
                 Email = user.Email,
                 DateOfBirth = user.DateOfBirth,
                 HasPassword = HasPassword(user),
+                HasConfirmedEmail = user.EmailConfirmed,
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),

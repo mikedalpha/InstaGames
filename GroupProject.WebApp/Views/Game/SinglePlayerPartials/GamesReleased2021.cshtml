@@ -1,0 +1,85 @@
+﻿@model GroupProject.WebApp.Models.GameViewModels.SinglePlayerViewModel
+
+<section id="iq-suggestede">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 overflow-hidden">
+                <div class="iq-main-header d-flex align-items-center justify-content-between">
+                    <h4 class="main-title">Released in 2021</h4>
+                </div>
+                <div class="suggestede-contens">
+                    <ul class="list-inline favorites-slider row p-0 mb-0">
+                        @foreach (var game in Model.GamesReleased2021)
+                        {
+                            <li class="slide-item">
+                                <div class="block-images position-relative">
+                                    @if (string.IsNullOrEmpty(game.Trailer))
+                                    {
+                                        <div class="img-box">
+                                            <img src="@game.Photo" class="img-fluid" alt="">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="video-wrap">
+                                            <div id="video">
+                                                <video id="bgvid" autoplay loop muted playsinline>
+                                                    <source src="@game.Trailer" type="video/mp4" />
+                                                </video>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="block-description">
+                                        <h6 class="iq-title"><a href="#" class="detailsView" data-id="@game.GameId">@game.Title</a></h6>
+                                        <div class="movie-time d-flex align-items-center my-2">
+                                            <img src="@game.Pegi.PegiPhoto" alt="Alternate Text" class="p-2 " width="50" />
+                                            <span class="text-white">@game.Tag.ToString() &nbsp;</span>
+                                        </div>
+                                        <div class="hover-buttons">
+                                            @if (game.IsReleased || game.IsEarlyAccess.HasValue)
+                                            {
+                                                <a href="~/game/play/@Model.SelectedGame.GameId" class="btn btn-hover">
+                                                    <i class="fa fa-play mr-2"
+                                                       aria-hidden="true"></i>Play Now
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a href="#" data-id="@game.GameId" class="detailsView btn btn-hover">
+                                                    <i class="fa fa-info mr-2"
+                                                       aria-hidden="true"></i>More info
+                                                </a>
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <div class="block-social-info">
+                                        <ul class="list-inline p-0 m-0 music-play-lists">
+                                            <li class="share">
+                                                <span><i class="ri-share-fill"></i></span>
+                                                <div class="share-box">
+                                                    <div class="d-flex align-items-center">
+                                                        <a href="https://www.facebook.com/sharer?u=https://iqonic.design/wp-themes/streamit_wp/movie/shadow/" target="_blank" rel="noopener noreferrer" class="share-ico" tabindex="0"><i class="ri-facebook-fill"></i></a>
+                                                        <a href="https://twitter.com/intent/tweet?text=Currentlyreading" target="_blank" rel="noopener noreferrer" class="share-ico" tabindex="0"><i class="ri-twitter-fill"></i></a>
+                                                        <a href="#" data-link="https://iqonic.design/wp-themes/streamit_wp/movie/shadow/" class="share-ico iq-copy-link" tabindex="0"><i class="ri-links-fill"></i></a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span><i class="ri-heart-fill"></i></span>
+                                                <span class="count-box">19+</span>
+                                            </li>
+                                            <li><span><i class="ri-add-line"></i></span></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

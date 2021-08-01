@@ -1,4 +1,5 @@
 ﻿@using GroupProject.WebApp.Models.ManageViewModels
+@using Microsoft.AspNet.Identity
 @model GroupProject.WebApp.Models.ManageViewModels.IndexViewModel
 @{
     ViewBag.Title = "Manage -InstaGames";
@@ -10,14 +11,13 @@
     </div>
 </div>
 <!-- loader END -->
-
 <!-- MainContent -->
 <section class="m-profile setting-wrapper">
     <div class="container">
         <h4 class="main-title mb-4">Account Setting</h4>
         <div class="row">
-           
-            @Html.Partial("UploadPhoto", new UploadPhotoViewModel(){Username = Model.Username, RegistrationDate = Model.RegistrationDate, Photo = Model.Photo})
+
+            @Html.Partial("UploadPhoto", new UploadPhotoViewModel() { Username = Model.Username, RegistrationDate = Model.RegistrationDate, Photo = Model.Photo })
 
             <div class="col-lg-8">
                 <div class="sign-user_card">
@@ -29,19 +29,29 @@
                         </div>
                     </div>
 
-                    <div class="row align-items-center justify-content-between mb-3">
+                    <div class="row justify-content-between mb-3">
                         <div class="col-md-8">
                             <span class="text-light font-size-13">Email</span>
                             <p class="mb-0">@Model.Email</p>
                         </div>
+                        @if (!Model.HasConfirmedEmail)
+                        {
+                            <div class="col-md-4 text-md-right text-left">
+                                @Html.ActionLink("Confirm Email", "SendEmail", "Account",new {UserId =User.Identity.GetUserId()}, new { @class = "text-primary" })
+                            </div>
+                        }
+
                     </div>
-                    
+
                     @if (!Model.HasPassword)
                     {
                         <div class="row align-items-center justify-content-between mb-3">
                             <div class="col-md-8">
                                 <span class="text-light font-size-13">Password</span>
-                                <p> @Html.ActionLink("Set your password", "SetPassword", "Manage", new { @class = "text-white pull-left" })</p>
+                                <p> Set your password so you can log directly to our services!</p>
+                            </div>
+                            <div class="col-md-4 text-md-right text-left">
+                                <p> @Html.ActionLink("Set your password", "SetPassword", "Manage", null, new { @class = "text-primary" })</p>
                             </div>
                         </div>
                     }
@@ -51,6 +61,9 @@
                             <div class="col-md-8">
                                 <span class="text-light font-size-13">Password</span>
                                 <p class="mb-0">**********</p>
+                            </div>
+                            <div class="col-md-4 text-md-right text-left">
+                                @Html.ActionLink("Change your password", "ChangePassword", "Manage", null, new { @class = "text-primary" })
                             </div>
                         </div>
                     }
@@ -75,26 +88,16 @@
                             <p class="mb-0">@Model.Age</p>
                         </div>
                     </div>
-                    
-                    @if (!Model.HasPassword)
-                    {
+
                         <div class="row justify-content-between mb-3">
                             <div class="col-md-12 text-md-right text-left">
-                                @Html.ActionLink("Set your password", "SetPassword", "Manage", new { @class = "text-primary pull-left" })
-                                <a href="#" class="btn btn-outline-primary" onclick="EditModal()">Edit Profile</a>
+                              
+                                <a href="#" class="text-primary" onclick="EditModal()">Edit Profile</a>
                             </div>
                         </div>
-                    }
-                    else
-                    {
-                        <div class="row justify-content-between mb-3">
-                            <div class="col-md-12 text-md-right text-left">
-                                @Html.ActionLink("Change your password", "ChangePassword", "Manage", new { @class = "text-primary pull-left" })
-                                <a href="#" class="btn btn-outline-primary" onclick="EditModal()">Edit Profile</a>
-                            </div>
-                        </div>
-                    }
-                   
+                 
+                  
+
 
                     @if (Model.ExpireDate != null)
                     {
@@ -157,7 +160,7 @@
 
                         <div class="row justify-content-between mb-3">
                             <div class="col-md-8">
-                                <p class="text-primary">Don't Waste time &nbsp;</p>
+                                <p class="text-white">Don't Waste time &nbsp;</p>
                                 <p>Subscribe now to get full access to our games!</p>
                             </div>
                             <div class="col-md-4 text-md-right text-left">
