@@ -1,4 +1,6 @@
-﻿using GroupProject.Database;
+﻿using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using GroupProject.Database;
 using GroupProject.RepositoryService.Repositories;
 
 namespace GroupProject.RepositoryService
@@ -26,11 +28,14 @@ namespace GroupProject.RepositoryService
         public void Save()
         {
             context.SaveChanges();
-        } 
-        public void SaveAsync()
-        {
-            context.SaveChanges();
         }
+
+        public Task<int> SaveAsync()
+        {
+            return context.SaveChangesAsync();
+        }
+
+
         public void Dispose()
         {
             context.Dispose();

@@ -26,7 +26,6 @@ namespace GroupProject.Database.EntitiesConfiguration
                 .IsOptional();
 
 
-
             //Game Pegi One to Many relation
              HasRequired(g => g.Pegi)
                 .WithMany(p => p.Games)
