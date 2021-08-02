@@ -32,6 +32,26 @@ namespace GroupProject.RepositoryService.Repositories
         public async Task<TEntity> FindByIdAsync(int? id)
         {
             return await Context.Set<TEntity>().FindAsync(id);
+        }  
+        
+        public void Attach(TEntity entity)
+        {
+            Context.Set<TEntity>().Attach(entity);
+        }
+
+        public void Create(TEntity entity)
+        {
+            Context.Entry(entity).State = EntityState.Added;
+        }
+
+        public void Edit(TEntity entity)
+        {
+            Context.Entry(entity).State = EntityState.Modified;
+        }
+
+        public void Remove(TEntity entity)
+        {
+            Context.Entry(entity).State = EntityState.Deleted;
         }
     }
 }

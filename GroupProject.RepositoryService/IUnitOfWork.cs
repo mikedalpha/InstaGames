@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using GroupProject.RepositoryService.Repositories;
 
 namespace GroupProject.RepositoryService
@@ -12,5 +13,7 @@ namespace GroupProject.RepositoryService
         PegiRepos Pegi { get; }
 
         void Save();
+
+        Task<int> SaveAsync();
     }
 }

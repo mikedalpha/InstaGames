@@ -7,14 +7,14 @@ $('#MainSearchMobile').on('input', function () {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: "https://localhost:44384/api/Games",
+            url: "https://localhost:44369/api/Game",
             dataType: "json"
         }).done((data) => StartSearch(data, searchInput)).fail((error) => alert(error));
     });
 
 function Error(error) {
     console.log(error);
-    window.location.replace("https://localhost:44384/Error/PageNotFound/");
+    window.location.replace("https://localhost:44369/Error/PageNotFound/");
 }
 
 
@@ -26,7 +26,7 @@ $('#MainSearch').on('input',
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: "https://localhost:44384/api/Games",
+            url: "https://localhost:44369/api/Game",
             dataType: "json"
         }).done((data) => StartSearch(data, searchInput));
 

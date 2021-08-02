@@ -7,7 +7,7 @@ jQuery(".detailsView").click(function (e) {
 
 //Find Game
 function FindGame(id) {
-    let url = "https://localhost:44384/api/games/?";
+    let url = "https://localhost:44369/api/game/?";
     $.ajax({
         type: "Get",
         url: url,
@@ -102,7 +102,7 @@ function ModalBodyTemplating(game) {
     //More Like This template
     $.ajax({
         type: "GET",
-        url: "https://localhost:44384/api/games/",
+        url: "https://localhost:44369/api/game/",
         dataType: "json",
         success: function (response) {
             $("#MoreLikeThis").empty();
