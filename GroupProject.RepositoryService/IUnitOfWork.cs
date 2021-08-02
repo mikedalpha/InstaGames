@@ -11,6 +11,7 @@ namespace GroupProject.RepositoryService
         MessageRepos Message { get; }
         PegiRepos Pegi { get; }
 
-        void Save();
+        void Save(); 
+        void SaveAsync();
     }
 }

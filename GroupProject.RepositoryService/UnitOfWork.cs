@@ -26,6 +26,10 @@ namespace GroupProject.RepositoryService
         public void Save()
         {
             context.SaveChanges();
+        } 
+        public void SaveAsync()
+        {
+            context.SaveChanges();
         }
         public void Dispose()
         {

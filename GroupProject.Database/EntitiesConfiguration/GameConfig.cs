@@ -28,7 +28,7 @@ namespace GroupProject.Database.EntitiesConfiguration
 
 
             //Game Pegi One to Many relation
-            HasRequired(g => g.Pegi)
+             HasRequired(g => g.Pegi)
                 .WithMany(p => p.Games)
                 .Map(m=>m.MapKey("PegiId"))
                 .WillCascadeOnDelete(false);

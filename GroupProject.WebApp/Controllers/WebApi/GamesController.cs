@@ -78,15 +78,10 @@ namespace GroupProject.WebApp.Controllers.WebApi
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutGame(int id, Game game)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            
 
-            if (id != game.GameId)
-            {
-                return BadRequest();
-            }
+            if (id != game.GameId) return BadRequest(); 
 
             db.Entry(game).State = EntityState.Modified;
 
