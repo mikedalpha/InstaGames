@@ -122,16 +122,17 @@ namespace GroupProject.Database.Migrations
 
             var g2 = new Game()
             {
-                Title = "Number Wizard",
-                ReleaseDate = new DateTime(2021, 3, 15),
-                Description = "It is a simple number guessing game created in Unity",
-                Rating = 4,
+                Title = "Space Wars",
+                ReleaseDate = new DateTime(2021, 8, 5),
+                Description = "Explore different planets! Space Wars is a spaceship battle action game , shoot enemy spaceships to increase your score , try to survive and advance to the next level.",
+                Rating = 5,
                 Tag = Tag.Singleplayer,
                 IsReleased = true,
                 Pegi = p3,
-                Photo = "/Content/images/Games/NumberWizzard.png",
-                GameUrl = "https://i.simmer.io/@InstaGames/guessing-game",
-                GameCategories = new Collection<Category>() { c3, c4 },
+                Trailer = "/Content/video/starships-game.mp4",
+                Photo = "/Content/images/Games/Space-Wars.png",
+                GameUrl = "https://i.simmer.io/@InstaGames/space-wars",
+                GameCategories = new Collection<Category>() { c5, c7 },
                 GameDevelopers = new Collection<Developer>() { d1 }
             };
 
@@ -183,17 +184,19 @@ namespace GroupProject.Database.Migrations
 
             var g6 = new Game()
             {
-                Title = "Penarium",
-                ReleaseDate = new DateTime(2022, 6, 7),
-                Description = "Penarium is a frantic 2D arena arcade game where you take on the role of Willy, trapped in a sinister circus show. Run, jump and avoid an array of killer death-traps while being cheered on by a sadistic crowd that’s out for blood.",
-                Rating = 0,
+                Title = "Number Wizard",
+                ReleaseDate = new DateTime(2021, 3, 15),
+                Description = "It is a simple number guessing game created in Unity",
+                Rating = 4,
                 Tag = Tag.Singleplayer,
-                IsReleased = false,
+                IsReleased = true,
                 Pegi = p3,
-                GameCategories = new Collection<Category>() { c3, c5 },
-                Photo = "/Content/images/Games/Penarium.jpg",
-                GameDevelopers = new Collection<Developer>() { d2, d3 }
+                Photo = "/Content/images/Games/NumberWizzard.png",
+                GameUrl = "https://i.simmer.io/@InstaGames/guessing-game",
+                GameCategories = new Collection<Category>() { c3, c4 },
+                GameDevelopers = new Collection<Developer>() { d1 }
             };
+
             var g7 = new Game()
             {
                 Title = "Overcooked",
@@ -217,7 +220,7 @@ namespace GroupProject.Database.Migrations
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p18,
-                GameCategories = new Collection<Category>() { c8 ,c6},
+                GameCategories = new Collection<Category>() { c8, c6 },
                 Photo = "/Content/images/Games/UntilDawn.png",
                 GameDevelopers = new Collection<Developer>() { d4, d1 }
             };
@@ -231,7 +234,7 @@ namespace GroupProject.Database.Migrations
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p18,
-                GameCategories = new Collection<Category>() { c8,c6 },
+                GameCategories = new Collection<Category>() { c8, c6 },
                 Photo = "/Content/images/Games/Outlast.jpg",
                 GameDevelopers = new Collection<Developer>() { d3, d4 }
             };
@@ -274,7 +277,7 @@ namespace GroupProject.Database.Migrations
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p18,
-                GameCategories = new Collection<Category>() { c8 , c6},
+                GameCategories = new Collection<Category>() { c8, c6 },
                 Photo = "/Content/images/Games/left4dead.jpg",
                 GameDevelopers = new Collection<Developer>() { d1 }
             };
@@ -302,7 +305,7 @@ namespace GroupProject.Database.Migrations
                 Pegi = p18,
                 Photo = "/Content/images/Games/Assassins.jpg",
                 Trailer = "/Content/video/Assassins-Creed.mp4",
-                GameCategories = new Collection<Category>() {c5, c7,c6 },
+                GameCategories = new Collection<Category>() { c5, c7, c6 },
                 GameDevelopers = new Collection<Developer>() { d3 }
             };
             var g15 = new Game()
@@ -386,8 +389,6 @@ namespace GroupProject.Database.Migrations
                 GameDevelopers = new Collection<Developer>() { d2 }
             };
 
-
-
             var g21 = new Game()
             {
                 Title = "Canyon Capers",
@@ -416,7 +417,21 @@ namespace GroupProject.Database.Migrations
                 GameDevelopers = new Collection<Developer>() { d2 }
             };
 
-            var games = new List<Game>() { g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22 };
+            var g23 = new Game()
+            {
+                Title = "Penarium",
+                ReleaseDate = new DateTime(2022, 6, 7),
+                Description = "Penarium is a frantic 2D arena arcade game where you take on the role of Willy, trapped in a sinister circus show. Run, jump and avoid an array of killer death-traps while being cheered on by a sadistic crowd that’s out for blood.",
+                Rating = 0,
+                Tag = Tag.Singleplayer,
+                IsReleased = false,
+                Pegi = p3,
+                GameCategories = new Collection<Category>() { c3, c5 },
+                Photo = "/Content/images/Games/Penarium.jpg",
+                GameDevelopers = new Collection<Developer>() { d2, d3 }
+            };
+
+            var games = new List<Game>() { g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23 };
             foreach (var game in games)
             {
                 context.Games.AddOrUpdate(c => c.Title, game);

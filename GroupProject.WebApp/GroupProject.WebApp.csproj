@@ -274,6 +274,7 @@
     <Content Include="Content\images\about-us\unityWhite.svg" />
     <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\images\footer\PayPal.png" />
+    <Content Include="Content\images\Games\Space-Wars.png" />
     <Content Include="Content\images\login\gamesSignIn.jpg" />
     <Content Include="Content\images\Games\AirForte.jpg" />
     <Content Include="Content\images\Games\Assassins.jpg" />
