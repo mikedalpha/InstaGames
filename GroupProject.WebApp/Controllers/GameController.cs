@@ -34,8 +34,10 @@ namespace GroupProject.WebApp.Controllers
             var games = await unitOfWork.Games.GetAllAsync();
             if (games == null) return RedirectToAction("InternalServerError", "Error");
 
-            var id = new Random().Next(1,5);
+           
+            var id = new Random().Next(1,6);
             var game = await unitOfWork.Games.FindByIdAsync(id);
+
             if (game == null) return RedirectToAction("InternalServerError", "Error");
 
             var categories = await unitOfWork.Category.GetAllAsync();

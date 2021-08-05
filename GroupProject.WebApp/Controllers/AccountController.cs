@@ -477,7 +477,7 @@ namespace GroupProject.WebApp.Controllers
         {
             var user = await UserManager.FindByIdAsync(userId);
 
-            if (user.PhotoUrl != null)
+            if (!string.IsNullOrEmpty(user.PhotoUrl))
             {
                 return File(user.PhotoUrl, "image/jpg");
             }
