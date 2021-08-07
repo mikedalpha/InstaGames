@@ -22,8 +22,9 @@ using GroupProject.WebApi.Models.AccountViewModels;
 
 namespace GroupProject.WebApi.Controllers
 {
-    [EnableCors(origins: "https://localhost:44384", headers: "*", methods: "*")]
+   
     [RoutePrefix("api/Account")]
+    [EnableCors(origins: "https://localhost:44384", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";

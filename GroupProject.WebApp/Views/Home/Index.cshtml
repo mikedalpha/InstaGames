@@ -52,33 +52,30 @@
 <!-- MainContent End-->
 @section scripts{
     @Scripts.Render("~/bundles/DetailsModalScript")
-    
-<script>
 
-    var userId = "@HttpContext.Current.User.Identity.GetUserId()";
+    <script>
+
+        var userId = "@HttpContext.Current.User.Identity.GetUserId()";
 
         //modal for successfully add in list
-        jQuery('.addToList').click(function (e) {
+        jQuery('.addToList').click(function(e) {
             e.preventDefault();
             AddToList(userId, $(this).data('id'));
         });
 
 
         function AddToList(id, gameId) {
-            let url = "https://localhost:44369/api/Account/?";
+            let url = `https://localhost:44369/api/Account/?id=${id}&gameid=${gameId}`;
             $.ajax({
-                type: "Put",
+                type: "PUT",
                 url: url,
-                data: { "id": id, "gameId": gameId },
                 dataType: "json",
-                success: function (response) {
+                success: function(response) {
                     console.log(response);
-                   
                 }
             });
         }
 
-        
-</script>
+    </script>
 }
 
