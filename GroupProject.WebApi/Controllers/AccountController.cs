@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -21,7 +22,7 @@ using GroupProject.WebApi.Models.AccountViewModels;
 
 namespace GroupProject.WebApi.Controllers
 {
-
+    [EnableCors(origins: "https://localhost:44384", headers: "*", methods: "*")]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -354,7 +355,6 @@ namespace GroupProject.WebApi.Controllers
         // PUT: api/Account/5&5
         public async Task<IHttpActionResult> PutUserGames(string id, int gameId)
         {
-
             await UserManager.AttachUserList(id, gameId);
 
             return Ok("Success is successfully edited");

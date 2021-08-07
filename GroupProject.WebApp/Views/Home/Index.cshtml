@@ -1,4 +1,5 @@
-﻿@model GroupProject.WebApp.Models.HomeViewModel.IndexViewModel
+﻿@using Microsoft.AspNet.Identity;
+@model GroupProject.WebApp.Models.HomeViewModel.IndexViewModel
 <!-- loader Start -->
 <div id="loading">
     <div id="loading-center">
@@ -52,40 +53,32 @@
 @section scripts{
     @Scripts.Render("~/bundles/DetailsModalScript")
     
-    <script>
+<script>
+
+    var userId = "@HttpContext.Current.User.Identity.GetUserId()";
+
         //modal for successfully add in list
         jQuery('.addToList').click(function (e) {
             e.preventDefault();
-            $("#addedToListModal").modal('toggle');
-            AddToList($(this).data('id'));
+            AddToList(userId, $(this).data('id'));
         });
-        function AddToList(id) {
-            let url = "https://localhost:44384/api/games/?";
+
+
+        function AddToList(id, gameId) {
+            let url = "https://localhost:44369/api/Account/?";
             $.ajax({
-                type: "GET",
+                type: "Put",
                 url: url,
-                data: { "id": id },
+                data: { "id": id, "gameId": gameId },
                 dataType: "json",
                 success: function (response) {
-                    AddedToListModal(response)
+                    console.log(response);
+                   
                 }
             });
         }
-        function AddedToListModal(game) {
-            let addedToListTemplate = `
-                                        <div class="row align-items-center h-100">
-                                            <div class="col-12 text-center">
-                                                <a href="javascript:void(0);"></a>
-                                                 <p data-animation-in="fadeInUp" data-delay-in="1.2">
-                                                    <strong>
-                                                    You successfully added ${game.Title} to your list!                                                    </strong>
-                                                 </p>
-                                            </div>
-                                        </div>
-                                    `;
-            let message = $(addedToListTemplate);
-            $("#Main").html(message);
-        }
-    </script>
+
+        
+</script>
 }
-}
+

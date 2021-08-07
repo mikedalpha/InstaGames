@@ -21,7 +21,6 @@ namespace GroupProject.WebApi.Controllers
         }
 
         // GET: api/Games
-        [OverrideAuthentication]
         [AllowAnonymous]
         public async Task<IHttpActionResult> GetGames()
         {
