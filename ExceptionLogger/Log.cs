@@ -17,17 +17,30 @@ namespace ExceptionLogger
 
         public void LogException(string message)
         {
-            var fileName = $"{"Exception"}_{DateTime.Now.ToShortDateString().Replace("/","-")}.log";
-            var logFilePath = $@"{AppDomain.CurrentDomain.BaseDirectory}\{fileName}";
-            var sb = new StringBuilder();
-            sb.AppendLine("----------------------------------------");
-            sb.AppendLine(DateTime.Now.ToString());
-            sb.AppendLine(message);
+            var logFilePath = LogFilePath();
+            var sb = StringBuilder(message);
+
             using (var writer = new StreamWriter(logFilePath, true))
             {
                 writer.Write(sb.ToString());
                 writer.Flush();
             }
+        }
+
+        private static string LogFilePath()
+        {
+            var fileName = $"{"Exception"}_{DateTime.Now.ToShortDateString().Replace("/", "-")}.log";
+            var logFilePath = $@"{AppDomain.CurrentDomain.BaseDirectory}\{fileName}";
+            return logFilePath;
+        }
+
+        private static StringBuilder StringBuilder(string message)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("----------------------------------------");
+            sb.AppendLine(DateTime.Now.ToString());
+            sb.AppendLine(message);
+            return sb;
         }
     }
 }
