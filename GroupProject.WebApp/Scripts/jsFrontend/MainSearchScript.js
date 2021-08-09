@@ -1,16 +1,15 @@
 ﻿//Get Data on Input from Mobile search
-
 $('#MainSearchMobile').on('input', function () {
-        let searchInput = $('#MainSearchMobile').val();
-        $("#BodyContent").empty();
+    let searchInput = $('#MainSearchMobile').val();
+    $("#BodyContent").empty();
 
-        $.ajax({
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            url: "https://localhost:44369/api/Game",
-            dataType: "json"
-        }).done((data) => StartSearch(data, searchInput)).fail((error) => alert(error));
-    });
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: "https://localhost:44369/api/Game",
+        dataType: "json"
+    }).done((data) => StartSearch(data, searchInput)).fail((error) => alert(error));
+});
 
 function Error(error) {
     console.log(error);
@@ -23,6 +22,7 @@ $('#MainSearch').on('input',
     function () {
         let searchInput = $('#MainSearch').val();
         $("#BodyContent").empty();
+
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -61,7 +61,6 @@ function MainTemplate() {
                                          <div class="block-space">
                                              <a class="iq-view-all mt-5" href="/game/singleplayer">View All</a>
                                              <div id="gamesSection" class="row mb-5">
-
 
                                              </div>
                                           </div>
@@ -134,7 +133,7 @@ function NoGamesAvailable() {
 function PlayButtonMainSearch(game) {
 
     if (game.IsRealeased || game.IsEarlyAccess) {
-        return   `<div id = "playBtn" class="episode-play">
+        return `<div id = "playBtn" class="episode-play">
                        <a href="/game/play/${game.GameId}"><i class="fa fa-play"></i></a>
                   </div>`;
     } else {

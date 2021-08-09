@@ -261,6 +261,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\ionicons.svg" />
     <Content Include="Content\fonts\remixicon.svg" />
+    <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\error\404.png" />
     <Content Include="Content\images\error\500.png" />
     <Content Include="Content\images\about-us\about.jpeg" />

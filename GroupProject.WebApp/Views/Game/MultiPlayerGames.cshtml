@@ -23,32 +23,33 @@
                             </a>
                             <h2 class="mt-4 mb-1">Stay tunned, we're launching MultiPlayer Games very soon</h2>
                             <p>We are working very hard to give you the best experience possible!</p>
-                            <ul class="countdown d-flex align-items-center list-inline" data-date="Feb 02 2022 20:20:22">
+                                <img class="loading-img" src="~/Content/images/ajax-loader.gif" />
+                            <ul class="countdown d-flex align-items-center list-inline">
                                 <li class="col-md-6 col-lg-3">
                                     <div class="iq-card">
                                         <div class="iq-card-body">
-                                            <span data-days>@DateTime.Now.AddYears(1).Day</span>Days
+                                            <span id="days" data-days></span>Days
                                         </div>
                                     </div>
                                 </li>
                                 <li class="col-md-6 col-lg-3">
                                     <div class="iq-card">
                                         <div class="iq-card-body">
-                                            <span data-hours>@DateTime.Now.AddYears(1).Hour</span>Hours
+                                            <span id="hours" data-hours></span>Hours
                                         </div>
                                     </div>
                                 </li>
                                 <li class="col-md-6 col-lg-3">
                                     <div class="iq-card">
                                         <div class="iq-card-body">
-                                            <span data-minutes>@DateTime.Now.AddYears(1).Minute</span>Minutes
+                                            <span id="minutes" data-minutes></span>Minutes
                                         </div>
                                     </div>
                                 </li>
                                 <li class="col-md-6 col-lg-3">
                                     <div class="iq-card">
                                         <div class="iq-card-body">
-                                            <span data-seconds>@DateTime.Now.AddYears(1).Second</span>Seconds
+                                            <span id="seconds" data-seconds></span>Seconds
                                         </div>
                                     </div>
                                 </li>
@@ -72,3 +73,29 @@
     </div>
 </div>
 <!-- Wrapper END -->
+
+@section scripts{
+    
+    <!--Count Down Timer Script -->
+    <script>
+        $(document).ready(function () {
+            $(".loading-img").show();
+            setInterval(function () {
+                    $(".loading-img").hide();
+                    let countDownDate = new Date("Jan 5, 2022 15:00:00").getTime();
+                    let now = new Date().getTime();
+                    let distance = countDownDate - now;
+
+                    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    $("#days").html(days);
+                    $("#hours").html(hours);
+                    $("#minutes").html(minutes);
+                    $("#seconds").html(seconds);
+                },
+                1000);
+        });
+    </script>
+}

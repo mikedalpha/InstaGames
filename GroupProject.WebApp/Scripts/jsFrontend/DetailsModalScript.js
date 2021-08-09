@@ -23,22 +23,43 @@ function ModalBodyTemplating(game) {
 
     //photo or video template
     let videoTemplate = `
-                                       <div class="iq-card iq-card-block iq-card-stretch iq-card-height iq-mb-3">
-                                                       <div id="video">
-                                                           <video id="bgvid"autoplay loop muted playsinline>
-                                                               <source src="/Content/video/Zombie-Trailer-mini.mp4" type="video/mp4"/>
-                                                           </video>
-                                                       </div>
-                                                       <div class="iq-card-body">
-                                             <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft"
-                                                    data-delay-in="0.6">
-                                                  ${game.Title}
-                                           </h1>
-                                        </div>
-                                      </div>
+                       <div class="iq-card iq-card-block iq-card-stretch iq-card-height iq-mb-3">
+                                       <div id="video">
+                                           <video id="bgvid"autoplay loop muted playsinline>
+                                               <source src="${game.Trailer}" type="video/mp4"/>
+                                           </video>
+                                       </div>
+                                       <div class="iq-card-body">
+                             <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft"
+                                    data-delay-in="0.6">
+                                  ${game.Title}
+                           </h1>
+                        </div>
+                      </div>
                                      `;
+
     let videoEle = $(videoTemplate);
-    $("#videoSection").html(videoEle);
+
+    let imageTemplate = `
+                     <div class="iq-card iq-card-block iq-card-stretch iq-card-height iq-mb-3">
+                              <img src="${game.Photo}" class="w-100" alt="">
+                                 <div class="iq-card-body">
+                       <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft"
+                                 data-delay-in="0.6">
+                               ${game.Title}
+                        </h1>
+                     </div>
+                   </div>
+                        `;
+
+    let imageEle = $(imageTemplate);
+
+    if (game.Trailer != null) {
+        $("#videoSection").html(videoEle);
+    } else {
+        $("#videoSection").html(imageEle);
+    }
+    
 
     //Main Modal Content
     let mainModalContent = `
