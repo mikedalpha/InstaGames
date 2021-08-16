@@ -36,7 +36,10 @@ namespace GroupProject.WebApp
                         "~/Scripts/jsFrontend/MainSearchScript.js"));
             
             bundles.Add(new ScriptBundle("~/bundles/DetailsModalScript").Include(
-                        "~/Scripts/jsFrontend/DetailsModalScript.js"));
+                        "~/Scripts/jsFrontend/DetailsModalScript.js")); 
+            
+            bundles.Add(new ScriptBundle("~/bundles/CategorySection").Include(
+                        "~/Scripts/jsFrontend/CategorySection.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
