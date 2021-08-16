@@ -42,6 +42,8 @@
                                                     <i class="fa fa-play mr-2"
                                                        aria-hidden="true"></i>Play Now
                                                 </a>
+
+                                                <span data-id="@game.GameId" class="addToList"><i class="ri-add-line"></i></span>
                                             }
                                             else
                                             {
@@ -69,8 +71,11 @@
                                                 <span><i class="ri-heart-fill"></i></span>
                                                 <span class="count-box">19+</span>
                                             </li>
-                                            <li><span><i class="ri-add-line"></i></span></li>
-
+                                            @if (game.IsReleased || game.IsEarlyAccess.HasValue)
+                                            {
+                                                
+                                                <li><span data-id="@game.GameId" class="addToList"><i class="ri-add-line"></i></span></li>
+                                            }
                                         </ul>
                                     </div>
                                 </div>
