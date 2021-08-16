@@ -71,10 +71,10 @@
             <small class="font-size-12">Categories &nbsp;<i class="fa fa-caret-down"></i></small>
         </button>
         <div class="dropdown-menu three-column" aria-labelledby="dropdownMenuButton">
-            @foreach (var category in Model.Categories)
+            @*@foreach (var category in Model.Categories)
             {
-                <a class="dropdown-item" href="#">@category.Type</a>
-            }
+              <a id="@category.CategoryId" onclick="" class="dropdown-item" href="#">@category.Type</a>
+            }*@
         </div>
     </div>
 </section>

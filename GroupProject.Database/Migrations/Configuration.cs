@@ -193,7 +193,7 @@ namespace GroupProject.Database.Migrations
                 Pegi = p3,
                 Photo = "/Content/images/Games/NumberWizzard.png",
                 GameUrl = "https://i.simmer.io/@InstaGames/guessing-game",
-                GameCategories = new Collection<Category>() { c3, c4 },
+                GameCategories = new Collection<Category>() { c3, c4,c2 },
                 GameDevelopers = new Collection<Developer>() { d1 }
             };
 
