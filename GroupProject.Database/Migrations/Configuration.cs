@@ -220,7 +220,7 @@ namespace GroupProject.Database.Migrations
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p18,
-                GameCategories = new Collection<Category>() { c8, c6 },
+                GameCategories = new Collection<Category>() { c8, c7 },
                 Photo = "/Content/images/Games/UntilDawn.png",
                 GameDevelopers = new Collection<Developer>() { d4, d1 }
             };
@@ -234,7 +234,7 @@ namespace GroupProject.Database.Migrations
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p18,
-                GameCategories = new Collection<Category>() { c8, c6 },
+                GameCategories = new Collection<Category>() { c8, c7 },
                 Photo = "/Content/images/Games/Outlast.jpg",
                 GameDevelopers = new Collection<Developer>() { d3, d4 }
             };
@@ -277,7 +277,7 @@ namespace GroupProject.Database.Migrations
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p18,
-                GameCategories = new Collection<Category>() { c8, c6 },
+                GameCategories = new Collection<Category>() { c8, c5 },
                 Photo = "/Content/images/Games/left4dead.jpg",
                 GameDevelopers = new Collection<Developer>() { d1 }
             };
@@ -305,7 +305,7 @@ namespace GroupProject.Database.Migrations
                 Pegi = p18,
                 Photo = "/Content/images/Games/Assassins.jpg",
                 Trailer = "/Content/video/Assassins-Creed.mp4",
-                GameCategories = new Collection<Category>() { c5, c7, c6 },
+                GameCategories = new Collection<Category>() { c5, c7 },
                 GameDevelopers = new Collection<Developer>() { d3 }
             };
             var g15 = new Game()
