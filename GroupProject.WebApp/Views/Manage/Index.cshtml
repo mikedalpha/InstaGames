@@ -1,4 +1,5 @@
-﻿@using GroupProject.WebApp.Models.ManageViewModels
+﻿@using GroupProject.WebApp.Helpers
+@using GroupProject.WebApp.Models.ManageViewModels
 @using Microsoft.AspNet.Identity
 @model GroupProject.WebApp.Models.ManageViewModels.IndexViewModel
 @{
@@ -85,7 +86,7 @@
                     <div class="row align-items-center justify-content-between mb-3">
                         <div class="col-md-8">
                             <span class="text-light font-size-13">Age</span>
-                            <p class="mb-0">@Model.Age</p>
+                            <p class="mb-0">@Utilities.CalculateAge(Model.DateOfBirth)</p>
                         </div>
                     </div>
 

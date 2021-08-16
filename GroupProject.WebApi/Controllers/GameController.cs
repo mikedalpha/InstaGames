@@ -38,7 +38,15 @@ namespace GroupProject.WebApi.Controllers
                 IsRealeased = g.IsReleased,
                 IsEarlyAccess = g.IsEarlyAccess,
                 Rating = g.Rating,
-                Tag = g.Tag.ToString()
+                Tag = g.Tag.ToString(),
+                Categories = g.GameCategories.Select(c => new
+                {
+                    Type = c.Type
+                }),
+                Developer = g.GameDevelopers.Select(d => new
+                {
+                    Name = $"{d.FirstName + " " + d.LastName}"
+                })
             }).ToList());
         }
 

@@ -59,7 +59,7 @@ function ModalBodyTemplating(game) {
     } else {
         $("#videoSection").html(imageEle);
     }
-    
+
 
     //Main Modal Content
     let mainModalContent = `
@@ -128,9 +128,14 @@ function ModalBodyTemplating(game) {
         success: function (response) {
             $("#MoreLikeThis").empty();
 
-            //Add filter Logic here
+            //Filter Logic here
+            let filteredGamesByCategory = response.filter(function (g) {
+                return g.Rating == game.Rating;
+            });
 
-            response.forEach(MoreLikeThisTemplate);
+            console.log(filteredGamesByCategory);
+
+            filteredGamesByCategory.forEach(MoreLikeThisTemplate);
         }
     });
 
@@ -209,5 +214,5 @@ function PlayButtonDetailsView(game) {
     } else {
         return '';
     }
-    
+
 }

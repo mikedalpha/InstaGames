@@ -52,15 +52,5 @@ namespace GroupProject.WebApp.Models.ManageViewModels
 
         public DateTime? RegistrationDate { get; set; }
         public Plan? SubscribePlan { get; set; }
-
-        public int Age
-        {
-            get
-            {
-                var age = DateTime.Today.Year - DateOfBirth.Year;
-                if (DateOfBirth.Date > DateTime.Today.AddYears(-age)) age--;
-                return age;
-            }
-        }
     }
 }
