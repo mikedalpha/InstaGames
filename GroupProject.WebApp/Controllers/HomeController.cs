@@ -56,12 +56,24 @@ namespace GroupProject.WebApp.Controllers
             var games = await unitOfWork.Games.GetAllAsync();
             if (games == null) return RedirectToAction("InternalServerError", "Error");
 
-            var id = new Random().Next(1,5);
+            var id = new Random().Next(1, 5);
             var randomGame = await unitOfWork.Games.FindByIdAsync(id);
             if (randomGame == null) return RedirectToAction("InternalServerError", "Error");
 
-            IndexViewModel vm = new IndexViewModel(games.ToList(),randomGame);
+            var appuser = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (appuser == null) return RedirectToAction("InternalServerError", "Error");
 
+            IndexViewModel vm = new IndexViewModel(games.ToList(), randomGame, appuser);
+
+            return View(vm);
+        }
+        public async Task<ActionResult> MyList()
+        {
+            
+            var appuser = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (appuser == null) return RedirectToAction("InternalServerError", "Error");
+
+            IndexViewModel vm = new IndexViewModel(appuser);
             return View(vm);
         }
 

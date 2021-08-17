@@ -29,53 +29,13 @@
 
 @Html.Partial("~/Views/Home/IndexPartials/DevelopedBy.cshtml")
 
-<!--My List View Modal -->
-<div class="modal fade" id="addedToListModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-l" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span class="text-primary" aria-hidden="true">&times;</span>
-                </button>
-                <br/><br /><br />
-                <!--Main Content-->
-                <div  id="Main">
-                </div>
-                <div class="modal-footer mt-5">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- MainContent End-->
 @section scripts{
     @Scripts.Render("~/bundles/DetailsModalScript")
 
-    <script>
+    <script> var userId = "@HttpContext.Current.User.Identity.GetUserId()"; </script>
+    <script src="~/Scripts/jsFrontend/MyList.js"></script>
 
-        var userId = "@HttpContext.Current.User.Identity.GetUserId()";
-
-        //modal for successfully add in list
-        jQuery('.addToList').click(function(e) {
-            e.preventDefault();
-            AddToList(userId, $(this).data('id'));
-        });
-
-
-        function AddToList(id, gameId) {
-            let url = `https://localhost:44369/api/Account/?id=${id}&gameid=${gameId}`;
-            $.ajax({
-                type: "PUT",
-                url: url,
-                dataType: "json",
-                success: function(response) {
-                    console.log(response);
-                }
-            });
-        }
-
-    </script>
 }
 

@@ -24,14 +24,29 @@
 
                 <div class="shows-content">
                     <div class="d-flex align-items-center r-mb-23" data-animation-in="fadeInUp" data-delay-in="1.2">
-                        <a href="~/game/play/@Model.SelectedGame.GameId" class="btn btn-hover iq-button">
-                            <i class="fa fa-play mr-2"
-                               aria-hidden="true"></i>Play Now
-                        </a>
-                        <a href="#" data-id="@Model.SelectedGame.GameId" class="detailsView btn btn-link">More info</a>
-                        <a href="javascript:void(0);" class="btn btn-link" tabindex="0">
-                            <i class="ri-add-line"></i>My List
-                        </a>
+                        <div class="hover-buttons">
+                            @if (Model.SelectedGame.IsReleased || Model.SelectedGame.IsEarlyAccess.HasValue)
+                            {
+                                <a href="~/game/play/@Model.SelectedGame.GameId" class="btn btn-hover iq-button">
+                                    <i class="fa fa-play mr-2"
+                                       aria-hidden="true"></i>Play Now
+                                </a>
+                                <a href="#" data-id="@Model.SelectedGame.GameId" class="detailsView btn btn-link">More info</a>
+                                <a href="javascript:void(0);" class="btn btn-link addToList" tabindex="0" data-id="@Model.SelectedGame.GameId">
+                                    <i class="ri-add-line"></i>My List
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#" data-id="@Model.SelectedGame.GameId" class="detailsView btn btn-hover">
+                                    <i class="fa fa-info mr-2"
+                                       aria-hidden="true"></i>More info
+                                </a>
+                            }
+                        </div>
+                       
+
+
                     </div>
                     <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft"
                         data-delay-in="0.6">
@@ -47,7 +62,7 @@
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </li>
                             }
-                            @for (int i = 0; i < 5 - @Model.SelectedGame.Rating; i++)
+                            @for (int i = 0; i < 5 - Model.SelectedGame.Rating; i++)
                             {
                                 <li>
                                     <i class="fa fa-star-o" aria-hidden="true"></i>

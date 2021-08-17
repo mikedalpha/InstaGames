@@ -22,7 +22,6 @@ using GroupProject.WebApi.Models.AccountViewModels;
 
 namespace GroupProject.WebApi.Controllers
 {
-   
     [RoutePrefix("api/Account")]
     [EnableCors(origins: "https://localhost:44384", headers: "*", methods: "*")]
     public class AccountController : ApiController
@@ -356,9 +355,17 @@ namespace GroupProject.WebApi.Controllers
         // PUT: api/Account/5&5
         public async Task<IHttpActionResult> PutUserGames(string id, int gameId)
         {
+
             await UserManager.AttachUserList(id, gameId);
 
             return Ok("Success is successfully edited");
+        }
+
+        public async Task<IHttpActionResult> RemoveUserGames(string id, int gameId)
+        {
+            await UserManager.RemoveFromUserList(id, gameId);
+
+            return Ok("Removed the game from My List");
         }
 
         // POST api/Account/Register
