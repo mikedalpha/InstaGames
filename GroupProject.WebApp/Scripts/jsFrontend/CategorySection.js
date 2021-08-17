@@ -30,7 +30,6 @@ function GetCategory(id) {
             MainCatTemplate(response);
             //Show this category Games
             response.Games.forEach(ViewGamesByCategory);
-            console.log(response.Games);
         }
     });
 }
