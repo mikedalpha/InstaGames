@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GroupProject.Entities;
 using GroupProject.Entities.Domain_Models;
 
 namespace GroupProject.WebApp.Models.GameViewModels
@@ -9,11 +10,19 @@ namespace GroupProject.WebApp.Models.GameViewModels
         private List<Category> _allCategories;
         private List<Game> _allGames;
         private Game _selectedGame;
-        public SinglePlayerViewModel(List<Game> allGames, Game selectedGame , List<Category> allCategories)
+        private ApplicationUser appuser;
+
+        public SinglePlayerViewModel(List<Game> allGames, Game selectedGame , List<Category> allCategories , ApplicationUser user)
         {
             _allGames = allGames;
             _selectedGame = selectedGame;
             _allCategories = allCategories;
+            appuser = user;
+        }
+
+        public List<Game> MyList
+        {
+            get { return appuser.UserList.ToList(); }
         }
 
         public Game SelectedGame => _selectedGame;

@@ -32,8 +32,7 @@
 @section scripts{
     @Scripts.Render("~/bundles/DetailsModalScript")
     @Scripts.Render("~/bundles/CategorySection")
-
     <script> var userId = "@HttpContext.Current.User.Identity.GetUserId()"; </script>
-    <script src="~/Scripts/jsFrontend/MyList.js"></script>
+    @Scripts.Render("~/bundles/MyList")
 }
 
