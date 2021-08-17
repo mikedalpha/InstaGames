@@ -37,7 +37,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <a href="https://www.facebook.com/sharer?@game.Photo" target="_blank" rel="noopener noreferrer" class="share-ico" tabindex="0"><i class="ri-facebook-fill"></i></a>
                                                         <a href="https://twitter.com/intent/tweet?text=Currentlyreading" target="_blank" rel="noopener noreferrer" class="share-ico" tabindex="0"><i class="ri-twitter-fill"></i></a>
-                                                        <a href="#" data-link="@game.GameUrl" class="share-ico iq-copy-link" tabindex="0"><i class="ri-links-fill"></i></a>
+                                                        <a href="#" data-link="@game.GameUrl" target="_blank" class="share-ico iq-copy-link" tabindex="0"><i class="ri-links-fill"></i></a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -48,7 +48,7 @@
                                             <li>
                                                 @if (@Model.MyList.Any(g => g.GameId == game.GameId))
                                                 {
-                                                    <span data-id="@game.GameId" class="addToList"><i class="fa fa-check-circle-o text-success"></i></span>
+                                                    <span data-id="@game.GameId" class="addToList"><i class="fa fa-check-circle-o"></i></span>
                                                 }
                                                 else
                                                 {

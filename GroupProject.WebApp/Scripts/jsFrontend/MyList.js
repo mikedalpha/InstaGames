@@ -17,10 +17,8 @@ function AddToList(id, gameId, icon) {
             if (icon.find('i').hasClass('ri-add-line')) {
                 icon.find('i').removeClass('ri-add-line');
                 icon.find('i').addClass('fa fa-check-circle-o');
-                icon.find('i').addClass('text-success');
             } else {
                 icon.find('i').removeClass('fa fa-check-circle-o');
-                icon.find('i').removeClass('text-success');
                 icon.find('i').addClass('ri-add-line');
             }
         }
