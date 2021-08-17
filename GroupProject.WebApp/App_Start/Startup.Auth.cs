@@ -58,13 +58,13 @@ namespace GroupProject.WebApp
             //   consumerSecret: "");
 
             app.UseFacebookAuthentication(
-               appId: "556228032079102",
-               appSecret: "0864626145e659c786a50755d4c390b5");
+               appId: "",
+               appSecret: "");
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "363077935735-5ljs6i8qo0gn6v64fmm4pn0jng87janb.apps.googleusercontent.com",
-                ClientSecret = "wzlm4gwPSqmUETfFMTQK1FVa"
+                ClientId = "",
+                ClientSecret = ""
             });
         }
         

@@ -11,8 +11,8 @@ namespace GroupProject.WebApp
         static PayPalConfiguration()
         {
             var config = GetConfig();
-            ClientId = "Abyuy-820caOjBjm0r0WZW7dML01numyBKJRDqJQAbHxw3K2AhZV5G5UKw98i0mWr75kAkMqCW5zRv0J";
-            ClientSecret = "ELz5ypWHBC7-pvsTKDPaCSl85tNfZUdxAQnygaXY--2_IIwtTaiHld5ps7T6FPRzU8OzVIxva-RGxGxJ";
+            ClientId = "";
+            ClientSecret = "";
         }
 
         public static Dictionary<string, string> GetConfig()
