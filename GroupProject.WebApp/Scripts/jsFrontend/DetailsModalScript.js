@@ -133,8 +133,6 @@ function ModalBodyTemplating(game) {
                 return g.Rating == game.Rating;
             });
 
-            console.log(filteredGamesByCategory);
-
             filteredGamesByCategory.forEach(MoreLikeThisTemplate);
         }
     });

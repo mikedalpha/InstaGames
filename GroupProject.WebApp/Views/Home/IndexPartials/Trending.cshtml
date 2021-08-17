@@ -73,10 +73,20 @@
                                                 </p>
                                                 <div class="p-btns">
                                                     <div class="d-flex align-items-center p-0">
-                                                        @if (game.IsReleased)
+                                                        @if (game.IsReleased || game.IsEarlyAccess.HasValue)
                                                         {
                                                             <a href="~/game/play/@game.GameId" class="btn btn-hover mr-2" tabindex="0">
                                                                 <i class="fa fa-play mr-2" aria-hidden="true"></i>Play Now
+                                                            </a>
+                                                            <a href="javascript:void(0);" class="btn btn-link addToList" tabindex="0" data-id="@game.GameId">
+                                                                @if (@Model.MyList.Any(g => g.GameId == game.GameId))
+                                                                {
+                                                                    <i class="fa fa-check-circle-o text-success"></i>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <i class="ri-add-line"></i>
+                                                                }MyList
                                                             </a>
                                                         }
                                                         else
@@ -85,9 +95,6 @@
                                                                 <i class="fa fa-info mr-2" aria-hidden="true"></i>More Info
                                                             </a>
                                                         }
-                                                        <a href="javascript:void(0);" class="btn btn-link addToList" tabindex="0" data-id="@game.GameId">
-                                                            <i class="ri-add-line"></i>MyList
-                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="trending-list mt-4">

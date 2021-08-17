@@ -47,26 +47,6 @@ namespace GroupProject.WebApi
             }
         }
 
-        public async Task RemoveFromUserList(string userid, int id)
-        {
-            using (ApplicationDbContext db = ApplicationDbContext.Create())
-            {
-
-                var game = await db.Games.FindAsync(id);
-                if (game == null) return;
-                var user = await db.Users.FirstAsync(u => u.Id == userid);
-                if (userid != user.Id) return;
-
-                db.Users.Attach(user);
-                db.Entry(user).Collection("UserList").Load();
-
-                user.UserList.Remove(game);
-                db.Entry(user).State = EntityState.Deleted;
-
-                await db.SaveChangesAsync();
-            }
-        }
-
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));

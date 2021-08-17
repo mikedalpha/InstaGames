@@ -33,7 +33,14 @@
                                 </a>
                                 <a href="#" data-id="@Model.SelectedGame.GameId" class="detailsView btn btn-link">More info</a>
                                 <a href="javascript:void(0);" class="btn btn-link addToList" tabindex="0" data-id="@Model.SelectedGame.GameId">
-                                    <i class="ri-add-line"></i>My List
+                                    @if (Model.MyList.Any(g => g.GameId == Model.SelectedGame.GameId))
+                                    {
+                                        <i class="fa fa-check-circle-o text-success"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="ri-add-line"></i>
+                                    }My List
                                 </a>
                             }
                             else
@@ -86,10 +93,7 @@
             <small class="font-size-12">Categories &nbsp;<i class="fa fa-caret-down"></i></small>
         </button>
         <div class="dropdown-menu three-column" aria-labelledby="dropdownMenuButton">
-            @*@foreach (var category in Model.Categories)
-            {
-              <a id="@category.CategoryId" onclick="" class="dropdown-item" href="#">@category.Type</a>
-            }*@
+         
         </div>
     </div>
 </section>

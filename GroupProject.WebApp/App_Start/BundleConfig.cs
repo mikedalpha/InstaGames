@@ -40,6 +40,9 @@ namespace GroupProject.WebApp
             
             bundles.Add(new ScriptBundle("~/bundles/CategorySection").Include(
                         "~/Scripts/jsFrontend/CategorySection.js"));
+            
+            bundles.Add(new ScriptBundle("~/bundles/MyList").Include(
+                        "~/Scripts/jsFrontend/MyList.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

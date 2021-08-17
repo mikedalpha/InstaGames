@@ -30,6 +30,7 @@ namespace GroupProject.WebApp.Controllers
         {
             iLog = Log.GetInstance;
             _userManager = userManager;
+            unitOfWork = new UnitOfWork();
         }
 
         public ApplicationUserManager UserManager

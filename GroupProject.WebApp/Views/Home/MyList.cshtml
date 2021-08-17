@@ -8,7 +8,9 @@
     </div>
 </div>
 <!-- loader END -->
-
+<!--Details Modal-->
+@Html.Partial("_DetailsViewModal")
+<!--Details Modal-->
 
 <div class="main-content mb-5">
     <section class="container-fluid seasons">
@@ -41,7 +43,7 @@
                                             <img src="@game.Pegi.PegiPhoto" width="20" />
                                         </div>
                                         <h6 class="epi-name text-white mb-0 pt-2">
-                                            @game.Description
+                                            <a class="detailsView" data-id="@game.GameId" href="#">@game.Description</a>
                                         </h6>
                                         <!--Rating Logic -->
                                         <ul class="ratting-start p-1 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
@@ -71,3 +73,7 @@
         </div>
     </section>
 </div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/DetailsModalScript")
+}

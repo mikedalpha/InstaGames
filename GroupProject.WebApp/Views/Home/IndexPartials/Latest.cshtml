@@ -52,14 +52,16 @@
                                                     <span><i class="ri-heart-fill"></i></span>
                                                     <span class="count-box">19+</span>
                                                 </li>
-                                                @if (Model.MyList.Contains(game))
-                                                {
-                                                    <li><span data-id="@game.GameId" class="addToList"><i class="fa fa-check"></i></span></li>
-                                                }
-                                                else
-                                                {
-                                                    <li><span data-id="@game.GameId" class="addToList"><i class="ri-add-line"></i></span></li>
-                                                }
+                                                <li>
+                                                    @if ( @Model.MyList.Any(g => g.GameId == game.GameId))
+                                                    {
+                                                    <span data-id="@game.GameId" class="addToList"><i class="fa fa-check-circle-o text-success"></i></span>
+                                                    }
+                                                    else
+                                                    {
+                                                    <span data-id="@game.GameId" class="addToList"><i class="ri-add-line"></i></span>
+                                                    }
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -71,7 +73,5 @@
             </div>
         </div>
     </section>
-
-
 </div>
 

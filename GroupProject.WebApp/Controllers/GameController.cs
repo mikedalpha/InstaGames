@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using ExceptionLogger;
 using GroupProject.RepositoryService;
 using GroupProject.WebApp.Models.GameViewModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace GroupProject.WebApp.Controllers
 {
@@ -12,10 +15,30 @@ namespace GroupProject.WebApp.Controllers
     public class GameController : Controller
     {
         private IUnitOfWork unitOfWork;
+        private ApplicationUserManager _userManager;
         private ILog iLog;
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         public GameController()
         {
             iLog = Log.GetInstance;
+            unitOfWork = new UnitOfWork();
+        }
+        public GameController(ApplicationUserManager userManager)
+        {
+            iLog = Log.GetInstance;
+            _userManager = userManager;
             unitOfWork = new UnitOfWork();
         }
         protected override void OnException(ExceptionContext filterContext)
@@ -29,6 +52,7 @@ namespace GroupProject.WebApp.Controllers
         {
             return View();
         }
+
         public async Task<ActionResult> SinglePlayer()
         {
             var games = await unitOfWork.Games.GetAllAsync();
@@ -43,7 +67,10 @@ namespace GroupProject.WebApp.Controllers
             var categories = await unitOfWork.Category.GetAllAsync();
             if(categories == null) return RedirectToAction("InternalServerError", "Error");
 
-            var vm = new SinglePlayerViewModel(games.ToList(),game , categories.ToList());
+            var appuser = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (appuser == null) return RedirectToAction("InternalServerError", "Error");
+
+            var vm = new SinglePlayerViewModel(games.ToList(),game , categories.ToList() , appuser);
 
             return View(vm);
         }
