@@ -32,10 +32,10 @@
                                        aria-hidden="true"></i>Play Now
                                 </a>
                                 <a href="#" data-id="@Model.SelectedGame.GameId" class="detailsView btn btn-link">More info</a>
-                                <a href="javascript:void(0);" class="btn btn-link addToList" tabindex="0" data-id="@Model.SelectedGame.GameId">
+                                <a href="javascript:void(0);" class="btn-link addToList" tabindex="0" data-id="@Model.SelectedGame.GameId">
                                     @if (Model.MyList.Any(g => g.GameId == Model.SelectedGame.GameId))
                                     {
-                                        <i class="fa fa-check-circle-o text-success"></i>
+                                        <i class="fa fa-check-circle-o"></i>
                                     }
                                     else
                                     {
