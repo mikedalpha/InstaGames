@@ -64,6 +64,7 @@
     <Compile Include="Repositories\MessageRepos.cs" />
     <Compile Include="Repositories\PegiRepos.cs" />
     <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\UserGameRatingsRepos.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

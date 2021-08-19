@@ -13,6 +13,7 @@ namespace GroupProject.Database
         public DbSet<Developer> Developers { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Pegi> Pegi { get; set; }
+        public DbSet<UserGameRatings> UserGameRatings { get; set; }
 
         public ApplicationDbContext(): base("GroupProject")
         {

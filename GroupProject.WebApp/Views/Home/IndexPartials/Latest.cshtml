@@ -48,9 +48,34 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <span><i class="ri-heart-fill"></i></span>
-                                                    <span class="count-box">19+</span>
+                                                <li class="share">
+                                                    @if (@Model.RatedGames.Any(g => g.ApplicationUserId == User.Identity.GetUserId() && g.GameId == game.GameId))
+                                                    {
+                                                        <span><i class="ri-star-fill"></i></span>
+                                                        <div class="share-box">
+                                                            <div data-id="@game.GameId" class="d-flex align-items-center">
+                                                                <i class="btn-link fa fa-star-o" value="1"></i>
+                                                                <i class="btn-link fa fa-star-o" value="2"></i>
+                                                                <i class="btn-link fa fa-star-o" value="3"></i>
+                                                                <i class="btn-link fa fa-star-o" value="4"></i>
+                                                                <i class="btn-link fa fa-star-o" value="5"></i>
+                                                            </div>
+                                                        </div>
+                                                        <span class="count-box">@Model.RatedGames.Where(g => g.ApplicationUserId == User.Identity.GetUserId() && g.GameId == game.GameId).Select(g => g.Rating).First()</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span><i class="ri-star-fill"></i></span>
+                                                        <div class="share-box">
+                                                            <div data-id="@game.GameId" class="d-flex align-items-center">
+                                                                <i class="btn-link fa fa-star-o" value="1"></i>
+                                                                <i class="btn-link fa fa-star-o" value="2"></i>
+                                                                <i class="btn-link fa fa-star-o" value="3"></i>
+                                                                <i class="btn-link fa fa-star-o" value="4"></i>
+                                                                <i class="btn-link fa fa-star-o" value="5"></i>
+                                                            </div>
+                                                        </div>
+                                                    }
                                                 </li>
                                                 <li>
                                                     @if (Model.MyList.Any(g => g.GameId == game.GameId))

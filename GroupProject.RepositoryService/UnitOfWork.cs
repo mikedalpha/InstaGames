@@ -14,6 +14,7 @@ namespace GroupProject.RepositoryService
         public CategoryRepos Category { get; }
         public MessageRepos Message { get; }
         public PegiRepos Pegi { get; }
+        public UserGameRatingsRepos UserGameRatings { get; }
 
         public UnitOfWork()
         {
@@ -23,6 +24,7 @@ namespace GroupProject.RepositoryService
             Category = new CategoryRepos(context);
             Message = new MessageRepos(context);
             Pegi = new PegiRepos(context);
+            UserGameRatings = new UserGameRatingsRepos(context);
         }
 
         public void Save()

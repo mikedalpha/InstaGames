@@ -10,18 +10,21 @@ namespace GroupProject.WebApp.Models.HomeViewModel
         private List<Game> allGames;
         private Game _randomGame;
         private ApplicationUser appuser;
+        private List<UserGameRatings> _ratedGame;
 
-        public IndexViewModel(List<Game> games , Game randomGame, ApplicationUser user)
+        public IndexViewModel(List<Game> games , Game randomGame, ApplicationUser user, List<UserGameRatings> ratedGame)
         {
             allGames = games;
             _randomGame = randomGame;
             appuser = user;
+            _ratedGame = ratedGame;
         }
 
         public IndexViewModel(ApplicationUser user)
         {
             appuser = user;
         }
+
         public List<Game> Games
         {
             get { return allGames; }
@@ -30,6 +33,11 @@ namespace GroupProject.WebApp.Models.HomeViewModel
         public List<Game> MyList
         {
             get { return appuser.UserList.ToList(); }
+        }
+
+        public List<UserGameRatings> RatedGames
+        {
+            get { return _ratedGame; }
         }
 
         public List<Game> SliderGames
@@ -58,9 +66,6 @@ namespace GroupProject.WebApp.Models.HomeViewModel
             get { return Games.Where(g => g.GameDevelopers.Any(d => d.IsInstaGamesDev) && g.IsReleased).OrderByDescending(g=>g.Rating).ToList(); }
         }
 
-
         public Game RandomGame => _randomGame;
-
-        
     }
 } 

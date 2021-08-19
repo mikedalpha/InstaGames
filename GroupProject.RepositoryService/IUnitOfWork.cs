@@ -11,6 +11,7 @@ namespace GroupProject.RepositoryService
         CategoryRepos Category { get; }
         MessageRepos Message { get; }
         PegiRepos Pegi { get; }
+        UserGameRatingsRepos UserGameRatings { get; }
 
         void Save();
 
