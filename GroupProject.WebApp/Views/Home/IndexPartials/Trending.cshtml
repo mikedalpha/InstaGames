@@ -78,8 +78,8 @@
                                                             <a href="~/game/play/@game.GameId" class="btn btn-hover mr-2" tabindex="0">
                                                                 <i class="fa fa-play mr-2" aria-hidden="true"></i>Play Now
                                                             </a>
-                                                            <a href="javascript:void(0);" class="btn-link addToList" tabindex="0" data-id="@game.GameId">
-                                                                @if (@Model.MyList.Any(g => g.GameId == game.GameId))
+                                                            <a href="javascript:void(0);" class="btn-link addToList mylist" tabindex="0" data-id="@game.GameId">
+                                                                @if (Model.MyList.Any(g => g.GameId == game.GameId))
                                                                 {
                                                                     <i class="fa fa-check-circle-o"></i>
                                                                 }

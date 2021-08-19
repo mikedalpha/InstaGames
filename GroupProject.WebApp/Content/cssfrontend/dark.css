@@ -1,3 +1,14 @@
+
+.mylist:hover::after {
+    content: var(--text);
+    position: absolute;
+    width: 130px;
+    top: 40px;
+    right: 1px;
+    background-color: var(--iq-to-gradient-color);
+    border-radius: 7px;
+    color: var(--iq-white);
+}
 .flatpickr-calendar {
   background: transparent;
   opacity: 0;

@@ -49,11 +49,11 @@
                                             <li>
                                                 @if (@Model.MyList.Any(g => g.GameId == game.GameId))
                                                 {
-                                                    <span data-id="@game.GameId" class="addToList"><i class="fa fa-check-circle-o"></i></span>
+                                                    <span data-id="@game.GameId" class="addToList mylist"  style="--text:'Remove from My List'"><i class="fa fa-check-circle-o"></i></span>
                                                 }
                                                 else
                                                 {
-                                                    <span data-id="@game.GameId" class="addToList"><i class="ri-add-line"></i></span>
+                                                    <span data-id="@game.GameId" class="addToList mylist"  style="--text:'Add to My List'"><i class="ri-add-line"></i></span>
                                                 }
                                             </li>
                                         </ul>
