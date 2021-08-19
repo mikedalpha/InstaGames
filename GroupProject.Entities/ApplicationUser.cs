@@ -22,11 +22,13 @@ namespace GroupProject.Entities
 
         public virtual ICollection<Message> Messages { get; set; }
         public virtual ICollection<Game> UserList { get; set; }
+        public virtual ICollection<UserGameRatings> UserGameRatings { get; set; }
 
         public ApplicationUser()
         {
             Messages = new HashSet<Message>();
             UserList = new HashSet<Game>();
+            UserGameRatings = new HashSet<UserGameRatings>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

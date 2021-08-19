@@ -21,6 +21,7 @@ namespace GroupProject.Entities.Domain_Models
         public virtual ICollection<Category> GameCategories { get; set; }
         public virtual ICollection<Developer> GameDevelopers { get; set; }
         public virtual ICollection<ApplicationUser> Subscribers { get; set; }
+        public virtual ICollection<UserGameRatings> UserGameRatings { get; set; }
 
         public Game()
         {
