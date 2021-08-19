@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GroupProject.Entities;
 using GroupProject.Entities.Domain_Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -10,16 +11,24 @@ namespace GroupProject.Database.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<GroupProject.Database.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(GroupProject.Database.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             #region Adding Roles
+
+            if (!context.Roles.Any(x => x.Name == "Admin"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Admin" };
+                manager.Create(role);
+            }
 
             if (!context.Roles.Any(x => x.Name == "Subscriber"))
             {
@@ -27,6 +36,30 @@ namespace GroupProject.Database.Migrations
                 var manager = new RoleManager<IdentityRole>(store);
                 var role = new IdentityRole { Name = "Subscriber" };
                 manager.Create(role);
+            }
+
+            #endregion
+
+            #region Adding Admins 
+            var passwordHash = new PasswordHasher();
+            if (!context.Users.Any(x => x.UserName == "GameMaster"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+
+                var user = new ApplicationUser()
+                {
+                    UserName = "GameMaster",
+                    Email = "admin@instagames.com",
+                    PasswordHash = passwordHash.HashPassword("Admin1"),
+                    RegistrationDate = DateTime.Now,
+                    FirstName = "Super",
+                    LastName = "Gamer",
+                    DateOfBirth = new DateTime(1990, 10, 28),
+                };
+                manager.Create(user);
+
+                manager.AddToRole(user.Id, "Admin");
             }
 
             #endregion
@@ -193,7 +226,7 @@ namespace GroupProject.Database.Migrations
                 Pegi = p3,
                 Photo = "/Content/images/Games/NumberWizzard.png",
                 GameUrl = "https://i.simmer.io/@InstaGames/guessing-game",
-                GameCategories = new Collection<Category>() { c3, c4,c2 },
+                GameCategories = new Collection<Category>() { c3, c4, c2 },
                 GameDevelopers = new Collection<Developer>() { d1 }
             };
 

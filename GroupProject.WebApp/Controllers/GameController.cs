@@ -87,7 +87,7 @@ namespace GroupProject.WebApp.Controllers
 
             if (game.IsEarlyAccess != null && game.IsEarlyAccess.Value) TempData["ShowAlert"] = true;
 
-            return User.IsInRole("Subscriber") ? (ActionResult)View(game) : Redirect("~/Home/PricingPlan");
+            return User.IsInRole("Subscriber") || User.IsInRole("Admin") ? (ActionResult)View(game) : Redirect("~/Home/PricingPlan");
         }
 
         protected override void Dispose(bool disposing)

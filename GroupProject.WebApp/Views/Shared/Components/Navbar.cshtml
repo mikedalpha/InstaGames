@@ -16,7 +16,7 @@
                         </a>
                         <a class="navbar-brand" href="~/home/index">
                             <img class="img-fluid logo" src="~/Content/images/logo.png"
-                                 alt="streamit" />
+                                 alt="instagames" />
                         </a>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <div class="menu-main-menu-container">
@@ -125,16 +125,19 @@
                                             <div class="iq-sub-dropdown iq-user-dropdown">
                                                 <div class="iq-card shadow-none m-0">
                                                     <div class="iq-card-body p-0 pl-3 pr-3">
-                                                        @*<a href="~/Manage/Index" class="iq-sub-card setting-dropdown">
+                                                        @if (User.IsInRole("Admin"))
+                                                        {
+                                                            <a href="http://localhost:4200/Dashboard" class="iq-sub-card setting-dropdown">
                                                                 <div class="media align-items-center">
                                                                     <div class="right-icon">
                                                                         <i class="ri-file-user-line text-primary"></i>
                                                                     </div>
                                                                     <div class="media-body ml-3">
-                                                                        <h6 class="mb-0 ">Manage Profile</h6>
+                                                                        <h6 class="my-0 ">Dashboard</h6>
                                                                     </div>
                                                                 </div>
-                                                            </a>*@
+                                                            </a>
+                                                        }
                                                         <a href="~/Manage/Index" class="iq-sub-card setting-dropdown">
                                                             <div class="media align-items-center">
                                                                 <div class="right-icon">
@@ -244,16 +247,19 @@
                                     <div class="iq-sub-dropdown iq-user-dropdown">
                                         <div class="iq-card shadow-none m-0">
                                             <div class="iq-card-body p-0 pl-3 pr-3">
-                                                @*<a href="~/Manage/Index" class="iq-sub-card setting-dropdown">
+                                                @if (User.IsInRole("Admin"))
+                                                {
+                                                    <a href="http://localhost:4200/Dashboard" class="iq-sub-card setting-dropdown">
                                                         <div class="media align-items-center">
                                                             <div class="right-icon">
                                                                 <i class="ri-file-user-line text-primary"></i>
                                                             </div>
                                                             <div class="media-body ml-3">
-                                                                <h6 class="my-0 ">Manage Profile</h6>
+                                                                <h6 class="my-0 ">Dashboard</h6>
                                                             </div>
                                                         </div>
-                                                    </a>*@
+                                                    </a>
+                                                }
                                                 <a href="~/Manage/Index" class="iq-sub-card setting-dropdown">
                                                     <div class="media align-items-center">
                                                         <div class="right-icon">
@@ -274,7 +280,7 @@
                                                         </div>
                                                     </div>
                                                 </a>
-                                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logOff" }))
+                                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logOff"}))
                                                 {
                                                     @Html.AntiForgeryToken()
                                                     <a href="#" onclick="document.getElementById('logOff').submit()" class="iq-sub-card setting-dropdown">
