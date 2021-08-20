@@ -108,7 +108,7 @@ function ModalBodyTemplating(game) {
                                     </div>
                                     <div class="text-primary title tag">
 
-                                        Released: <span class="text-body">${game.ReleaseDate}</span>
+                                        Released: <span class="text-body">${ShowYear(game.ReleaseDate)}</span>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center r-mb-23" data-animation-in="fadeInUp" data-delay-in="1.2">
@@ -150,7 +150,7 @@ function ModalBodyTemplating(game) {
                                                 </div>
                                             <div class="epi-desc p-3">
                                                <div class="d-flex align-items-center justify-content-between">
-                                                  <span class="text-white">${game.ReleaseDate}</span>
+                                                  <span class="text-white">${ShowYear(game.ReleaseDate)}</span>
                                                     <img src="${game.Pegi}" width="20" />
                                                 </div>
                                                     <h6 class="epi-name text-white mb-0">
@@ -214,3 +214,4 @@ function PlayButtonDetailsView(game) {
     }
 
 }
+

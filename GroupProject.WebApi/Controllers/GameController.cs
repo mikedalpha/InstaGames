@@ -3,14 +3,12 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using GroupProject.Entities.Domain_Models;
 using GroupProject.RepositoryService;
 
 namespace GroupProject.WebApi.Controllers
 {
-    [EnableCors(origins: "https://localhost:44384", headers:"*",methods:"*")]
     public class GameController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
@@ -34,8 +32,8 @@ namespace GroupProject.WebApi.Controllers
                 Trailer = g.Trailer,
                 Description = g.Description,
                 Pegi = g.Pegi.PegiPhoto,
-                ReleaseDate = g.ReleaseDate.Year,
-                IsRealeased = g.IsReleased,
+                ReleaseDate = g.ReleaseDate,
+                IsReleased = g.IsReleased,
                 IsEarlyAccess = g.IsEarlyAccess,
                 Rating = g.Rating,
                 Tag = g.Tag.ToString(),
@@ -43,7 +41,7 @@ namespace GroupProject.WebApi.Controllers
                 {
                     Type = c.Type
                 }),
-                Developer = g.GameDevelopers.Select(d => new
+                Developers = g.GameDevelopers.Select(d => new
                 {
                     Name = $"{d.FirstName + " " + d.LastName}"
                 })
@@ -68,7 +66,7 @@ namespace GroupProject.WebApi.Controllers
                 Trailer = game.Trailer,
                 Description = game.Description,
                 Pegi = game.Pegi.PegiPhoto,
-                ReleaseDate = game.ReleaseDate.Year,
+                ReleaseDate = game.ReleaseDate,
                 Rating = game.Rating,
                 IsRealeased = game.IsReleased,
                 IsEarlyAccess = game.IsEarlyAccess,
