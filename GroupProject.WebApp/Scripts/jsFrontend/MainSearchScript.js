@@ -90,7 +90,7 @@ function ViewGames(game) {
                                      </div>
                                      <div class="epi-desc p-3">
                                          <div class="d-flex align-items-center justify-content-between">
-                                             <span class="text-white">${game.ReleaseDate}</span>
+                                             <span class="text-white">${ShowYear(game.ReleaseDate)}</span>
                                              <img src="${game.Pegi}" width="20" />
                                          </div>
                                              <h6 class="epi-name text-white mb-0">
@@ -140,4 +140,10 @@ function PlayButtonMainSearch(game) {
         return '';
     }
 
+}
+       
+function ShowYear(date) {
+    date = new Date();
+    let year = date.getFullYear();
+    return year;
 }

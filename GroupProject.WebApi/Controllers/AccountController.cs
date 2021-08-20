@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -23,7 +22,6 @@ using GroupProject.WebApi.Models.AccountViewModels;
 namespace GroupProject.WebApi.Controllers
 {
     [RoutePrefix("api/Account")]
-    [EnableCors(origins: "https://localhost:44384", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
