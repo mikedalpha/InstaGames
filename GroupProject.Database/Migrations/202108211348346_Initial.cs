@@ -1,4 +1,4 @@
-﻿namespace GroupProject.Database.Migrations
+namespace GroupProject.Database.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -28,7 +28,6 @@
                         GameUrl = c.String(),
                         Trailer = c.String(),
                         ReleaseDate = c.DateTime(nullable: false, storeType: "date"),
-                        Rating = c.Single(nullable: false),
                         IsEarlyAccess = c.Boolean(),
                         IsReleased = c.Boolean(nullable: false),
                         Tag = c.Byte(nullable: false),
@@ -140,6 +139,21 @@
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.UserGameRatings",
+                c => new
+                    {
+                        UserGameRatingsId = c.Int(nullable: false, identity: true),
+                        Rating = c.Int(nullable: false),
+                        ApplicationUserId = c.String(maxLength: 128),
+                        GameId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.UserGameRatingsId)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
+                .ForeignKey("dbo.Games", t => t.GameId, cascadeDelete: true)
+                .Index(t => t.ApplicationUserId)
+                .Index(t => t.GameId);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -195,6 +209,8 @@
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.SubscriberGames", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.SubscriberGames", "GameId", "dbo.Games");
+            DropForeignKey("dbo.UserGameRatings", "GameId", "dbo.Games");
+            DropForeignKey("dbo.UserGameRatings", "ApplicationUserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Messages", "CreatorId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
@@ -211,6 +227,8 @@
             DropIndex("dbo.GamesCategories", new[] { "CategoryId" });
             DropIndex("dbo.GamesCategories", new[] { "GameId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.UserGameRatings", new[] { "GameId" });
+            DropIndex("dbo.UserGameRatings", new[] { "ApplicationUserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.Messages", new[] { "CreatorId" });
@@ -222,6 +240,7 @@
             DropTable("dbo.GamesDevelopers");
             DropTable("dbo.GamesCategories");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.UserGameRatings");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.Messages");
             DropTable("dbo.AspNetUserLogins");

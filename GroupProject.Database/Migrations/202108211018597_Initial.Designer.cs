@@ -7,13 +7,13 @@ namespace GroupProject.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Added_UserGameRatings : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Added_UserGameRatings));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "202108181139255_Added_UserGameRatings"; }
+            get { return "202108211018597_Initial"; }
         }
         
         string IMigrationMetadata.Source

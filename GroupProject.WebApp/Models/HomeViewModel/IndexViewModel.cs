@@ -40,6 +40,11 @@ namespace GroupProject.WebApp.Models.HomeViewModel
             get { return _ratedGame; }
         }
 
+        public float UserRating
+        {
+            get { return RatedGames.Select(g => g.Rating).First(); }
+        }
+
         public List<Game> SliderGames
         {
              get { return Games.OrderByDescending(g => g.Rating).Take(3).ToList(); }
@@ -57,9 +62,11 @@ namespace GroupProject.WebApp.Models.HomeViewModel
 
         public List<Game> TopFive
         {
-            get { return Games.OrderByDescending(g => g.Rating).Take(5).ToList(); }
+            get
+            {
+                return Games.Where(g=>g.Rating > 0).OrderByDescending(g => g.Rating).Take(5).ToList();
+            }
         }
-
 
         public List<Game> DevelopedByInstaGames
         {

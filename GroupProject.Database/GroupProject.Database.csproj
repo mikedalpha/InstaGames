@@ -62,13 +62,9 @@
     <Compile Include="EntitiesConfiguration\GameConfig.cs" />
     <Compile Include="EntitiesConfiguration\MessageConfig.cs" />
     <Compile Include="EntitiesConfiguration\PegiConfig.cs" />
-    <Compile Include="Migrations\202108011425068_Initial.cs" />
-    <Compile Include="Migrations\202108011425068_Initial.designer.cs">
-      <DependentUpon>202108011425068_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202108181139255_Added_UserGameRatings.cs" />
-    <Compile Include="Migrations\202108181139255_Added_UserGameRatings.Designer.cs">
-      <DependentUpon>202108181139255_Added_UserGameRatings.cs</DependentUpon>
+    <Compile Include="Migrations\202108211348346_Initial.cs" />
+    <Compile Include="Migrations\202108211348346_Initial.Designer.cs">
+      <DependentUpon>202108211348346_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,11 +80,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202108011425068_Initial.resx">
-      <DependentUpon>202108011425068_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202108181139255_Added_UserGameRatings.resx">
-      <DependentUpon>202108181139255_Added_UserGameRatings.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202108211348346_Initial.resx">
+      <DependentUpon>202108211348346_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

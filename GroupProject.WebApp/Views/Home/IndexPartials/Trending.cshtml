@@ -46,26 +46,37 @@
                                                 </div>
                                                 <div class="d-flex align-items-center series mb-4">
                                                     <ul class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
-                                                        @for (int i = 0; i < @game.Rating; i++)
+                                                        @if (game.Rating > 0)
                                                         {
-                                                            <li>
-                                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                            </li>
+                                                            for (int i = 0; i < @Math.Floor(game.Rating); i++)
+                                                            {
+                                                                <li>
+                                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                                </li>
+                                                            }
+                                                            for (int i = 0; i < 5 - @Math.Floor(game.Rating); i++)
+                                                            {
+                                                                <li>
+                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                </li>
+                                                            }
                                                         }
-                                                        @for (int i = 0; i < 5 - @game.Rating; i++)
+                                                        else
                                                         {
-                                                            <li>
-                                                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                            </li>
+                                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                            <i class="fa fa-star-o" aria-hidden="true"></i>
                                                         }
                                                     </ul>
-                                                    @if (game.Rating == 0)
+                                                    @if (game.Rating > 0)
                                                     {
-                                                        <span class="text-white ml-2">Unrated</span>
+                                                        <span class="text-white ml-2">@game.Rating.ToString("0.00") <small style="font-size:10px">(User Score)</small></span>
                                                     }
                                                     else
                                                     {
-                                                        <span class="text-white ml-2">@game.Rating <small style="font-size:10px">(User Score)</small></span>
+                                                        <span class="text-white ml-2">Unrated</span>
                                                     }
                                                 </div>
                                                 <p class="trending-dec">

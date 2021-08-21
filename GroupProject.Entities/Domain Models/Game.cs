@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GroupProject.Entities.Domain_Models
 {
@@ -12,7 +13,17 @@ namespace GroupProject.Entities.Domain_Models
         public string GameUrl { get; set; }
         public string Trailer { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public float Rating { get; set; }
+        public float Rating
+        {
+            get
+            {
+                if (UserGameRatings.Count > 0)
+                {
+                    return (float)UserGameRatings?.Average(g => g.Rating);
+                }
+                return 0;
+            }
+        }
         public bool? IsEarlyAccess { get; set; }
         public bool IsReleased { get; set; }
         public Tag Tag { get; set; }

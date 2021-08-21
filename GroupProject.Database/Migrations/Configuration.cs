@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Data.Entity;
 using GroupProject.Entities;
 using GroupProject.Entities.Domain_Models;
 using Microsoft.AspNet.Identity;
@@ -41,9 +42,10 @@ namespace GroupProject.Database.Migrations
             #endregion
 
             #region Adding Admins 
-            var passwordHash = new PasswordHasher();
+            
             if (!context.Users.Any(x => x.UserName == "GameMaster"))
             {
+                var passwordHash = new PasswordHasher();
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
 
@@ -56,7 +58,83 @@ namespace GroupProject.Database.Migrations
                     FirstName = "Super",
                     LastName = "Gamer",
                     DateOfBirth = new DateTime(1990, 10, 28),
+                    IsSubscribed = true,
+                    EmailConfirmed = true
                 };
+
+                manager.Create(user);
+
+                manager.AddToRole(user.Id, "Admin");
+            }
+
+
+            if (!context.Users.Any(x => x.UserName == "mikedalpha"))
+            {
+                var passwordHash = new PasswordHasher();
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+
+                var user = new ApplicationUser()
+                {
+                    UserName = "mikedalpha",
+                    Email = "mikedalpha@gmail.com",
+                    PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                    RegistrationDate = DateTime.Now,
+                    FirstName = "Michael",
+                    LastName = "Athanasoglou",
+                    DateOfBirth = new DateTime(1991, 2, 22),
+                    IsSubscribed = true,
+                    EmailConfirmed = true,
+                };
+
+                manager.Create(user);
+
+                manager.AddToRole(user.Id, "Admin");
+            }
+
+            if (!context.Users.Any(x => x.UserName == "kwstaskor"))
+            {
+                var passwordHash = new PasswordHasher();
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+
+                var user = new ApplicationUser()
+                {
+                    UserName = "kwstaskor",
+                    Email = "kwstaskor@hotmail.com",
+                    PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                    RegistrationDate = DateTime.Now,
+                    FirstName = "Kostas",
+                    LastName = "Korliaftis",
+                    DateOfBirth = new DateTime(1991, 2, 28),
+                    IsSubscribed = true,
+                    EmailConfirmed = true,
+                };
+
+                manager.Create(user);
+
+                manager.AddToRole(user.Id, "Admin");
+            }
+
+            if (!context.Users.Any(x => x.UserName == "konstantinala"))
+            {
+                var passwordHash = new PasswordHasher();
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+
+                var user = new ApplicationUser()
+                {
+                    UserName = "konstantinala",
+                    Email = "klakoumenta@gmail.com",
+                    PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                    RegistrationDate = DateTime.Now,
+                    FirstName = "Konstantina",
+                    LastName = "Lakoumenta",
+                    DateOfBirth = new DateTime(1998, 9, 8),
+                    IsSubscribed = true,
+                    EmailConfirmed = true,
+                };
+
                 manager.Create(user);
 
                 manager.AddToRole(user.Id, "Admin");
@@ -143,7 +221,6 @@ namespace GroupProject.Database.Migrations
                 Description = "Brick Breaker Classic is inspired by some of the best classic arcade games." +
                    " The goal of the game is to break all the bricks in each level without dropping the ball into the abyss. Every brick you destroy gives you points." +
                    " Destroying multiple bricks at a time grants you bonus points. The more points you get, the more stars you will receive at the end of the level.",
-                Rating = 4,
                 Tag = Tag.Singleplayer,
                 IsReleased = true,
                 Pegi = p3,
@@ -158,7 +235,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Space Wars",
                 ReleaseDate = new DateTime(2021, 8, 5),
                 Description = "Explore different planets! Space Wars is a spaceship battle action game , shoot enemy spaceships to increase your score , try to survive and advance to the next level.",
-                Rating = 5,
                 Tag = Tag.Singleplayer,
                 IsReleased = true,
                 Pegi = p3,
@@ -174,7 +250,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Obstacle Avoiding",
                 ReleaseDate = new DateTime(2021, 7, 15),
                 Description = "Avoiding Obstacles Game - first unfinished version for alpha testing",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p3,
@@ -190,7 +265,6 @@ namespace GroupProject.Database.Migrations
                 Title = "The Prophet",
                 ReleaseDate = new DateTime(2021, 5, 19),
                 Description = "Simple Text Adventure within a fantasy setting",
-                Rating = 3,
                 Tag = Tag.Singleplayer,
                 IsReleased = true,
                 Pegi = p7,
@@ -205,7 +279,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Tic Tac Toe",
                 ReleaseDate = new DateTime(2021, 4, 19),
                 Description = "The classic game of Tic Tac Toe played against the computer",
-                Rating = 5,
                 Tag = Tag.Singleplayer,
                 IsReleased = true,
                 Pegi = p3,
@@ -220,7 +293,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Number Wizard",
                 ReleaseDate = new DateTime(2021, 3, 15),
                 Description = "It is a simple number guessing game created in Unity",
-                Rating = 4,
                 Tag = Tag.Singleplayer,
                 IsReleased = true,
                 Pegi = p3,
@@ -235,7 +307,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Overcooked",
                 ReleaseDate = new DateTime(2021, 10, 7),
                 Description = "Overcooked is a chaotic couch co-op cooking game for one to four players. Working as a team, you and your fellow chefs must prepare, cook and serve up a variety of tasty orders before the baying customers storm out in a huff.",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p3,
@@ -249,7 +320,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Until Dawn",
                 ReleaseDate = new DateTime(2021, 12, 8),
                 Description = "When eight friends are trapped on a remote mountain retreat and things quickly turn sinister, they start to suspect they aren’t alone.Gripped by fear and with tensions in the group running high,you’ll be forced to make snap decisions that could mean life,or death, for everyone involved.",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p18,
@@ -263,7 +333,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Outlast",
                 ReleaseDate = new DateTime(2021, 10, 7),
                 Description = "Hell is an experiment you can't survive in Outlast, a first-person survival horror game developed by veterans of some of the biggest game franchises in history. As investigative journalist Miles Upshur, explore Mount Massive Asylum and try to survive long enough to discover its terrible secret... ",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p18,
@@ -277,7 +346,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Half-Life",
                 ReleaseDate = new DateTime(2021, 10, 11),
                 Description = "Blends action and adventure with award-winning technology to create a frighteningly realistic world where players must think to survive. Also includes an exciting multiplayer mode that allows you to play against friends and enemies...",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p16,
@@ -292,7 +360,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Portal",
                 ReleaseDate = new DateTime(2021, 9, 11),
                 Description = " Set in the mysterious Aperture Science Laboratories, Portal has been called one of the most innovative new games on the horizon and will offer gamers hours of unique gameplay",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p16,
@@ -306,7 +373,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Left 4 Dead",
                 ReleaseDate = new DateTime(2021, 9, 3),
                 Description = "A co-op action horror game that casts up to four players in an epic struggle for survival against swarming zombie hordes and terrifying mutant monsters.",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p18,
@@ -319,7 +385,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Civilization",
                 ReleaseDate = new DateTime(2021, 9, 3),
                 Description = "New ways to interact with your world, expand your empire across the map, advance your culture, and compete against history’s greatest leaders to build a civilization that will stand the test of time. Play as one of 20 historical leaders including Roosevelt (America) and Victoria (England)",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p12,
@@ -332,7 +397,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Assassin’s Creed",
                 ReleaseDate = new DateTime(2014, 9, 12),
                 Description = "The French Revolution was led by the people. They stood together and fought the oppression. This year, and for the 1st time in the Assassin's Creed® franchise, team up with friends to fight and destroy the symbols of oppression.",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p18,
@@ -346,7 +410,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Fable Anniversary",
                 ReleaseDate = new DateTime(2021, 9, 12),
                 Description = "Fully re-mastered with HD visuals and audio, Fable Anniversary is a stunning rendition of the original game that will delight faithful fans and new players alike! The all new Heroic difficulty setting will test the mettle of even the most hardcore Fable fan.",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p16,
@@ -359,7 +422,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Kbyte",
                 ReleaseDate = new DateTime(2021, 9, 12),
                 Description = "Kbyte is a platform/puzzle game made in various styles of pixel art, ranging from 8bit to 16bit; it is a graphic journey through all the ages of the video game industry, so it uses both modern and classic game dynamics",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p7,
@@ -373,7 +435,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Toast Time",
                 ReleaseDate = new DateTime(2021, 9, 12),
                 Description = "Toast Time is a throwback to the golden age of video games where old-school homebrew titles fused arcade action with a distinctly British sense of humour.",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p7,
@@ -386,7 +447,6 @@ namespace GroupProject.Database.Migrations
                 Title = "WolfQuest",
                 ReleaseDate = new DateTime(2021, 9, 12),
                 Description = "LIVE THE LIFE OF A WILD WOLF! As a two-year-old gray wolf in Yellowstone National Park, hunt elk and moose, find a mate, and then establish a territory and raise your pups.",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p12,
@@ -399,7 +459,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Math Fun",
                 ReleaseDate = new DateTime(2021, 9, 12),
                 Description = "Math Fun is amazing fun loving app for everyone. This app will let you learn math in an fun and easy manner while playing.",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p7,
@@ -413,7 +472,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Air Forte",
                 ReleaseDate = new DateTime(2021, 9, 12),
                 Description = "Air Forte is a high-altitude game of math, vocabulary, and geography. Compete with friends or fly solo in the various arenas. Good luck, pilot!Key features:Play with friends: Up to four people can play Air Forte together. Find out who's the best pilot!",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p12,
@@ -427,7 +485,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Canyon Capers",
                 ReleaseDate = new DateTime(2021, 9, 12),
                 Description = "Remember fondly playing old style platformers, where you didn't have to learn a hundred button combos to play it successfully? canyon capers is just for you if that's the case.canyon capers is a retro style arcade platformer for all ages, created by the authors of the 1992 original.",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p16,
@@ -441,7 +498,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Monster Hunter Stories",
                 ReleaseDate = new DateTime(2021, 9, 12),
                 Description = "Wings of ruin, players are able to play the opening portion of the game for free. Save data from the demo can be carried over to the retail version. mount up and get ready to experience an all new rpg adventure set in the world of monster hunter.",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p12,
@@ -455,7 +511,6 @@ namespace GroupProject.Database.Migrations
                 Title = "Penarium",
                 ReleaseDate = new DateTime(2022, 6, 7),
                 Description = "Penarium is a frantic 2D arena arcade game where you take on the role of Willy, trapped in a sinister circus show. Run, jump and avoid an array of killer death-traps while being cheered on by a sadistic crowd that’s out for blood.",
-                Rating = 0,
                 Tag = Tag.Singleplayer,
                 IsReleased = false,
                 Pegi = p3,
@@ -469,6 +524,112 @@ namespace GroupProject.Database.Migrations
             {
                 context.Games.AddOrUpdate(c => c.Title, game);
             }
+            #endregion
+
+            #region Seed UserGameRatings
+
+            var user1 = context.Users.First(u => u.UserName == "GameMaster");
+            var user2 = context.Users.First(u => u.UserName == "mikedalpha");
+            var user3 = context.Users.First(u => u.UserName == "kwstaskor");
+            var user4 = context.Users.First(u => u.UserName == "konstantinala");
+
+            var ugr1 = new UserGameRatings
+            {
+                ApplicationUser = user1,
+                Game = g1,
+                Rating = 4
+            };
+
+            var ugr2 = new UserGameRatings
+            {
+                ApplicationUser = user2,
+                Game = g1,
+                Rating = 3
+            };
+
+            var ugr3 = new UserGameRatings
+            {
+                ApplicationUser = user3,
+                Game = g1,
+                Rating = 5
+            };
+            
+            var ugr4 = new UserGameRatings
+            {
+                ApplicationUser = user1,
+                Game = g2,
+                Rating = 5
+            };
+
+            var ugr5 = new UserGameRatings
+            {
+                ApplicationUser = user2,
+                Game = g2,
+                Rating = 5
+            };
+
+            var ugr6 = new UserGameRatings
+            {
+                ApplicationUser = user4,
+                Game = g2,
+                Rating = 5
+            };
+
+            var ugr7 = new UserGameRatings
+            {
+                ApplicationUser = user4,
+                Game = g4,
+                Rating = 5
+            };
+
+            var ugr8 = new UserGameRatings
+            {
+                ApplicationUser = user3,
+                Game = g4,
+                Rating = 4
+            };
+
+            var ugr9 = new UserGameRatings
+            {
+                ApplicationUser = user2,
+                Game = g5,
+                Rating = 5
+            };
+
+            var ugr10 = new UserGameRatings
+            {
+                ApplicationUser = user3,
+                Game = g5,
+                Rating = 4
+            };
+
+            var ugr11 = new UserGameRatings
+            {
+                ApplicationUser = user4,
+                Game = g5,
+                Rating = 5
+            };
+
+            var ugr12 = new UserGameRatings
+            {
+                ApplicationUser = user1,
+                Game = g6,
+                Rating = 1
+            };
+
+            var ugr13 = new UserGameRatings
+            {
+                ApplicationUser = user2,
+                Game = g6,
+                Rating = 5
+            };
+
+            var userGameRatings = new List<UserGameRatings> { ugr1, ugr2, ugr3, ugr4, ugr5, ugr6, ugr7, ugr8, ugr9, ugr10, ugr11, ugr12, ugr13 };
+            foreach (var userGameRating in userGameRatings)
+            {
+                context.UserGameRatings.AddOrUpdate(g => new { g.ApplicationUserId, g.GameId, g.Rating }, userGameRating);
+            }
+
             #endregion
 
             context.SaveChanges();
