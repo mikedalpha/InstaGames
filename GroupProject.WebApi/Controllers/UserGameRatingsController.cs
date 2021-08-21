@@ -10,7 +10,6 @@ using Microsoft.Owin.Security;
 
 namespace GroupProject.WebApi.Controllers
 {
-    [EnableCors(origins: "https://localhost:44384", headers: "*", methods: "*")]
     public class UserGameRatingsController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -24,6 +23,7 @@ namespace GroupProject.WebApi.Controllers
         public UserGameRatingsController(ApplicationUserManager userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
+            _unitOfWork = new UnitOfWork();
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
         }
