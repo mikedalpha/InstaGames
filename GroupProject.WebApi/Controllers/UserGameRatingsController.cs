@@ -3,8 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.Mvc;
-using GroupProject.Database;
 using GroupProject.Entities.Domain_Models;
 using GroupProject.RepositoryService;
 using Microsoft.AspNet.Identity.Owin;
@@ -44,28 +42,39 @@ namespace GroupProject.WebApi.Controllers
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        // POST: api/UserGameRatings/5&5&5
-        public async Task<ActionResult> AddRating(string userId, int gameId, int rating)
+        //POST: api/UserGameRatings/5&5&5
+        [HttpPost]
+        public async Task<IHttpActionResult> AddRating(string userId, int gameId, int rating)
         {
-            using (ApplicationDbContext db = ApplicationDbContext.Create())
+            var game = await _unitOfWork.Games.FindByIdAsync(gameId);
+            if (game == null) return NotFound();
+
+            var user = await UserManager.FindByIdAsync(userId);
+            if (user == null) return NotFound();
+
+            var userRating =
+                (await _unitOfWork.UserGameRatings.GetAllAsync()).FirstOrDefault(g =>
+                    g.GameId == gameId && g.ApplicationUserId == userId);
+
+            if (userRating == null)
             {
-                var userRating =
-                    (await _unitOfWork.UserGameRatings.GetAllAsync()).FirstOrDefault(g =>
-                        g.GameId == gameId && g.ApplicationUserId == userId);
+                var userGameRatings = new UserGameRatings();
 
-                if (userRating == null) //add, else if rating != null tote edit, kai telos save changes
-                {
-                    //_unitOfWork.UserGameRatings.Create();
-                }
-                else
-                {
-                    //_unitOfWork.UserGameRatings.Edit();
-                }
+                userGameRatings.ApplicationUserId = userId;
+                userGameRatings.GameId = gameId;
+                userGameRatings.Rating = rating;
 
-                await _unitOfWork.SaveAsync();
-
-                return Ok(UserGameRatings);
+                _unitOfWork.UserGameRatings.Create(userGameRatings);
             }
+            else
+            {
+                userRating.Rating = rating;
+                _unitOfWork.UserGameRatings.Edit(userRating);
+            }
+
+            await _unitOfWork.SaveAsync();
+
+            return Ok();
         }
     }
 }

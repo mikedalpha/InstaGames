@@ -20,7 +20,6 @@
 
 @Html.Partial("~/Views/Home/IndexPartials/TopFive.cshtml")
 
-
 @Html.Partial("~/Views/Home/IndexPartials/Suggested.cshtml")
 
 @Html.Partial("~/Views/Home/IndexPartials/Parallax.cshtml")
@@ -34,6 +33,7 @@
 @section scripts{
     @Scripts.Render("~/bundles/DetailsModalScript")
     <script> var userId = "@HttpContext.Current.User.Identity.GetUserId()"; </script>
-   @Scripts.Render("~/bundles/MyList")
+    @Scripts.Render("~/bundles/MyList")
+    @Scripts.Render("~/bundles/Rating")
 }
 

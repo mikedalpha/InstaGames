@@ -44,6 +44,9 @@ namespace GroupProject.WebApp
             bundles.Add(new ScriptBundle("~/bundles/MyList").Include(
                         "~/Scripts/jsFrontend/MyList.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/Rating").Include(
+                "~/Scripts/jsFrontend/Rating.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
