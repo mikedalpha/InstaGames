@@ -1,5 +1,5 @@
 ﻿using GroupProject.Database;
-using GroupProject.Entities;
+using System.Linq;
 using GroupProject.Entities.Domain_Models;
 
 namespace GroupProject.RepositoryService.Repositories
@@ -13,6 +13,10 @@ namespace GroupProject.RepositoryService.Repositories
         public CategoryRepos(ApplicationDbContext context) : base(context)
         {
 
+        }
+        public bool CategoryExists(int id)
+        {
+            return DbContext.Categories.Count(g => g.CategoryId == id) > 0;
         }
     }
 }
