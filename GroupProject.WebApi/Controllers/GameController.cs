@@ -75,7 +75,7 @@ namespace GroupProject.WebApi.Controllers
                 {
                     Type = c.Type
                 }),
-                Developer = game.GameDevelopers.Select(d => new
+                Developers = game.GameDevelopers.Select(d => new
                 {
                     Name = $"{d.FirstName + " " + d.LastName}"
                 })
