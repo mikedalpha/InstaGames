@@ -1,11 +1,11 @@
 
 jQuery('.addToList').click(function (e) {
-    let icon = $(this);
+    let element = $(this);
     e.preventDefault();
-    AddToList(userId, $(this).data('id'), icon);
+    AddToList(userId, $(this).data('id'), element);
 });
 
-function AddToList(id, gameId, icon) {
+function AddToList(id, gameId, element) {
   
     let url = `https://localhost:44369/api/Account/?id=${id}&gameid=${gameId}`;
     $.ajax({
@@ -14,15 +14,14 @@ function AddToList(id, gameId, icon) {
         dataType: "json",
         success: function (response) {
 
-            if (icon.find('i').hasClass('ri-add-line')) {
+            if (element.find('i').hasClass('ri-add-line')) {
 
-                icon.find('i').removeClass('ri-add-line');
-                icon.find('i').addClass('fa fa-check-circle-o');
+                element.find('i').removeClass('ri-add-line');
+                element.find('i').addClass('fa fa-check-circle-o');
               
             } else {
-                icon.find('i').removeClass('fa fa-check-circle-o');
-                icon.find('i').addClass('ri-add-line');
-               
+                element.find('i').removeClass('fa fa-check-circle-o');
+                element.find('i').addClass('ri-add-line');
             }
         }
     });

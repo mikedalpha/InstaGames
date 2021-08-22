@@ -73,7 +73,7 @@ namespace GroupProject.WebApi.Controllers
 
             await _unitOfWork.SaveAsync();
 
-            return Ok();
+            return Ok("Success");
         }
     }
 }
