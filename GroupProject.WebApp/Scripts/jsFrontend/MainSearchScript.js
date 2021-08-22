@@ -132,7 +132,7 @@ function NoGamesAvailable() {
 //Play Button Show or Not
 function PlayButtonMainSearch(game) {
 
-    if (game.IsRealeased || game.IsEarlyAccess) {
+    if (game.IsReleased || game.IsEarlyAccess) {
         return `<div id = "playBtn" class="episode-play">
                        <a href="/game/play/${game.GameId}"><i class="fa fa-play"></i></a>
                   </div>`;

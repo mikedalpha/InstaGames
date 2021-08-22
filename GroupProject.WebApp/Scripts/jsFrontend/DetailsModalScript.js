@@ -93,7 +93,7 @@ function ModalBodyTemplating(game) {
                                     <div class="text-primary title starring">
                                         Developed By:
                                         <span class="text-body">
-                                           ${game.Developer.map(d => `<text>${d.Name}&nbsp;</text>`).join("")}
+                                           ${game.Developers.map(d => `<text>${d.Name}&nbsp;</text>`).join("")}
                                         </span>
                                     </div>
                                     <div class="text-primary title genres">
