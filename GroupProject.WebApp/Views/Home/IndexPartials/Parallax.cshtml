@@ -17,13 +17,13 @@
                             <ul class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
                                 @if (Model.RandomGame.Rating > 0)
                                 {
-                                    for (int i = 0; i < @Math.Floor(Model.RandomGame.Rating); i++)
+                                    for (int i = 0; i < @Math.Round(Model.RandomGame.Rating); i++)
                                     {
                                         <li>
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </li>
                                     }
-                                    for (int i = 0; i < 5 - @Math.Floor(Model.RandomGame.Rating); i++)
+                                    for (int i = 0; i < 5 - @Math.Round(Model.RandomGame.Rating); i++)
                                     {
                                         <li>
                                             <i class="fa fa-star-o" aria-hidden="true"></i>
@@ -41,7 +41,7 @@
                             </ul>
                             @if (Model.RandomGame.Rating > 0)
                             {
-                                <span class="text-white ml-2">@Model.RandomGame.Rating.ToString("0.00") <small style="font-size: 10px">(User Score)</small></span>
+                                <span class="text-white ml-2">@Model.RandomGame.Rating.ToString("0.0") <small style="font-size: 10px">(User Score)</small></span>
                             }
                             else
                             {

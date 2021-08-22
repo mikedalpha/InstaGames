@@ -577,17 +577,5 @@ Index Of Script
             document.execCommand('copy');
             document.body.removeChild(elem);
         }
-
-        $(document).ready(function () {
-            $(".unrated").hover(function () {
-                $(".unrated").removeClass("fa fa-star-o");
-                $(".unrated").addClass("fa fa-star");
-            });
-
-            $(".unrated").mouseleave(function () {
-                $(".unrated").removeClass("fa fa-star");
-                $(".unrated").addClass("fa fa-star-o");
-            });
-        });
     });
 })(jQuery);

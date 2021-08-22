@@ -55,21 +55,13 @@ namespace GroupProject.WebApi.Controllers
                 (await _unitOfWork.UserGameRatings.GetAllAsync()).FirstOrDefault(g =>
                     g.GameId == gameId && g.ApplicationUserId == userId);
 
-            if (userRating == null)
-            {
-                var userGameRatings = new UserGameRatings();
+            var userGameRatings = new UserGameRatings();
 
-                userGameRatings.ApplicationUserId = userId;
-                userGameRatings.GameId = gameId;
-                userGameRatings.Rating = rating;
+            userGameRatings.ApplicationUserId = userId;
+            userGameRatings.GameId = gameId;
+            userGameRatings.Rating = rating;
 
-                _unitOfWork.UserGameRatings.Create(userGameRatings);
-            }
-            else
-            {
-                userRating.Rating = rating;
-                _unitOfWork.UserGameRatings.Edit(userRating);
-            }
+            _unitOfWork.UserGameRatings.Create(userGameRatings);
 
             await _unitOfWork.SaveAsync();
 
