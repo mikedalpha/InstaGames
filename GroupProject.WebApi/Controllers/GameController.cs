@@ -3,12 +3,14 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using GroupProject.Entities.Domain_Models;
 using GroupProject.RepositoryService;
 
 namespace GroupProject.WebApi.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class GameController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
@@ -91,7 +93,7 @@ namespace GroupProject.WebApi.Controllers
 
             if (id != game.GameId) return BadRequest();
 
-              unitOfWork.Games.Edit(game);
+            unitOfWork.Games.Edit(game);
 
             try
             {
@@ -138,9 +140,9 @@ namespace GroupProject.WebApi.Controllers
             }
 
             unitOfWork.Games.Remove(game);
-            await unitOfWork.SaveAsync();
+            var result = await unitOfWork.SaveAsync();
 
-            return Ok(game);
+            return result > 0 ? (IHttpActionResult) Ok() : InternalServerError();
         }
 
         protected override void Dispose(bool disposing)
