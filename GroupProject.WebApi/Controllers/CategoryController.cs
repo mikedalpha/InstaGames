@@ -78,7 +78,7 @@ namespace GroupProject.WebApi.Controllers
 
         // POST: api/Category
         [ResponseType(typeof(Category))]
-        public async Task<IHttpActionResult> PostGame(Category category)
+        public async Task<IHttpActionResult> PostCategory(Category category)
         {
             if (!ModelState.IsValid)
             {
