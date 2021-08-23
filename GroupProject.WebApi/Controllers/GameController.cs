@@ -53,6 +53,7 @@ namespace GroupProject.WebApi.Controllers
         public async Task<IHttpActionResult> GetGame(int id)
         {
             var game = await unitOfWork.Games.FindByIdAsync(id);
+
             if (game == null)
             {
                 return NotFound();
