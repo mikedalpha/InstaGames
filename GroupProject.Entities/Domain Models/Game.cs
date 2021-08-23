@@ -13,7 +13,7 @@ namespace GroupProject.Entities.Domain_Models
         public string GameUrl { get; set; }
         public string Trailer { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public float Rating
+        public float Rating 
         {
             get
             {
