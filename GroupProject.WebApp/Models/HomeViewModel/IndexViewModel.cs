@@ -40,11 +40,6 @@ namespace GroupProject.WebApp.Models.HomeViewModel
             get { return _ratedGame; }
         }
 
-        public float UserRating
-        {
-            get { return RatedGames.Select(g => g.Rating).First(); }
-        }
-
         public List<Game> SliderGames
         {
              get { return Games.OrderByDescending(g => g.Rating).Take(3).ToList(); }

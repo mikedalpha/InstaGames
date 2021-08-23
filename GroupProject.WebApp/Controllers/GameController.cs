@@ -70,7 +70,9 @@ namespace GroupProject.WebApp.Controllers
             var appuser = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (appuser == null) return RedirectToAction("InternalServerError", "Error");
 
-            var vm = new SinglePlayerViewModel(games.ToList(),game , categories.ToList() , appuser);
+            var ratedGame = await unitOfWork.UserGameRatings.GetAllAsync();
+
+            var vm = new SinglePlayerViewModel(games.ToList(),game , categories.ToList() , appuser, ratedGame.ToList());
 
             return View(vm);
         }

@@ -1,99 +1,115 @@
 ﻿@model GroupProject.WebApp.Models.GameViewModels.SinglePlayerViewModel
 
 <section class="iq-main-slider p-0">
-    @*<div id="tvshows-slider">*@
-        <div>
-            <div class="shows-img">
+    <div>
+        <div class="shows-img">
 
-                @if (!string.IsNullOrEmpty(@Model.SelectedGame.Trailer))
-                {
-                    <div class="video-background">
-                        <div class="video-wrap">
-                            <div id="video">
-                                <video id="bgvid" autoplay loop muted playsinline>
-                                    <source src="@Model.SelectedGame.Trailer" type="video/mp4" />
-                                </video>
-                            </div>
+            @if (!string.IsNullOrEmpty(@Model.SelectedGame.Trailer))
+            {
+                <div class="video-background">
+                    <div class="video-wrap">
+                        <div id="video">
+                            <video id="bgvid" autoplay loop muted playsinline>
+                                <source src="@Model.SelectedGame.Trailer" type="video/mp4" />
+                            </video>
                         </div>
                     </div>
-                }
-                else
-                {
-                    <img src="@Model.SelectedGame.Photo" class="w-100" alt="">
-                }
+                </div>
+            }
+            else
+            {
+                <img src="@Model.SelectedGame.Photo" class="w-100" alt="">
+            }
 
-                <div class="shows-content">
-                    <div class="d-flex align-items-center r-mb-23" data-animation-in="fadeInUp" data-delay-in="1.2">
-                        <div class="hover-buttons">
-                            @if (Model.SelectedGame.IsReleased || Model.SelectedGame.IsEarlyAccess.HasValue)
-                            {
-                                <a href="~/game/play/@Model.SelectedGame.GameId" class="btn btn-hover iq-button">
-                                    <i class="fa fa-play mr-2"
-                                       aria-hidden="true"></i>Play Now
-                                </a>
-                                <a href="#" data-id="@Model.SelectedGame.GameId" class="detailsView btn btn-link">More info</a>
-                                <a href="javascript:void(0);" class="btn-link addToList" tabindex="0" data-id="@Model.SelectedGame.GameId">
-                                    @if (Model.MyList.Any(g => g.GameId == Model.SelectedGame.GameId))
-                                    {
-                                        <i class="fa fa-check-circle-o"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="ri-add-line"></i>
-                                    }My List
-                                </a>
-                            }
-                            else
-                            {
-                                <a href="#" data-id="@Model.SelectedGame.GameId" class="detailsView btn btn-hover">
-                                    <i class="fa fa-info mr-2"
-                                       aria-hidden="true"></i>More info
-                                </a>
-                            }
-                        </div>
-                       
-
-
+            <div class="shows-content">
+                <div class="d-flex align-items-center r-mb-23" data-animation-in="fadeInUp" data-delay-in="1.2">
+                    <div class="hover-buttons">
+                        @if (Model.SelectedGame.IsReleased || Model.SelectedGame.IsEarlyAccess.HasValue)
+                        {
+                            <a href="~/game/play/@Model.SelectedGame.GameId" class="btn btn-hover iq-button">
+                                <i class="fa fa-play mr-2"
+                                   aria-hidden="true"></i>Play Now
+                            </a>
+                            <a href="#" data-id="@Model.SelectedGame.GameId" class="detailsView btn btn-link">More info</a>
+                            <a href="javascript:void(0);" class="btn-link addToList" tabindex="0" data-id="@Model.SelectedGame.GameId">
+                                @if (Model.MyList.Any(g => g.GameId == Model.SelectedGame.GameId))
+                                {
+                                    <i class="fa fa-check-circle-o"></i>
+                                }
+                                else
+                                {
+                                    <i class="ri-add-line"></i>
+                                }My List
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" data-id="@Model.SelectedGame.GameId" class="detailsView btn btn-hover">
+                                <i class="fa fa-info mr-2"
+                                   aria-hidden="true"></i>More info
+                            </a>
+                        }
                     </div>
-                    <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft"
-                        data-delay-in="0.6">
-                        @Model.SelectedGame.Title
-                    </h1>
-                    <div class="movie-time d-flex align-items-center">
-                        <img src="@Model.SelectedGame.Pegi.PegiPhoto" alt="Alternate Text" class="p-2 " width="50" />
-                        <span class="text-white">@Model.SelectedGame.Tag.ToString() &nbsp;</span>
-                        <ul class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
-                            @for (int i = 0; i < Model.SelectedGame.Rating; i++)
+
+
+
+                </div>
+                <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft"
+                    data-delay-in="0.6">
+                    @Model.SelectedGame.Title
+                </h1>
+                <div class="movie-time d-flex align-items-center">
+                    <img src="@Model.SelectedGame.Pegi.PegiPhoto" alt="Alternate Text" class="p-2 " width="50" />
+                    <span class="text-white">@Model.SelectedGame.Tag.ToString() &nbsp;</span>
+                    <ul class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
+                        @if (Model.SelectedGame.Rating > 0)
+                        {
+                            for (int i = 0; i < @Math.Round(Model.SelectedGame.Rating); i++)
                             {
                                 <li>
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </li>
                             }
-                            @for (int i = 0; i < 5 - Model.SelectedGame.Rating; i++)
+                            for (int i = 0; i < 5 - @Math.Round(Model.SelectedGame.Rating); i++)
                             {
                                 <li>
                                     <i class="fa fa-star-o" aria-hidden="true"></i>
                                 </li>
                             }
-                        </ul>
-
-                    </div>
+                        }
+                        else
+                        {
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        }
+                    </ul>
+                    @if (Model.SelectedGame.Rating > 0)
+                    {
+                        <span class="text-white ml-2">@Model.SelectedGame.Rating.ToString("0.0") <small style="font-size:10px">(User Score)</small></span>
+                    }
+                    else
+                    {
+                        <span class="text-white ml-2">Unrated</span>
+                    }
                 </div>
             </div>
-            <a href="javascript:void(0);">
-                <div class="channel-logo" data-animation-in="fadeInLeft" data-delay-in="0.5">
-                    <img src="~/Content/images/logo.png" class="c-logo" alt="InstaGames">
-                </div>
-            </a>
         </div>
-    @*</div>*@
+        <a href="javascript:void(0);">
+            <div class="channel-logo" data-animation-in="fadeInLeft" data-delay-in="0.5">
+                <img src="~/Content/images/logo.png" class="c-logo" alt="InstaGames">
+            </div>
+        </a>
+    </div>
     <div class="dropdown genres-box">
         <button class="btn btn-secondary btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
             <small class="font-size-12">Categories &nbsp;<i class="fa fa-caret-down"></i></small>
         </button>
         <div class="dropdown-menu three-column" aria-labelledby="dropdownMenuButton">
-         
+
         </div>
     </div>
 </section>

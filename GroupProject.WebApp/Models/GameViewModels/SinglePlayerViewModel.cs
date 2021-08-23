@@ -11,18 +11,25 @@ namespace GroupProject.WebApp.Models.GameViewModels
         private List<Game> _allGames;
         private Game _selectedGame;
         private ApplicationUser appuser;
+        private List<UserGameRatings> _ratedGame;
 
-        public SinglePlayerViewModel(List<Game> allGames, Game selectedGame , List<Category> allCategories , ApplicationUser user)
+        public SinglePlayerViewModel(List<Game> allGames, Game selectedGame , List<Category> allCategories , ApplicationUser user, List<UserGameRatings> ratedGame)
         {
             _allGames = allGames;
             _selectedGame = selectedGame;
             _allCategories = allCategories;
             appuser = user;
+            _ratedGame = ratedGame;
         }
 
         public List<Game> MyList
         {
             get { return appuser.UserList.ToList(); }
+        }
+
+        public List<UserGameRatings> RatedGames
+        {
+            get { return _ratedGame; }
         }
 
         public Game SelectedGame => _selectedGame;
