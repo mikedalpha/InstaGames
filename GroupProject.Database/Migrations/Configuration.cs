@@ -201,10 +201,18 @@ namespace GroupProject.Database.Migrations
             };
             var c3 = new Category
             {
-                Type = "Fun"
+                Type = "Fun",
+                Description = "Fun games, also known as 'casual' games are video games targeted at a mass market audience, as opposed to a hardcore game, which is " +
+                              "targeted at hobbyist gamers. Casual games may exhibit any type of gameplay and genre. They generally involve simpler rules, shorter sessions, and require less learned skill."
 
             };
-            var c4 = new Category { Type = "Classic" };
+            var c4 = new Category
+            {
+                Type = "Classic",
+                Description = "Classic games, also known as retro games and old school games, are considered the older versions of video games (generally arcade) " +
+                              "in contemporary times. Usually, classic games are based upon systems that are obsolete or discontinued. They are typically put into practice " +
+                              "for the purpose of nostalgia, preservation or the need to achieve authenticity."
+            };
             var c5 = new Category
             {
                 Type = "Action",
@@ -212,9 +220,25 @@ namespace GroupProject.Database.Migrations
                 " The genre includes a large variety of sub-genres, such as fighting games, beat 'em ups, shooter games and platform games." +
                 " Multiplayer online battle arena and some real-time strategy games are also considered action games. "
             };
-            var c6 = new Category { Type = "Text Adventure" };
-            var c7 = new Category { Type = "Fantasy" };
-            var c8 = new Category { Type = "Horror" };
+            var c6 = new Category
+            {
+                Type = "Text Adventure",
+                Description = "Text adventures (sometimes synonymously referred to as interactive fiction) are text-based games wherein worlds are described in the narrative" +
+                              " and the player submits typically simple commands to interact with the worlds. Colossal Cave Adventure is considered to be the first adventure game," +
+                              " and indeed the name of the genre adventure game is derived from the title."
+            };
+            var c7 = new Category
+            {
+                Type = "Fantasy",
+                Description = "In Fantasy games, players usually control the actions of a single character while undertaking a quest in or otherwise exploring an elaborate virtual world."
+            };
+            var c8 = new Category
+            {
+                Type = "Horror",
+                Description = "Horror games are centered on horror fiction and typically designed to scare the player. Unlike most other video game genres, which are classified by their gameplay," +
+                              " horror games are nearly always based on narrative or visual presentation, and use a variety of gameplay types. " +
+                              "One of the best-defined and most common types of horror games are survival horror games."
+            };
 
             var categories = new List<Category>() { c1, c2, c3, c4, c5, c6, c7, c8 };
             foreach (var category in categories)
