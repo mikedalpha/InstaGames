@@ -218,6 +218,7 @@
     <Compile Include="Controllers\DeveloperController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\PegiController.cs" />
     <Compile Include="Controllers\UserGameRatingsController.cs" />
     <Compile Include="Global.asax.cs">
