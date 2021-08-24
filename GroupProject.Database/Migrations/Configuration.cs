@@ -58,7 +58,8 @@ namespace GroupProject.Database.Migrations
                     LastName = "Gamer",
                     DateOfBirth = new DateTime(1990, 10, 28),
                     IsSubscribed = true,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now , Text = "Hello fellow admins I am testing the Message section!"} }
                 };
 
                 manager.Create(user);
@@ -84,6 +85,7 @@ namespace GroupProject.Database.Migrations
                     DateOfBirth = new DateTime(1991, 2, 22),
                     IsSubscribed = true,
                     EmailConfirmed = true,
+                    Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello fellow admins I am Mike and I am testing the Message section!" } }
                 };
 
                 manager.Create(user);
@@ -108,6 +110,7 @@ namespace GroupProject.Database.Migrations
                     DateOfBirth = new DateTime(1991, 2, 28),
                     IsSubscribed = true,
                     EmailConfirmed = true,
+                    Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello fellow admins I am Kostas and I am testing the Message section!" } }
                 };
 
                 manager.Create(user);
@@ -132,6 +135,7 @@ namespace GroupProject.Database.Migrations
                     DateOfBirth = new DateTime(1998, 9, 8),
                     IsSubscribed = true,
                     EmailConfirmed = true,
+                    Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello fellow admins I am Kostantina and I am testing the Message section!" } }
                 };
 
                 manager.Create(user);

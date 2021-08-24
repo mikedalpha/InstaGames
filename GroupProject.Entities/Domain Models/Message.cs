@@ -8,7 +8,6 @@ namespace GroupProject.Entities.Domain_Models
         public string Text { get; set; }
         public DateTime SubmitDate { get; set; }
 
-        public ApplicationUser Creator { get; set; }
-
+        public virtual ApplicationUser Creator { get; set; }
     }
 }
