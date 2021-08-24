@@ -38,6 +38,7 @@ namespace GroupProject.Entities.Domain_Models
             GameCategories = new HashSet<Category>();
             GameDevelopers = new HashSet<Developer>();
             Subscribers = new HashSet<ApplicationUser>();
+            UserGameRatings = new HashSet<UserGameRatings>();
         }
     }
 }
