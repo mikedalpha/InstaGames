@@ -48,6 +48,7 @@ function MainCatTemplate(cat) {
                                                  <li class="breadcrumb-item active" aria-current="page">${cat.Type}</li>
                                               </ol>
                                            </nav>
+                                               <p class="mb=3">${cat.Description}</p>
                                              <div id="categorySection" class="row mb-5">
 
                                              </div>

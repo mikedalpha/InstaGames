@@ -41,7 +41,7 @@ namespace GroupProject.Database.Migrations
             #endregion
 
             #region Adding Admins 
-            
+
             if (!context.Users.Any(x => x.UserName == "GameMaster"))
             {
                 var passwordHash = new PasswordHasher();
@@ -179,11 +179,35 @@ namespace GroupProject.Database.Migrations
             #endregion
 
             #region Seed Categories
-            var c1 = new Category { Type = "Arcade" };
-            var c2 = new Category { Type = "Math" };
-            var c3 = new Category { Type = "Fun" };
+            var c1 = new Category
+            {
+                Type = "Arcade",
+                Description = "While the category still exists it has morphed quite a bit since the early 70s to the mid 80s when arcades could be found in large shopping malls, " +
+                              "small strip centers, pizzerias, pool halls etc. The games took money and in turn gave the player a set number of lives" +
+                              " to complete as much as they could without losing a life. Some games allowed for cooperative play (multiple players pay at the same time)" +
+                              " others were single player but allowed multiple players to play in turn, competing for high scores."
+            };
+            var c2 = new Category
+            {
+                Type = "Math",
+                Description = "A mathematical game is a game whose rules, strategies, and outcomes are defined by clear mathematical parameters.Often," +
+                              " such games have simple rules and match procedures, such as Tic-tac-toe and Dots and Boxes. Generally, mathematical games need not be conceptually" +
+                              " intricate to involve deeper computational underpinnings. For example, even though the rules of Mancala are relatively basic," +
+                              " the game can be rigorously analyzed through the lens of combinatorial game theory."
+            };
+            var c3 = new Category
+            {
+                Type = "Fun"
+
+            };
             var c4 = new Category { Type = "Classic" };
-            var c5 = new Category { Type = "Action" };
+            var c5 = new Category
+            {
+                Type = "Action",
+                Description = "An action game is a video game genre that emphasizes physical challenges, including hand–eye coordination and reaction-time." +
+                " The genre includes a large variety of sub-genres, such as fighting games, beat 'em ups, shooter games and platform games." +
+                " Multiplayer online battle arena and some real-time strategy games are also considered action games. "
+            };
             var c6 = new Category { Type = "Text Adventure" };
             var c7 = new Category { Type = "Fantasy" };
             var c8 = new Category { Type = "Horror" };
@@ -281,7 +305,7 @@ namespace GroupProject.Database.Migrations
                 Tag = Tag.Singleplayer,
                 IsReleased = true,
                 Pegi = p3,
-                GameCategories = new Collection<Category>() { c1, c3, c4 },
+                GameCategories = new Collection<Category>() { c2, c3, c4 },
                 Photo = "/Content/images/Games/tictactoe.png",
                 GameUrl = @"https://i.simmer.io/@InstaGames/tictactoe",
                 GameDevelopers = new Collection<Developer>() { d1, d3 }
@@ -552,7 +576,7 @@ namespace GroupProject.Database.Migrations
                 Game = g1,
                 Rating = 5
             };
-            
+
             var ugr4 = new UserGameRatings
             {
                 ApplicationUser = user1,

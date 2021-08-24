@@ -114,18 +114,23 @@ namespace GroupProject.WebApi.Controllers
         }
 
         // POST: api/Games
-        [ResponseType(typeof(Game))]
-        public async Task<IHttpActionResult> PostGame(Game game)
+        [HttpPost]
+        public IHttpActionResult PostGame(Game game)
         {
+
+            unitOfWork.Games.AssignGamePegi(game, game.Pegi.PegiId);
+            unitOfWork.Games.AssignGameCategories(game, game.GameCategories.ToArray());
+            unitOfWork.Games.AssignGameDevelopers(game, game.GameDevelopers.ToArray());
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
             unitOfWork.Games.Create(game);
-            await unitOfWork.SaveAsync();
+            unitOfWork.Save();
 
-            return CreatedAtRoute("DefaultApi", new { id = game.GameId }, game);
+            return CreatedAtRoute("DefaultApi", new {id = game.GameId}, game);
         }
 
         // DELETE: api/Games/5
@@ -141,7 +146,7 @@ namespace GroupProject.WebApi.Controllers
             unitOfWork.Games.Remove(game);
             var result = await unitOfWork.SaveAsync();
 
-            return result > 0 ? (IHttpActionResult) Ok() : InternalServerError();
+            return result > 0 ? (IHttpActionResult)Ok() : InternalServerError();
         }
 
         protected override void Dispose(bool disposing)
@@ -152,6 +157,5 @@ namespace GroupProject.WebApi.Controllers
             }
             base.Dispose(disposing);
         }
-
     }
 }

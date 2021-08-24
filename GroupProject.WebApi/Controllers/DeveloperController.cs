@@ -43,21 +43,6 @@ namespace GroupProject.WebApi.Controllers
             }).ToList());
         }
 
-        // POST: api/Developer
-        [ResponseType(typeof(Developer))]
-        public async Task<IHttpActionResult> PostCategory(Developer developer)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            unitOfWork.Developer.Create(developer);
-            await unitOfWork.SaveAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = developer.DeveloperId }, developer);
-        }
-
         public async Task<IHttpActionResult> GetDev(int? id)
         {
             var developer = await unitOfWork.Developer.FindByIdAsync(id);
@@ -85,6 +70,21 @@ namespace GroupProject.WebApi.Controllers
                     Tag = dg.Tag
                 })
             });
+        }
+
+        // POST: api/Developer
+        [ResponseType(typeof(Developer))]
+        public async Task<IHttpActionResult> PostDev(Developer developer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            unitOfWork.Developer.Create(developer);
+            await unitOfWork.SaveAsync();
+
+            return CreatedAtRoute("DefaultApi", new { id = developer.DeveloperId }, developer);
         }
 
         // DELETE: api/Developer/5

@@ -4,7 +4,7 @@ using GroupProject.Entities.Domain_Models;
 
 namespace GroupProject.RepositoryService.Repositories
 {
-    public class GameRepos:Repository<Game>
+    public class GameRepos : Repository<Game>
     {
         public ApplicationDbContext DbContext
         {
@@ -18,6 +18,54 @@ namespace GroupProject.RepositoryService.Repositories
         public bool GameExists(int id)
         {
             return DbContext.Games.Count(g => g.GameId == id) > 0;
+        }
+
+        public void AssignGameCategories(Game game, Category[] categories)
+        {
+            if (categories is null) return;
+
+            game.GameCategories.Clear();
+
+            foreach (var cat in categories)
+            {
+                var category = DbContext.Categories.Find(cat.CategoryId);
+                if (!(category is null))
+                {
+                    game.GameCategories.Add(category);
+                }
+            }
+
+            DbContext.SaveChanges();
+        }
+
+        public void AssignGameDevelopers(Game game, Developer[] developers)
+        {
+            if (developers is null) return;
+
+            game.GameDevelopers.Clear();
+
+            foreach (var dev in developers)
+            {
+                var developer = DbContext.Developers.Find(dev.DeveloperId);
+                if (!(developer is null))
+                {
+                    game.GameDevelopers.Add(developer);
+                }
+            }
+
+            DbContext.SaveChanges();
+        }
+
+        public void AssignGamePegi(Game game, int pegiId)
+        {
+            var pegi = DbContext.Pegi.Find(pegiId);
+            
+            if (pegi != null)
+            {
+                game.Pegi = pegi;
+            }
+
+            DbContext.SaveChanges();
         }
 
     }
