@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -53,6 +55,45 @@ namespace GroupProject.WebApi.Controllers
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+
+        // GET: api/Users
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetUsers()
+        {
+            var users = await UserManager.Users.ToListAsync();
+
+            return Ok(users.Select(u => new
+            {
+                Id = u.Id,
+                UserName = u.UserName,
+                Email = u.Email,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                PhotoUrl = u.PhotoUrl,
+                IsSubscribed = u.IsSubscribed,
+                RegistrationDate = u.RegistrationDate
+            }).ToList());
+        }
+
+        //GET: api/Users/5
+        public async Task<IHttpActionResult> GetUser(string id)
+        {
+            var user = await UserManager.FindByIdAsync(id);
+
+            if (user == null) return NotFound();
+
+            return Ok(new
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhotoUrl = user.PhotoUrl,
+                IsSubscribed = user.IsSubscribed,
+                RegistrationDate = user.RegistrationDate
+            });
+        }
 
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
