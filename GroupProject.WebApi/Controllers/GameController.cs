@@ -130,7 +130,7 @@ namespace GroupProject.WebApi.Controllers
             unitOfWork.Games.Create(game);
             unitOfWork.Save();
 
-            return CreatedAtRoute("DefaultApi", new {id = game.GameId}, game);
+            return CreatedAtRoute("DefaultApi", new {id = game.GameId} ,new {Title = game.Title});
         }
 
         // DELETE: api/Games/5
