@@ -121,7 +121,8 @@ namespace GroupProject.WebApp.Controllers
             var message = new Message()
             {
                 SubmitDate = DateTime.Now,
-                Text = model.Message
+                Text = model.Message,
+                Answered = false
             };
 
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());

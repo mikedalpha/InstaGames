@@ -7,6 +7,7 @@ namespace GroupProject.Entities.Domain_Models
         public int MessageId { get; set; }
         public string Text { get; set; }
         public DateTime SubmitDate { get; set; }
+        public bool Answered { get; set; }
 
         public virtual ApplicationUser Creator { get; set; }
     }

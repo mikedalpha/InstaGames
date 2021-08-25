@@ -119,6 +119,7 @@ namespace GroupProject.Database.Migrations
                         MessageId = c.Int(nullable: false, identity: true),
                         Text = c.String(nullable: false),
                         SubmitDate = c.DateTime(nullable: false, storeType: "date"),
+                        Answered = c.Boolean(nullable: false),
                         CreatorId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.MessageId)
