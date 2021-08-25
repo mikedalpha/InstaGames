@@ -32,7 +32,7 @@
                                             </div>
                                         }
                                         <div class="hover-buttons">
-                                            <a href="#" class="detailsView btn btn-hover btn-sm iq-button">
+                                            <a href="#" data-id="@game.GameId" class="detailsView btn btn-hover btn-sm iq-button">
                                                 <i class="fa fa-info-circle mr-1" aria-hidden="true"></i>
                                                 More info
                                             </a>
@@ -84,6 +84,7 @@
                                                             <i data-id="@game.GameId" class="addRating btn-link fa fa-star" value="5"></i>
                                                         </div>
                                                     </div>
+                                                    <span hidden class="count-box show-rating"></span>
                                                 }
                                             </li>
                                         </ul>

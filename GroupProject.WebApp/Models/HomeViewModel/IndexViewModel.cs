@@ -55,11 +55,11 @@ namespace GroupProject.WebApp.Models.HomeViewModel
             get { return Games.Where(g => g.IsReleased == false).OrderBy(g => g.ReleaseDate).ToList(); }
         }
 
-        public List<Game> TopFive
+        public List<Game> TopTen
         {
             get
             {
-                return Games.Where(g=>g.Rating > 0).OrderByDescending(g => g.Rating).Take(5).ToList();
+                return Games.Where(g=>g.Rating > 0).OrderByDescending(g => g.Rating).Take(10).ToList();
             }
         }
 

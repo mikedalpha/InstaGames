@@ -38,6 +38,14 @@ namespace GroupProject.Database.Migrations
                 manager.Create(role);
             }
 
+            if (!context.Roles.Any(x => x.Name == "Unsubscribed"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Unsubscribed" };
+                manager.Create(role);
+            }
+
             #endregion
 
             #region Adding Admins 

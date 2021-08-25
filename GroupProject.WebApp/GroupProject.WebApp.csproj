@@ -554,7 +554,7 @@
     <Content Include="Views\Home\IndexPartials\Slider.cshtml" />
     <Content Include="Views\Home\IndexPartials\Latest.cshtml" />
     <Content Include="Views\Home\IndexPartials\Upcoming.cshtml" />
-    <Content Include="Views\Home\IndexPartials\TopFive.cshtml" />
+    <Content Include="Views\Home\IndexPartials\TopTen.cshtml" />
     <Content Include="Views\Home\IndexPartials\Suggested.cshtml" />
     <Content Include="Views\Home\IndexPartials\Parallax.cshtml" />
     <Content Include="Views\Home\IndexPartials\Trending.cshtml" />

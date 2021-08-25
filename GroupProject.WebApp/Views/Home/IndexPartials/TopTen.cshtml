@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col-sm-12 overflow-hidden">
                 <div class="iq-main-header d-flex align-items-center justify-content-between">
-                    <h4 class="main-title iq-title topten-title-sm">Top 5 of InstaGames</h4>
+                    <h4 class="main-title iq-title topten-title-sm">Top 10 of InstaGames</h4>
                 </div>
                 <div class="topten-contens">
-                    <h4 class="main-title iq-title topten-title">Top 5 Based on User Rating</h4>
+                    <h4 class="main-title iq-title topten-title">Top 10 Based on User Rating</h4>
                     <ul id="top-ten-slider" class="list-inline p-0 m-0  d-flex align-items-center">
-                        @foreach (var game in Model.TopFive)
+                        @foreach (var game in Model.TopTen)
                         {
                             <li class="slick-bg">
                                 <a class="detailsView" href="#">
@@ -21,7 +21,7 @@
                     </ul>
                     <div class="vertical_s">
                         <ul id="top-ten-slider-nav" class="list-inline p-0 m-0  d-flex align-items-center">
-                            @foreach (var game in Model.TopFive)
+                            @foreach (var game in Model.TopTen)
                             {
                                 <li>
                                     <div class="block-images position-relative">
@@ -34,10 +34,21 @@
                                                 <img src="@game.Pegi.PegiPhoto" class="img-fluid" width="20" />
                                                 <span class="text-white">&nbsp; <i class="text-primary fa fa-star"></i> @game.Rating.ToString("0.0")</span>
                                             </div>
+                                            
                                             <div class="hover-buttons">
-                                                <a href="~/game/play/@game.GameId" class="btn btn-hover btn-sm" tabindex="0">
-                                                    <i class="fa fa-play mr-1" aria-hidden="true"></i> Play Now
-                                                </a>
+                                                @if (game.IsReleased)
+                                                {
+                                                    <a href="~/game/play/@game.GameId" class="btn btn-hover btn-sm" tabindex="0">
+                                                        <i class="fa fa-play mr-1" aria-hidden="true"></i> Play Now
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" data-id="@game.GameId" class="detailsView btn btn-hover btn-sm iq-button">
+                                                        <i class="fa fa-info-circle mr-1" aria-hidden="true"></i>
+                                                        More info
+                                                    </a>
+                                                }
                                             </div>
                                         </div>
                                     </div>

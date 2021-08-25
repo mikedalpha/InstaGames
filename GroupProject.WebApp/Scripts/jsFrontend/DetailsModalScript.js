@@ -129,11 +129,10 @@ function ModalBodyTemplating(game) {
             $("#MoreLikeThis").empty();
 
             //Filter Logic here
-            let filteredGamesByCategory = response.filter(function (g) {
-                return g.Rating == game.Rating;
+            let filteredGamesByPegi = response.filter(function (g) {
+                return g.Pegi == game.Pegi;
             });
-
-            filteredGamesByCategory.forEach(MoreLikeThisTemplate);
+            filteredGamesByPegi.forEach(MoreLikeThisTemplate);
         }
     });
 
@@ -170,7 +169,7 @@ function ModalBodyTemplating(game) {
 function DisplayRatingStars(rating) {
     if (rating > 0) {
         let temp = '';
-        for (let i = 0; i < rating; i++) {
+        for (let i = 0; i < Math.floor(rating); i++) {
             temp += '<li><i class="fa fa-star" aria-hidden="true"></i></li>';
         }
 
@@ -191,7 +190,7 @@ function CheckGameRating(rating) {
     if (rating == 0) {
         return '<span class="text-white ml-2">Unrated</span>';
     } else {
-        return `<span class="text-white ml-2">${rating}<small style="font-size: 10px">(User Score)</small></span>`;
+        return `<span class="text-white ml-2">${rating.toFixed(1)}<small style="font-size: 10px">(User Score)</small></span>`;
     }
 }
 

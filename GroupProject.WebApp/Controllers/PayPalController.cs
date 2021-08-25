@@ -167,8 +167,12 @@ namespace GroupProject.WebApp.Controllers
                 user.ExpireDate = user.ExpireDate.Value.AddDays(user.SubscribePlan == Plan.Basic ? 30 : 90);
             }
 
-            await UserManager.AddToRoleAsync(user.Id, "Subscriber");
-            await UserManager.UpdateAsync(user);
+            var addRole = await UserManager.AddToRoleAsync(user.Id, "Subscriber");
+            var removeRole = await UserManager.RemoveFromRoleAsync(user.Id, "Unsubscribed");
+            if (addRole.Succeeded && removeRole.Succeeded)
+            {
+                await UserManager.UpdateAsync(user);
+            }
 
             return View("PaymentSuccess");
         }

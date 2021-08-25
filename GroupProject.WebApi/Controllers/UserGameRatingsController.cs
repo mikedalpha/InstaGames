@@ -51,10 +51,6 @@ namespace GroupProject.WebApi.Controllers
             var user = await UserManager.FindByIdAsync(userId);
             if (user == null) return NotFound();
 
-            var userRating =
-                (await _unitOfWork.UserGameRatings.GetAllAsync()).FirstOrDefault(g =>
-                    g.GameId == gameId && g.ApplicationUserId == userId);
-
             var userGameRatings = new UserGameRatings();
 
             userGameRatings.ApplicationUserId = userId;
@@ -65,7 +61,14 @@ namespace GroupProject.WebApi.Controllers
 
             await _unitOfWork.SaveAsync();
 
-            return Ok("Success");
+            //var userRating =
+            //    (await _unitOfWork.UserGameRatings.GetAllAsync()).FirstOrDefault(g =>
+            //        g.GameId == gameId && g.ApplicationUserId == userId);
+
+            return Ok(new
+            {
+                Rating = rating
+            });
         }
     }
 }

@@ -26,6 +26,7 @@ namespace CheckSubscribersJob
                     var store = new UserStore<ApplicationUser>(db);
                     var manager = new UserManager<ApplicationUser>(store);
                     manager.RemoveFromRole(user.Id, "Subscriber");
+                    manager.AddToRole(user.Id, "Unsubscribed");
                     manager.Update(user);
                     db.SaveChanges();
                 }

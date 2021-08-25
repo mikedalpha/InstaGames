@@ -53,13 +53,13 @@
                                                             {
 
                                                                 <i class="fa fa-star text-primary" aria-hidden="true"></i>
-                                                                
+
                                                             }
                                                             @for (int i = 0; i < 5 - Model.RatedGames.Where(g => g.ApplicationUserId == User.Identity.GetUserId() && g.GameId == game.GameId).Select(g => g.Rating).First(); i++)
                                                             {
-                                                              
+
                                                                 <i class="fa fa-star" aria-hidden="true"></i>
-                                                                
+
                                                             }
                                                         </div>
                                                     </div>
@@ -67,7 +67,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <span class="ratingIcon"  ><i class="ri-star-fill"></i></span>
+                                                    <span class="ratingIcon"><i class="ri-star-fill"></i></span>
                                                     <div class="share-box ratingTooltip" style="--text:'Submit your Rating'">
                                                         <div class="d-flex align-items-center">
                                                             <i data-id="@game.GameId" class="addRating btn-link fa fa-star" value="1"></i>
@@ -77,6 +77,7 @@
                                                             <i data-id="@game.GameId" class="addRating btn-link fa fa-star" value="5"></i>
                                                         </div>
                                                     </div>
+                                                    <span hidden class="count-box show-rating"></span>
                                                 }
                                             </li>
                                             <li>

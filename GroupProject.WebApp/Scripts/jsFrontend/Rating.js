@@ -12,6 +12,8 @@ function AddRating(userId, gameId, rating, element) {
         dataType: "json",
         success: function(response) {
             element.addClass('text-success');
+            $(element.parent().parent().siblings('.count-box').removeAttr('hidden'));
+            $(".show-rating").text(response.Rating);
         }
     });
 }

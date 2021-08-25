@@ -179,15 +179,22 @@ namespace GroupProject.WebApp.Controllers
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 DateOfBirth = model.DateOfBirth,
-                RegistrationDate = DateTime.Now
+                RegistrationDate = DateTime.Now,
             };
 
             var result = await UserManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
+                var addRole = await UserManager.AddToRoleAsync(user.Id, "Unsubscribed");
+                if (addRole.Succeeded)
+                {
+                    await UserManager.UpdateAsync(user);
+                }
                 return await SendEmail(user);
             }
+
+
 
             AddErrors(result);
 
