@@ -6,6 +6,7 @@ namespace GroupProject.Entities.Domain_Models
     {
         public int MessageId { get; set; }
         public string Text { get; set; }
+        public string Reply { get; set; }
         public DateTime SubmitDate { get; set; }
         public bool Answered { get; set; }
 
