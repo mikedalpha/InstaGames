@@ -71,7 +71,10 @@ namespace GroupProject.WebApi.Controllers
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 PhotoUrl = u.PhotoUrl,
+                SubscribePlan = u.SubscribePlan,
+                SubscriptionDay = u.SubscriptionDay,
                 IsSubscribed = u.IsSubscribed,
+                ExpireDate = u.ExpireDate,
                 RegistrationDate = u.RegistrationDate
             }).ToList());
         }
@@ -92,7 +95,10 @@ namespace GroupProject.WebApi.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhotoUrl = user.PhotoUrl,
+                SubscribePlan = user.SubscribePlan,
+                SubscriptionDay = user.SubscriptionDay,
                 IsSubscribed = user.IsSubscribed,
+                ExpireDate = user.ExpireDate,
                 RegistrationDate = user.RegistrationDate
             });
         }
