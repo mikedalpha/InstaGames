@@ -1,6 +1,9 @@
-﻿using System.Data.Entity.Infrastructure;
+﻿using System;
+using System.Configuration;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -30,6 +33,7 @@ namespace GroupProject.WebApi.Controllers
                 SubmitDate = m.SubmitDate,
                 Text = m.Text,
                 Answered = m.Answered,
+                Reply = m.Reply,
                 Creator = new
                 {
                     FirstName = m.Creator.FirstName,
@@ -58,6 +62,7 @@ namespace GroupProject.WebApi.Controllers
                 SubmitDate = message.SubmitDate,
                 Text = message.Text,
                 Answered = message.Answered,
+                Reply = message.Reply,
                 Creator = new
                 {
                     FirstName = message.Creator.FirstName,
@@ -81,6 +86,11 @@ namespace GroupProject.WebApi.Controllers
 
             var result = 0;
 
+            if (!string.IsNullOrEmpty(message.Reply))
+            {
+               await  Task.Run(() => SendAdminsReply(message));
+            }
+
             try
             {
                 result = await unitOfWork.SaveAsync();
@@ -98,6 +108,37 @@ namespace GroupProject.WebApi.Controllers
             }
 
             return result > 0 ? (IHttpActionResult)StatusCode(HttpStatusCode.NoContent) : InternalServerError();
+        }
+
+        // DELETE: api/Message/5
+        public async Task<IHttpActionResult> DeleteMessage(int id)
+        {
+            var message = await unitOfWork.Message.FindByIdAsync(id);
+            if (message == null)
+            {
+                return NotFound();
+            }
+
+            unitOfWork.Message.Remove(message);
+            var result = await unitOfWork.SaveAsync();
+
+            return result > 0 ? (IHttpActionResult)Ok() : InternalServerError();
+        }
+
+        private void SendAdminsReply(Message message)
+        {
+            var mail = new MailMessage();
+            var smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+
+            mail.From = new MailAddress(ConfigurationManager.AppSettings["Email"].ToString());
+            mail.To.Add(message.Creator.Email);
+            mail.Subject = "InstaGames Reply to " + message.Creator.UserName;
+            mail.Body = message.Reply;
+
+            var credentials = new NetworkCredential(ConfigurationManager.AppSettings["Email"].ToString(), ConfigurationManager.AppSettings["Password"].ToString());
+            smtpClient.Credentials = credentials;
+            smtpClient.EnableSsl = true;
+            smtpClient.Send(mail);
         }
 
         protected override void Dispose(bool disposing)
