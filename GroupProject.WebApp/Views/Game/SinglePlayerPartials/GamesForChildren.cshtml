@@ -39,7 +39,7 @@
                                         <div class="hover-buttons">
                                             @if (game.IsReleased || game.IsEarlyAccess.HasValue)
                                             {
-                                                <a href="~/game/play/@Model.SelectedGame.GameId" class="btn btn-hover">
+                                                <a href="~/game/play/@game.GameId" class="btn btn-hover">
                                                     <i class="fa fa-play mr-2"
                                                        aria-hidden="true"></i>Play Now
                                                 </a>
