@@ -261,6 +261,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\ionicons.svg" />
     <Content Include="Content\fonts\remixicon.svg" />
+    <Content Include="Content\images\about-us\Konstantina.jpg" />
     <Content Include="Content\images\about-us\Michael.jpg" />
     <Content Include="Content\images\error\404.png" />
     <Content Include="Content\images\error\500.png" />
@@ -270,7 +271,8 @@
     <Content Include="Content\images\about-us\css-3.svg" />
     <Content Include="Content\images\about-us\html5-without-wordmark-black-white.svg" />
     <Content Include="Content\images\about-us\javascript.svg" />
-    <Content Include="Content\images\about-us\Konstantina.jpg" />
+    <Content Include="Content\images\user\Admin.png" />
+    <Content Include="Content\images\user\Konstantina.jpg" />
     <Content Include="Content\images\about-us\Kostas.jpg" />
     <Content Include="Content\images\about-us\unityWhite.svg" />
     <Content Include="Content\images\favicon.ico" />
@@ -325,6 +327,8 @@
     <Content Include="Content\images\SimpleBlackBackround.png" />
     <Content Include="Content\images\texure.jpg" />
     <Content Include="Content\images\Games\zombie.jpg" />
+    <Content Include="Content\images\user\Kostas.jpg" />
+    <Content Include="Content\images\user\Michael.jpg" />
     <Content Include="Content\images\user\user.jpg" />
     <Content Include="Content\video\Assassins-Creed.mp4" />
     <Content Include="Content\video\Background-Video.mp4" />
