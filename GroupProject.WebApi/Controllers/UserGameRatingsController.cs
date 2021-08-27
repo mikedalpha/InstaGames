@@ -41,6 +41,25 @@ namespace GroupProject.WebApi.Controllers
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
+        //GET: api/UserGameRatings
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetRatings()
+        {
+            var userGameRatings = await _unitOfWork.UserGameRatings.GetAllAsync();
+
+            return Ok(userGameRatings.Select(ugr => new
+            {
+                UserGameRatingsId = ugr.UserGameRatingsId,
+                UserId = ugr.ApplicationUser.Id,
+                UserName = ugr.ApplicationUser.UserName,
+                GameId = ugr.Game.GameId,
+                GameTitle = ugr.Game.Title,
+                GamePhoto = ugr.Game.Photo,
+                TotalRating = ugr.Game.Rating.ToString("0.00"),
+                Rating = ugr.Rating
+            }).ToList());
+        }
+
         //POST: api/UserGameRatings/5&5&5
         [HttpPost]
         public async Task<IHttpActionResult> AddRating(string userId, int gameId, int rating)
