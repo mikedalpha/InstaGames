@@ -53,6 +53,13 @@ namespace GroupProject.WebApi.Controllers
                 GameTitle = g.Title,
                 GamePhoto = g.Photo,
                 TotalRating = g.Rating.ToString("0.0"),
+                TotalRatingFloat = g.Rating,
+                Subscribers = g.Subscribers.Select(s=>new 
+                {
+                    FirstName = s.FirstName,
+                    LastName=s.LastName,
+                    UserName = s.UserName
+                }),
                 UserGameRatings = g.UserGameRatings.Select(ugr =>new {
                     UserGameRatingsId = ugr.UserGameRatingsId,
                     UserId = ugr.ApplicationUser.Id,
