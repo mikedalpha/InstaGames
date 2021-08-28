@@ -171,8 +171,8 @@ namespace GroupProject.WebApi.Controllers
 
 
         [HttpPost]
-        [Route("api/game/UploadImage")]
-        public HttpResponseMessage UploadImage()
+        [Route("api/game/UploadGameFiles")]
+        public IHttpActionResult UploadGameFiles()
         {
             var httpRequest = HttpContext.Current.Request;
             //Upload Image
@@ -182,30 +182,9 @@ namespace GroupProject.WebApi.Controllers
             {
                 var file = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).ToArray()).Replace(" ", "-");
                 file = file + Path.GetExtension(postedFile.FileName);
-                var filePath = HttpContext.Current.Server.MapPath("~/Content/images/Games/" + postedFile.FileName);
+                var filePath = HttpContext.Current.Server.MapPath(postedFile.FileName);
                 postedFile.SaveAs(filePath);
-                return new HttpResponseMessage(HttpStatusCode.Accepted);
-            }
-
-            return new HttpResponseMessage(HttpStatusCode.BadRequest);
-        }
-
-        [HttpPost]
-        
-        [Route("api/game/UploadTrailer")]
-        public IHttpActionResult UploadTrailer()
-        {
-            var httpRequest = HttpContext.Current.Request;
-            //Upload Image
-            var postedFile = httpRequest.Files["file"];
-            //Create custom filename
-            if (postedFile != null)
-            {
-                var file = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).ToArray()).Replace(" ", "-");
-                file = file + Path.GetExtension(postedFile.FileName);
-                var filePath = HttpContext.Current.Server.MapPath("~/Content/video/" + postedFile.FileName);
-                postedFile.SaveAs(filePath);
-                return Ok("https://localhost:44369/Content/video/"+postedFile.FileName);
+                return Ok("https://localhost:44369/" + postedFile.FileName.Replace("~", ""));
             }
 
             return InternalServerError();
