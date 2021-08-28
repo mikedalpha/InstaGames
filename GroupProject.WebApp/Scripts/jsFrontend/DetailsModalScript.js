@@ -19,14 +19,13 @@ function FindGame(id) {
     });
 }
 
-function ModalBodyTemplating(game) {
-
-    //photo or video template
+//video template
+function VideoTemplate(game) {
     let videoTemplate = `
                        <div class="iq-card iq-card-block iq-card-stretch iq-card-height iq-mb-3">
                                        <div id="video">
                                            <video id="bgvid"autoplay loop muted playsinline>
-                                               <source src="${game.Trailer}" type="video/mp4"/>
+                                               <source src="https://localhost:44369/${game.Trailer}" type="video/mp4"/>
                                            </video>
                                        </div>
                                        <div class="iq-card-body">
@@ -39,10 +38,14 @@ function ModalBodyTemplating(game) {
                                      `;
 
     let videoEle = $(videoTemplate);
+    return videoEle;
+}
 
+//photo template
+function ImageTemplate(game) {
     let imageTemplate = `
                      <div class="iq-card iq-card-block iq-card-stretch iq-card-height iq-mb-3">
-                              <img src="${game.Photo}" class="w-100" alt="">
+                              <img src="https://localhost:44369/${game.Photo}" class="w-100" alt="">
                                  <div class="iq-card-body">
                        <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft"
                                  data-delay-in="0.6">
@@ -53,11 +56,19 @@ function ModalBodyTemplating(game) {
                         `;
 
     let imageEle = $(imageTemplate);
+    return imageEle;
+}
 
+
+function ModalBodyTemplating(game) {
+
+    let element;
     if (game.Trailer != null) {
-        $("#videoSection").html(videoEle);
+        element = VideoTemplate(game);
+        $("#videoSection").html(element);
     } else {
-        $("#videoSection").html(imageEle);
+        element = ImageTemplate(game);
+        $("#videoSection").html(element);
     }
 
 
@@ -82,7 +93,7 @@ function ModalBodyTemplating(game) {
 
                                     <div class="d-flex align-items-center mt-2 mt-md-3">
                                         <span class="ml-3">Pegi &nbsp;</span>
-                                        <img src="${game.Pegi}" alt="Alternate Text" class="p-2 " width="50" />
+                                        <img src="https://localhost:44369/${game.Pegi}" alt="Alternate Text" class="p-2 " width="50" />
                                     </div>
                                 </div>
 
@@ -136,12 +147,15 @@ function ModalBodyTemplating(game) {
         }
     });
 
-    function MoreLikeThisTemplate(game) {
-        let template = `
+
+}
+
+function MoreLikeThisTemplate(game) {
+    let template = `
                                   <div class="col-1-5 col-md-6 iq-mb-30">
                                         <div class="epi-box">
                                             <div class="epi-img position-relative">
-                                                <img src="${game.Photo}" class="img-fluid img-zoom" alt="">
+                                                <img src="https://localhost:44369/${game.Photo}" class="img-fluid img-zoom" alt="">
                                                 <div class="episode-number text-center">${game.Title}</div>
                                                 <div class="episode-play-info">
                                                 ${PlayButtonMainSearch(game)}
@@ -150,7 +164,7 @@ function ModalBodyTemplating(game) {
                                             <div class="epi-desc p-3">
                                                <div class="d-flex align-items-center justify-content-between">
                                                   <span class="text-white">${ShowYear(game.ReleaseDate)}</span>
-                                                    <img src="${game.Pegi}" width="20" />
+                                                    <img src="https://localhost:44369/${game.Pegi}" width="20" />
                                                 </div>
                                                     <h6 class="epi-name text-white mb-0">
                                                         ${game.Description}
@@ -160,9 +174,8 @@ function ModalBodyTemplating(game) {
                                         </div>
                                     </div>
                                `;
-        let MoreLikeThisEle = $(template);
-        $("#MoreLikeThis").append(MoreLikeThisEle);
-    }
+    let MoreLikeThisEle = $(template);
+    $("#MoreLikeThis").append(MoreLikeThisEle);
 }
 
 //Stars Logic

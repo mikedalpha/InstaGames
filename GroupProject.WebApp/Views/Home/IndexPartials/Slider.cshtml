@@ -6,117 +6,120 @@
 
         @foreach (var game in Model.SliderGames)
         {
-            <div class="slide slick-bg" style="background-image: url(@game.Photo)">
-                <div class="container-fluid position-relative h-100">
-                    <div class="slider-inner h-100">
-                        <div class="row align-items-center  h-100">
-                            <div class="col-xl-6 col-lg-12 col-md-12">
-                                <a href="javascript:void(0);">
-                                    <div class="channel-logo" data-animation-in="fadeInLeft" data-delay-in="0.5">
-                                        <img src="~/Content/images/logo.png" class="c-logo" alt="InstaGames">
-                                    </div>
-                                </a>
-                                <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft"
-                                    data-delay-in="0.6">
-                                    @game.Title
-                                </h1>
+        <div class="slide slick-bg" style="background-image: url(https://localhost:44369/@game.Photo)">
+            <div class="container-fluid position-relative h-100">
+                <div class="slider-inner h-100">
+                    <div class="row align-items-center  h-100">
+                        <div class="col-xl-6 col-lg-12 col-md-12">
+                            <a href="javascript:void(0);">
+                                <div class="channel-logo" data-animation-in="fadeInLeft" data-delay-in="0.5">
+                                    <img src="~/Content/images/logo.png" class="c-logo" alt="InstaGames">
+                                </div>
+                            </a>
+                            <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft"
+                                data-delay-in="0.6">
+                                @game.Title
+                            </h1>
 
-                                <div class="d-flex flex-wrap align-items-center fadeInLeft animated" data-animation-in="fadeInLeft" style="opacity: 1;">
-                                    <div class="slider-ratting d-flex align-items-center mr-4 mt-2 mt-md-3">
+                            <div class="d-flex flex-wrap align-items-center fadeInLeft animated" data-animation-in="fadeInLeft" style="opacity: 1;">
+                                <div class="slider-ratting d-flex align-items-center mr-4 mt-2 mt-md-3">
 
-                                        <!--Rating Logic -->
-                                        <ul class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
-                                            @if (game.Rating > 0)
-                                            {
-                                                for (int i = 0; i < @Math.Round(game.Rating); i++)
-                                                {
-                                                    <li>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                    </li>
-                                                }
-                                                for (int i = 0; i < 5 - @Math.Round(game.Rating); i++)
-                                                {
-                                                    <li>
-                                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    </li>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                                            }
-                                        </ul>
+                                    <!--Rating Logic -->
+                                    <ul class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
                                         @if (game.Rating > 0)
                                         {
-                                            <span class="text-white ml-2">@game.Rating.ToString("0.0") <small style="font-size:10px">(User Score)</small></span>
+                                            for (int i = 0; i < @Math.Round(game.Rating); i++)
+                                            {
+                                                <li>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </li>
+                                            }
+                                            for (int i = 0; i < 5 - @Math.Round(game.Rating); i++)
+                                            {
+                                                <li>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </li>
+                                            }
                                         }
                                         else
                                         {
-                                            <span class="text-white ml-2">Unrated</span>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
                                         }
-                                    </div>
-                                    <!--Rating Logic End -->
-
-                                    <div class="d-flex align-items-center mt-2 mt-md-3">
-                                        <span class="ml-3">Pegi &nbsp;</span>
-                                        <img src="@game.Pegi.PegiPhoto" alt="Alternate Text" class="p-2 " width="50" />
-                                    </div>
+                                    </ul>
+                                    @if (game.Rating > 0)
+                                    {
+                                        <span class="text-white ml-2">@game.Rating.ToString("0.0") <small style="font-size:10px">(User Score)</small></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-white ml-2">Unrated</span>
+                                    }
                                 </div>
+                                <!--Rating Logic End -->
 
-                                <p data-animation-in="fadeInUp" data-delay-in="1.2">
-                                    @Utilities.SummarizeText(game.Description, 75)
-                                </p>
-                                <div class="trending-list" data-wp_object-in="fadeInUp" data-delay-in="1.2">
-                                    <div class="text-primary title starring">
-                                        Developed By: <span class="text-body">
-                                            @foreach (var developer in @game.GameDevelopers)
-                                            {
-                                                <text>@developer.FirstName @developer.LastName&nbsp;</text>
-                                            }
-                                        </span>
-                                    </div>
-                                    <div class="text-primary title genres">
-                                        Categories:<span class="text-body">
-                                            @foreach (var category in @game.GameCategories)
-                                            {
-                                                @category.Type <text>&nbsp; </text>
-                                            }
-                                        </span>
-                                    </div>
-                                    <div class="text-primary title tag">
-                                        Tag: <span class="text-body">@game.Tag.ToString()</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center r-mb-23" data-animation-in="fadeInUp" data-delay-in="1.2">
-                                    <a href="~/game/play/@game.GameId" class="btn btn-hover iq-button">
-                                        <i class="fa fa-play mr-2"
-                                           aria-hidden="true"></i>Play Now
-                                    </a>
-                                    <a href="#" data-id="@game.GameId" class="detailsView btn btn-link">More info</a>
+                                <div class="d-flex align-items-center mt-2 mt-md-3">
+                                    <span class="ml-3">Pegi &nbsp;</span>
+                                    <img src="https://localhost:44369/@game.Pegi.PegiPhoto" alt="Alternate Text" class="p-2 " width="50" />
                                 </div>
                             </div>
+
+                            <p data-animation-in="fadeInUp" data-delay-in="1.2">
+                                @Utilities.SummarizeText(game.Description, 75)
+                            </p>
+                            <div class="trending-list" data-wp_object-in="fadeInUp" data-delay-in="1.2">
+                                <div class="text-primary title starring">
+                                    Developed By: <span class="text-body">
+                                        @foreach (var developer in @game.GameDevelopers)
+                                        {
+                                            <text>@developer.FirstName @developer.LastName&nbsp;</text>
+                                        }
+                                    </span>
+                                </div>
+                                <div class="text-primary title genres">
+                                    Categories:<span class="text-body">
+                                        @foreach (var category in @game.GameCategories)
+                                        {
+                                            @category.Type <text>&nbsp; </text>
+                                        }
+                                    </span>
+                                </div>
+                                <div class="text-primary title tag">
+                                    Tag: <span class="text-body">@game.Tag.ToString()</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center r-mb-23" data-animation-in="fadeInUp" data-delay-in="1.2">
+                                <a href="~/game/play/@game.GameId" class="btn btn-hover iq-button">
+                                    <i class="fa fa-play mr-2"
+                                       aria-hidden="true"></i>Play Now
+                                </a>
+                                <a href="#" data-id="@game.GameId" class="detailsView btn btn-link">More info</a>
+                            </div>
                         </div>
-                        @*<div class="col-xl-5 col-lg-12 col-md-12 trailor-video">
-                                <a href="video/trailer.mp4" class="video-open playbtn">
-                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                         x="0px" y="0px" width="80px" height="80px" viewBox="0 0 213.7 213.7"
-                                         enable-background="new 0 0 213.7 213.7" xml:space="preserve">
+                    </div>
+                    @if (@game.Trailer != null)
+                    {
+                        <div class="col-xl-5 col-lg-12 col-md-12 trailor-video">
+                            <a href="https://localhost:44369/@game.Trailer" class="video-open playbtn">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     x="0px" y="0px" width="80px" height="80px" viewBox="0 0 213.7 213.7"
+                                     enable-background="new 0 0 213.7 213.7" xml:space="preserve">
                                     <polygon class='triangle' fill="none" stroke-width="7" stroke-linecap="round"
                                              stroke-linejoin="round" stroke-miterlimit="10"
                                              points="73.5,62.5 148.5,105.8 73.5,149.1 " />
                                     <circle class='circle' fill="none" stroke-width="7" stroke-linecap="round"
                                             stroke-linejoin="round" stroke-miterlimit="10" cx="106.8" cy="106.8" r="103.3" />
-                                     </svg>
-                                    <span class="w-trailor">Watch Trailer</span>
-                                </a>
-                            </div>*@
-                    </div>
+                                </svg>
+                                <span class="w-trailor">Watch Trailer</span>
+                            </a>
+                        </div>
+                    }
                 </div>
             </div>
+        </div>
         }
     </div>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

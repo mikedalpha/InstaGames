@@ -511,8 +511,8 @@ Index Of Script
             ! function (e) {
                 if (e.files && e.files[0]) {
                     var t = new FileReader;
-                    t.onload = function (e) {
-                        jQuery(".profile-pic").attr("src", e.target.result)
+                    t.onload = function(e) {
+                        jQuery(".profile-pic").attr("src", e.target.result);
                     }, t.readAsDataURL(e.files[0])
                 }
                 $("#photo-form").submit();

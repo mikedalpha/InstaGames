@@ -26,7 +26,7 @@
                             <div class="col-1-5 col-md-6 iq-mb-30">
                                 <div class="epi-box">
                                     <div class="epi-img position-relative">
-                                        <img src="@game.Photo" class="img-fluid img-zoom" alt="">
+                                        <img src="https://localhost:44369/@game.Photo" class="img-fluid img-zoom" alt="">
                                         <div class="episode-number text-center">@game.Title</div>
                                         <div class="episode-play-info">
 
@@ -42,20 +42,20 @@
                                     <div class="epi-desc p-3">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <span class="text-white">@game.ReleaseDate.ToString("d")</span>
-                                            <img src="@game.Pegi.PegiPhoto" width="20" />
+                                            <img src="https://localhost:44369/@game.Pegi.PegiPhoto" width="20" />
                                         </div>
                                         <h6 class="epi-name text-white mb-0 pt-2">
                                             <a class="detailsView" data-id="@game.GameId" href="#">@game.Description</a>
                                         </h6>
                                         <!--Rating Logic -->
                                         <ul class="ratting-start p-1 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
-                                            @for (int i = 0; i < game.Rating; i++)
+                                            @for (int i = 0; i < Math.Floor(game.Rating); i++)
                                             {
                                                 <li>
                                                     <i class="fa fa-star" aria-hidden="true"></i>
                                                 </li>
                                             }
-                                            @for (int i = 0; i < 5 - game.Rating; i++)
+                                            @for (int i = 0; i < 5 -game.Rating; i++)
                                             {
                                                 <li>
                                                     <i class="fa fa-star-o" aria-hidden="true"></i>

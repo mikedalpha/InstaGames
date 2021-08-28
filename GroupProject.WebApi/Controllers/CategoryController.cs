@@ -38,7 +38,7 @@ namespace GroupProject.WebApi.Controllers
                     Description = g.Description,
                     Pegi = g.Pegi.PegiPhoto,
                     ReleaseDate = g.ReleaseDate.Year,
-                    IsRealeased = g.IsReleased,
+                    IsReleased = g.IsReleased,
                     IsEarlyAccess = g.IsEarlyAccess,
                     Rating = g.Rating,
                     Tag = g.Tag.ToString()
@@ -68,7 +68,7 @@ namespace GroupProject.WebApi.Controllers
                     Description = g.Description,
                     Pegi = g.Pegi.PegiPhoto,
                     ReleaseDate = g.ReleaseDate.Year,
-                    IsRealeased = g.IsReleased,
+                    IsReleased = g.IsReleased,
                     IsEarlyAccess = g.IsEarlyAccess,
                     Rating = g.Rating,
                     Tag = g.Tag.ToString()

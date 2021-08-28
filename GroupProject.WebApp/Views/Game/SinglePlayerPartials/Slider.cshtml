@@ -10,7 +10,7 @@
                     <div class="video-wrap">
                         <div id="video">
                             <video id="bgvid" autoplay loop muted playsinline>
-                                <source src="@Model.SelectedGame.Trailer" type="video/mp4" />
+                                <source src="https://localhost:44369/@Model.SelectedGame.Trailer" type="video/mp4" />
                             </video>
                         </div>
                     </div>
@@ -18,7 +18,7 @@
             }
             else
             {
-                <img src="@Model.SelectedGame.Photo" class="w-100" alt="">
+                <img src="https://localhost:44369/@Model.SelectedGame.Photo" class="w-100" alt="">
             }
 
             <div class="shows-content">
@@ -59,7 +59,7 @@
                     @Model.SelectedGame.Title
                 </h1>
                 <div class="movie-time d-flex align-items-center">
-                    <img src="@Model.SelectedGame.Pegi.PegiPhoto" alt="Alternate Text" class="p-2 " width="50" />
+                    <img src="https://localhost:44369/@Model.SelectedGame.Pegi.PegiPhoto" alt="Alternate Text" class="p-2 " width="50" />
                     <span class="text-white">@Model.SelectedGame.Tag.ToString() &nbsp;</span>
                     <ul class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
                         @if (Model.SelectedGame.Rating > 0)

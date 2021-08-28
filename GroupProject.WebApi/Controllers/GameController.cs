@@ -1,7 +1,11 @@
-﻿using System.Data.Entity.Infrastructure;
+﻿using System;
+using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using GroupProject.Entities.Domain_Models;
@@ -69,7 +73,7 @@ namespace GroupProject.WebApi.Controllers
                 Pegi = game.Pegi.PegiPhoto,
                 ReleaseDate = game.ReleaseDate,
                 Rating = game.Rating,
-                IsRealeased = game.IsReleased,
+                IsReleased = game.IsReleased,
                 IsEarlyAccess = game.IsEarlyAccess,
                 Tag = game.Tag.ToString(),
                 Categories = game.GameCategories.Select(c => new
@@ -126,6 +130,11 @@ namespace GroupProject.WebApi.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            if (string.IsNullOrWhiteSpace(game.Trailer))
+            {
+                game.Trailer = null;
+            }
             
             unitOfWork.Games.Create(game);
             unitOfWork.Save();
@@ -147,6 +156,47 @@ namespace GroupProject.WebApi.Controllers
             var result = await unitOfWork.SaveAsync();
 
             return result > 0 ? (IHttpActionResult)Ok() : InternalServerError();
+        }
+
+
+        [HttpPost]
+        [Route("api/game/UploadImage")]
+        public HttpResponseMessage UploadImage()
+        {
+            var httpRequest = HttpContext.Current.Request;
+            //Upload Image
+            var postedFile = httpRequest.Files["file"];
+            //Create custom filename
+            if (postedFile != null)
+            {
+                var file = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).ToArray()).Replace(" ", "-");
+                file = file + Path.GetExtension(postedFile.FileName);
+                var filePath = HttpContext.Current.Server.MapPath("~/Content/images/Games/" + postedFile.FileName);
+                postedFile.SaveAs(filePath);
+                return new HttpResponseMessage(HttpStatusCode.Accepted);
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        } 
+        
+        [HttpPost]
+        [Route("api/game/UploadTrailer")]
+        public HttpResponseMessage UploadTrailer()
+        {
+            var httpRequest = HttpContext.Current.Request;
+            //Upload Image
+            var postedFile = httpRequest.Files["file"];
+            //Create custom filename
+            if (postedFile != null)
+            {
+                var file = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).ToArray()).Replace(" ", "-");
+                file = file + Path.GetExtension(postedFile.FileName);
+                var filePath = HttpContext.Current.Server.MapPath("~/Content/Video/" + postedFile.FileName);
+                postedFile.SaveAs(filePath);
+                return new HttpResponseMessage(HttpStatusCode.Accepted);
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
 
         protected override void Dispose(bool disposing)

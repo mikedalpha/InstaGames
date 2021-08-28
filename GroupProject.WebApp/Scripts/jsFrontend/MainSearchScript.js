@@ -80,7 +80,7 @@ function ViewGames(game) {
                              <div class="col-1-5 col-md-6 iq-mb-30">
                                  <div class="epi-box">
                                      <div class="epi-img position-relative">
-                                         <img src="${game.Photo}" class="img-fluid img-zoom" alt="">
+                                         <img src="https://localhost:44369/${game.Photo}" class="img-fluid img-zoom" alt="">
                                          <div class="episode-number text-center">${game.Title}</div>
                                          <div class="episode-play-info">
                                             
@@ -91,7 +91,7 @@ function ViewGames(game) {
                                      <div class="epi-desc p-3">
                                          <div class="d-flex align-items-center justify-content-between">
                                              <span class="text-white">${ShowYear(game.ReleaseDate)}</span>
-                                             <img src="${game.Pegi}" width="20" />
+                                             <img src="https://localhost:44369/${game.Pegi}" width="20" />
                                          </div>
                                              <h6 class="epi-name text-white mb-0">
                                                 ${game.Description}

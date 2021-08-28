@@ -1,6 +1,6 @@
 ﻿@model GroupProject.WebApp.Models.HomeViewModel.IndexViewModel
 
-<section id="parallex" class="parallax-window" style="background: url(@Model.RandomGame.Photo)center center; background-size: cover;background-attachment: fixed;">
+<section id="parallex" class="parallax-window" style="background: url(https://localhost:44369/@Model.RandomGame.Photo)center center; background-size: cover;background-attachment: fixed;">
     <div class="container-fluid h-100">
         <div class="row align-items-center justify-content-center h-100 parallaxt-details">
             <div class="col-lg-4 r-mb-23">
@@ -50,7 +50,7 @@
                         </div>
                         <div class="d-flex align-items-center mt-2 mt-md-3">
                             <span class="ml-3">Pegi &nbsp;</span>
-                            <img src="@Model.RandomGame.Pegi.PegiPhoto" alt="Alternate Text" class="p-2 " width="50" />
+                            <img src="https://localhost:44369/@Model.RandomGame.Pegi.PegiPhoto" alt="Alternate Text" class="p-2 " width="50" />
                         </div>
                     </div>
                     <p>@Model.RandomGame.Description</p>
@@ -66,7 +66,7 @@
             <div class="col-lg-8">
                 <div class="parallax-img">
                     <a class="detailsView" data-id="@Model.RandomGame.GameId" href="#">
-                        <img src="@Model.RandomGame.Photo" class="img-fluid w-100" alt="bailey">
+                        <img src="https://localhost:44369/@Model.RandomGame.Photo" class="img-fluid w-100" alt="bailey">
                     </a>
                 </div>
             </div>
