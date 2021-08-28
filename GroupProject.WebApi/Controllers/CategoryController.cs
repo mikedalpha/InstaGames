@@ -96,7 +96,7 @@ namespace GroupProject.WebApi.Controllers
 
         // PUT: api/Category/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> EditCategory(int id, Category category)
+        public async Task<IHttpActionResult> Put(int id, Category category)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
