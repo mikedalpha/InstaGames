@@ -45,19 +45,47 @@ namespace GroupProject.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IHttpActionResult> GetRatings()
         {
-            var userGameRatings = await _unitOfWork.UserGameRatings.GetAllAsync();
+            var games = await _unitOfWork.Games.GetAllAsync();
 
-            return Ok(userGameRatings.Select(ugr => new
+            return Ok(games.Select(g => new
             {
-                UserGameRatingsId = ugr.UserGameRatingsId,
-                UserId = ugr.ApplicationUser.Id,
-                UserName = ugr.ApplicationUser.UserName,
-                GameId = ugr.Game.GameId,
-                GameTitle = ugr.Game.Title,
-                GamePhoto = ugr.Game.Photo,
-                TotalRating = ugr.Game.Rating.ToString("0.00"),
-                Rating = ugr.Rating
+                GameId = g.GameId,
+                GameTitle = g.Title,
+                GamePhoto = g.Photo,
+                TotalRating = g.Rating.ToString("0.00"),
+                UserGameRatings = g.UserGameRatings.Select(ugr =>new {
+                    UserGameRatingsId = ugr.UserGameRatingsId,
+                    UserId = ugr.ApplicationUser.Id,
+                    UserName = ugr.ApplicationUser.UserName,
+                    Rating = ugr.Rating
+                })
             }).ToList());
+        }
+
+        //GET: api/UserGameRatings/5
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetRatingDetails(int id)
+        {
+            var game = await _unitOfWork.Games.FindByIdAsync(id);
+
+            if (game == null) return NotFound();
+
+            return Ok(new
+            {
+                GameId = game.GameId,
+                GameTitle = game.Title,
+                GamePhoto = game.Photo,
+                GameDescription = game.Description,
+                TotalRating = game.Rating.ToString("0.0"),
+                TotalRatingFloat = game.Rating,
+                UserGameRatings = game.UserGameRatings.Select(ugr => new
+                {
+                    UserGameRatingsId = ugr.UserGameRatingsId,
+                    UserId = ugr.ApplicationUser.Id,
+                    UserName = ugr.ApplicationUser.UserName,
+                    Rating = ugr.Rating
+                }).ToList()
+            });
         }
 
         //POST: api/UserGameRatings/5&5&5
@@ -80,9 +108,9 @@ namespace GroupProject.WebApi.Controllers
 
             await _unitOfWork.SaveAsync();
 
-            //var userRating =
-            //    (await _unitOfWork.UserGameRatings.GetAllAsync()).FirstOrDefault(g =>
-            //        g.GameId == gameId && g.ApplicationUserId == userId);
+            var userRating =
+                (await _unitOfWork.UserGameRatings.GetAllAsync()).FirstOrDefault(g =>
+                    g.GameId == gameId && g.ApplicationUserId == userId);
 
             return Ok(new
             {
