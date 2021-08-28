@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Configuration;
 using System.Web.Mvc;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using ExceptionLogger;
@@ -140,11 +143,28 @@ namespace GroupProject.WebApp.Controllers
 
             if (result.Succeeded)
             {
+                SendMailWeReceivedYourMessage(message);
                 TempData["ShowAlert"] = true;
                 return RedirectToAction("Contact", "Home");
             }
 
             return RedirectToAction("InternalServerError", "Error");
+        }
+
+        private void SendMailWeReceivedYourMessage(Message message)
+        {
+            var mail = new MailMessage();
+            var smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+
+            mail.From = new MailAddress(ConfigurationManager.AppSettings["Email"].ToString());
+            mail.To.Add(message.Creator.Email);
+            mail.Subject = "InstaGames received your Message";
+            mail.Body = message.Creator.UserName + " InstaGames team received your Message.\n\nWe will get back to you as soon as possible. \n\n\n Best Wishes,\nInstaGames Team.";
+
+            var credentials = new NetworkCredential(ConfigurationManager.AppSettings["Email"].ToString(), ConfigurationManager.AppSettings["Password"].ToString());
+            smtpClient.Credentials = credentials;
+            smtpClient.EnableSsl = true;
+            smtpClient.Send(mail);
         }
 
         protected override void Dispose(bool disposing)

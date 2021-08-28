@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using GroupProject.Entities.Domain_Models;
 using GroupProject.RepositoryService;
@@ -34,6 +36,7 @@ namespace GroupProject.WebApi.Controllers
                 Title = g.Title,
                 Photo = g.Photo,
                 Trailer = g.Trailer,
+                GameUrl = g.GameUrl,
                 Description = g.Description,
                 Pegi = g.Pegi.PegiPhoto,
                 ReleaseDate = g.ReleaseDate,
@@ -69,6 +72,7 @@ namespace GroupProject.WebApi.Controllers
                 Title = game.Title,
                 Photo = game.Photo,
                 Trailer = game.Trailer,
+                GameUrl = game.GameUrl,
                 Description = game.Description,
                 Pegi = game.Pegi.PegiPhoto,
                 ReleaseDate = game.ReleaseDate,
@@ -135,11 +139,11 @@ namespace GroupProject.WebApi.Controllers
             {
                 game.Trailer = null;
             }
-            
+
             unitOfWork.Games.Create(game);
             unitOfWork.Save();
 
-            return CreatedAtRoute("DefaultApi", new {id = game.GameId} ,new {Title = game.Title});
+            return CreatedAtRoute("DefaultApi", new { id = game.GameId }, new { Title = game.Title });
         }
 
         // DELETE: api/Games/5
@@ -150,6 +154,13 @@ namespace GroupProject.WebApi.Controllers
             if (game == null)
             {
                 return NotFound();
+            }
+
+            await Task.Run(() => DeleteFile(game.Photo));
+
+            if (game.Trailer != null)
+            {
+                await Task.Run(() => DeleteFile(game.Trailer));
             }
 
             unitOfWork.Games.Remove(game);
@@ -177,11 +188,12 @@ namespace GroupProject.WebApi.Controllers
             }
 
             return new HttpResponseMessage(HttpStatusCode.BadRequest);
-        } 
-        
+        }
+
         [HttpPost]
+        
         [Route("api/game/UploadTrailer")]
-        public HttpResponseMessage UploadTrailer()
+        public IHttpActionResult UploadTrailer()
         {
             var httpRequest = HttpContext.Current.Request;
             //Upload Image
@@ -191,12 +203,30 @@ namespace GroupProject.WebApi.Controllers
             {
                 var file = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).ToArray()).Replace(" ", "-");
                 file = file + Path.GetExtension(postedFile.FileName);
-                var filePath = HttpContext.Current.Server.MapPath("~/Content/Video/" + postedFile.FileName);
+                var filePath = HttpContext.Current.Server.MapPath("~/Content/video/" + postedFile.FileName);
                 postedFile.SaveAs(filePath);
-                return new HttpResponseMessage(HttpStatusCode.Accepted);
+                return Ok("https://localhost:44369/Content/video/"+postedFile.FileName);
             }
 
-            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            return InternalServerError();
+        }
+
+
+        public void DeleteFile(string fileToDelete)
+        {
+            var directory = AppDomain.CurrentDomain.BaseDirectory + fileToDelete;
+            var fileInfo = new FileInfo(directory);
+            if (fileInfo.Exists)
+            {
+                try
+                {
+                    fileInfo.Delete();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
         }
 
         protected override void Dispose(bool disposing)
