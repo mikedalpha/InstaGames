@@ -52,7 +52,7 @@ namespace GroupProject.WebApi.Controllers
                 GameId = g.GameId,
                 GameTitle = g.Title,
                 GamePhoto = g.Photo,
-                TotalRating = g.Rating.ToString("0.00"),
+                TotalRating = g.Rating.ToString("0.0"),
                 UserGameRatings = g.UserGameRatings.Select(ugr =>new {
                     UserGameRatingsId = ugr.UserGameRatingsId,
                     UserId = ugr.ApplicationUser.Id,
