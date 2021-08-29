@@ -54,19 +54,27 @@ namespace GroupProject.WebApi.Controllers
                 GamePhoto = g.Photo,
                 TotalRating = g.Rating.ToString("0.0"),
                 TotalRatingFloat = g.Rating,
+                ReleaseDate = g.ReleaseDate,
+                IsReleased = g.IsReleased,
                 Subscribers = g.Subscribers.Select(s=>new 
                 {
                     FirstName = s.FirstName,
                     LastName=s.LastName,
                     UserName = s.UserName
                 }),
-                UserGameRatings = g.UserGameRatings.Select(ugr =>new {
+                UserGameRatings = g.UserGameRatings.Select(ugr =>new
+                {
                     UserGameRatingsId = ugr.UserGameRatingsId,
                     UserId = ugr.ApplicationUser.Id,
                     UserName = ugr.ApplicationUser.UserName,
                     Rating = ugr.Rating
+                }),
+                GameCategories = g.GameCategories.Select(c => new
+                {
+                    Type = c.Type,
+
                 })
-            }).ToList());
+            }).ToList().OrderBy(x=>x.TotalRatingFloat));
         }
 
         //GET: api/UserGameRatings/5

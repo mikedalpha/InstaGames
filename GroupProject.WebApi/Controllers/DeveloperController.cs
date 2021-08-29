@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -86,6 +88,37 @@ namespace GroupProject.WebApi.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = developer.DeveloperId }, developer);
         }
+
+        // PUT: api/Developer/5
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PutDev(int id, Developer developer)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+
+            if (id != developer.DeveloperId) return BadRequest();
+
+            unitOfWork.Developer.Edit(developer);
+
+            try
+            {
+                await unitOfWork.SaveAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!unitOfWork.Developer.DeveloperExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
 
         // DELETE: api/Developer/5
         [ResponseType(typeof(Developer))]
