@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using GroupProject.Database;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -26,6 +27,7 @@ namespace GroupProject.WebApi.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
+        private ApplicationDbContext context = new ApplicationDbContext();
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
         private readonly IUnitOfWork unitOfWork;
@@ -56,7 +58,7 @@ namespace GroupProject.WebApi.Controllers
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        // GET: api/Users
+        // GET: api/Account
         [AllowAnonymous]
         public async Task<IHttpActionResult> GetUsers()
         {
@@ -80,7 +82,7 @@ namespace GroupProject.WebApi.Controllers
             }).ToList());
         }
 
-        //GET: api/Users/5
+        //GET: api/Account/5
         public async Task<IHttpActionResult> GetUser(string id)
         {
             var user = await UserManager.FindByIdAsync(id);
@@ -93,6 +95,7 @@ namespace GroupProject.WebApi.Controllers
                 UserName = user.UserName,
                 Email = user.Email,
                 Role = UserManager.GetRoles(user.Id).FirstOrDefault(),
+                DateOfBirth = user.DateOfBirth.ToString("yyyy-MM-dd"),
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhotoUrl = user.PhotoUrl,
@@ -104,6 +107,22 @@ namespace GroupProject.WebApi.Controllers
                 EmailConfirmed = user.EmailConfirmed
             });
         }
+
+        //GET: api/Account/GetRoles
+        [Route("GetRoles")]
+        public async Task<IHttpActionResult> GetRoles()
+        {
+            var store = new RoleStore<IdentityRole>(context);
+            var manager = new RoleManager<IdentityRole>(store);
+            var roles = await manager.Roles.Select(r=>new
+            {
+                Id= r.Id,
+                Name = r.Name
+            }).ToListAsync();
+
+            return Ok(roles);
+        }
+
 
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -373,20 +392,33 @@ namespace GroupProject.WebApi.Controllers
         }
 
         // PUT: api/Account/5
-        public async Task<IHttpActionResult> PutUser(string id, EditUserBindingViewModel model)
+        public async Task<IHttpActionResult> PutUser(string id, ApplicationUser extUser)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
+            if (id != extUser.Id) return BadRequest();
 
+            var store = new RoleStore<IdentityRole>(context);
+            var manager = new RoleManager<IdentityRole>(store);
+            var role = await  manager.FindByIdAsync(extUser.Roles.Select(r => r.RoleId).First());
             var user = await UserManager.FindByIdAsync(id);
 
-            if (user is null) return NotFound();
+            user.UserName = extUser.UserName;
+            user.FirstName = extUser.FirstName;
+            user.LastName = extUser.LastName;
+            user.Email = extUser.Email;
+            user.DateOfBirth = extUser.DateOfBirth;
+            user.PhotoUrl = extUser.PhotoUrl;
 
-            user.UserName = model.UserName;
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.DateOfBirth = model.DateOfBirth;
-            user.Email = model.Email;
+            var userRoles = await UserManager.GetRolesAsync(user.Id);
+
+            foreach (var userRole in userRoles)
+            {
+                 UserManager.RemoveFromRole(user.Id, userRole);
+            }
+
+            await UserManager.AddToRoleAsync(user.Id, role.Name);
+            
 
             var result = await UserManager.UpdateAsync(user);
 
@@ -447,8 +479,9 @@ namespace GroupProject.WebApi.Controllers
 
             if (user == null) return NotFound();
 
+            var result = UserManager.Delete(user);
 
-            var result = await UserManager.DeleteAsync(user);
+            //var result = await UserManager.DeleteAsync(user);
 
             return result.Succeeded ? (IHttpActionResult)Ok(new { UserName = user.UserName }) : BadRequest();
         }
@@ -492,6 +525,7 @@ namespace GroupProject.WebApi.Controllers
             {
                 unitOfWork.Dispose();
                 _userManager.Dispose();
+                context.Dispose();
                 _userManager = null;
             }
 

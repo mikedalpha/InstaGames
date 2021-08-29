@@ -678,13 +678,21 @@ namespace GroupProject.Database.Migrations
                 ApplicationUser = user1,
                 Game = g6,
                 Rating = 1
-            };
-
+            }; 
+            
+            
             var ugr13 = new UserGameRatings
             {
                 ApplicationUser = user2,
                 Game = g6,
                 Rating = 5
+            };
+
+            var ugr14 = new UserGameRatings
+            {
+                ApplicationUser = user4,
+                Game = g6,
+                Rating = 4
             };
 
             var userGameRatings = new List<UserGameRatings> { ugr1, ugr2, ugr3, ugr4, ugr5, ugr6, ugr7, ugr8, ugr9, ugr10, ugr11, ugr12, ugr13 };
