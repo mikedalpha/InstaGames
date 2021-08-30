@@ -51,18 +51,18 @@
                                                 </div>
                                             </li>
                                             <li class="share">
-                                                @if (@Model.RatedGames.Any(g => g.ApplicationUserId == User.Identity.GetUserId() && g.GameId == game.GameId))
+                                                @if (@Model.RatedGames.Any(g => g.ApplicationUser.Id == User.Identity.GetUserId() && g.Game.GameId == game.GameId))
                                                 {
                                                     <span class="ratingIcon"><i class="ri-star-fill"></i></span>
                                                     <div class="share-box ratingTooltip" style="--text:'Your Rating'">
                                                         <div data-id="@game.GameId" class="d-flex align-items-center">
-                                                            @for (int i = 0; i < Model.RatedGames.Where(g => g.ApplicationUserId == User.Identity.GetUserId() && g.GameId == game.GameId).Select(g => g.Rating).First(); i++)
+                                                            @for (int i = 0; i < Model.RatedGames.Where(g => g.ApplicationUser.Id == User.Identity.GetUserId() && g.Game.GameId == game.GameId).Select(g => g.Rating).First(); i++)
                                                             {
 
                                                                 <i class="fa fa-star text-primary" aria-hidden="true"></i>
 
                                                             }
-                                                            @for (int i = 0; i < 5 - Model.RatedGames.Where(g => g.ApplicationUserId == User.Identity.GetUserId() && g.GameId == game.GameId).Select(g => g.Rating).First(); i++)
+                                                            @for (int i = 0; i < 5 - Model.RatedGames.Where(g => g.ApplicationUser.Id == User.Identity.GetUserId() && g.Game.GameId == game.GameId).Select(g => g.Rating).First(); i++)
                                                             {
 
                                                                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -70,7 +70,7 @@
                                                             }
                                                         </div>
                                                     </div>
-                                                    <span class="count-box">@Model.RatedGames.Where(g => g.ApplicationUserId == User.Identity.GetUserId() && g.GameId == game.GameId).Select(g => g.Rating).First()</span>
+                                                    <span class="count-box">@Model.RatedGames.Where(g => g.ApplicationUser.Id == User.Identity.GetUserId() && g.Game.GameId == game.GameId).Select(g => g.Rating).First()</span>
                                                 }
                                                 else
                                                 {

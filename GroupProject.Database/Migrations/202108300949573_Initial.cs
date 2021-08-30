@@ -146,13 +146,13 @@ namespace GroupProject.Database.Migrations
                     {
                         UserGameRatingsId = c.Int(nullable: false, identity: true),
                         Rating = c.Int(nullable: false),
-                        ApplicationUserId = c.String(maxLength: 128),
+                        UserId = c.String(nullable: false, maxLength: 128),
                         GameId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.UserGameRatingsId)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .ForeignKey("dbo.Games", t => t.GameId, cascadeDelete: true)
-                .Index(t => t.ApplicationUserId)
+                .Index(t => t.UserId)
                 .Index(t => t.GameId);
             
             CreateTable(
@@ -212,7 +212,7 @@ namespace GroupProject.Database.Migrations
             DropForeignKey("dbo.SubscriberGames", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.SubscriberGames", "GameId", "dbo.Games");
             DropForeignKey("dbo.UserGameRatings", "GameId", "dbo.Games");
-            DropForeignKey("dbo.UserGameRatings", "ApplicationUserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.UserGameRatings", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Messages", "CreatorId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
@@ -230,7 +230,7 @@ namespace GroupProject.Database.Migrations
             DropIndex("dbo.GamesCategories", new[] { "GameId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.UserGameRatings", new[] { "GameId" });
-            DropIndex("dbo.UserGameRatings", new[] { "ApplicationUserId" });
+            DropIndex("dbo.UserGameRatings", new[] { "UserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.Messages", new[] { "CreatorId" });

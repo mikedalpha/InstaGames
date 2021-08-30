@@ -62,9 +62,10 @@
     <Compile Include="EntitiesConfiguration\GameConfig.cs" />
     <Compile Include="EntitiesConfiguration\MessageConfig.cs" />
     <Compile Include="EntitiesConfiguration\PegiConfig.cs" />
-    <Compile Include="Migrations\202108251816365_Initial.cs" />
-    <Compile Include="Migrations\202108251816365_Initial.Designer.cs">
-      <DependentUpon>202108251816365_Initial.cs</DependentUpon>
+    <Compile Include="EntitiesConfiguration\UserGameRatingConfig.cs" />
+    <Compile Include="Migrations\202108300949573_Initial.cs" />
+    <Compile Include="Migrations\202108300949573_Initial.Designer.cs">
+      <DependentUpon>202108300949573_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,8 +81,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202108251816365_Initial.resx">
-      <DependentUpon>202108251816365_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202108300949573_Initial.resx">
+      <DependentUpon>202108300949573_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

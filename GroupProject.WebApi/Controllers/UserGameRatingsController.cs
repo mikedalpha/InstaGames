@@ -56,13 +56,13 @@ namespace GroupProject.WebApi.Controllers
                 TotalRatingFloat = g.Rating,
                 ReleaseDate = g.ReleaseDate,
                 IsReleased = g.IsReleased,
-                Subscribers = g.Subscribers.Select(s=>new 
+                Subscribers = g.Subscribers.Select(s => new
                 {
                     FirstName = s.FirstName,
-                    LastName=s.LastName,
+                    LastName = s.LastName,
                     UserName = s.UserName
                 }),
-                UserGameRatings = g.UserGameRatings.Select(ugr =>new
+                UserGameRatings = g.UserGameRatings.Select(ugr => new
                 {
                     UserGameRatingsId = ugr.UserGameRatingsId,
                     UserId = ugr.ApplicationUser.Id,
@@ -74,7 +74,7 @@ namespace GroupProject.WebApi.Controllers
                     Type = c.Type,
 
                 })
-            }).ToList().OrderBy(x=>x.TotalRatingFloat));
+            }).ToList().OrderBy(x => x.TotalRatingFloat));
         }
 
         //GET: api/UserGameRatings/5
@@ -105,32 +105,34 @@ namespace GroupProject.WebApi.Controllers
 
         //POST: api/UserGameRatings/5&5&5
         [HttpPost]
-        public async Task<IHttpActionResult> AddRating(string userId, int gameId, int rating)
+        public async Task<IHttpActionResult> AddRating(UserGameRatings ratedGame)
         {
-            var game = await _unitOfWork.Games.FindByIdAsync(gameId);
+            var game = await _unitOfWork.Games.FindByIdAsync(ratedGame.Game.GameId);
             if (game == null) return NotFound();
 
-            var user = await UserManager.FindByIdAsync(userId);
+            var user = await UserManager.FindByIdAsync(ratedGame.ApplicationUser.Id);
             if (user == null) return NotFound();
 
-            var userGameRatings = new UserGameRatings();
+           
+            var userGameRatings = new UserGameRatings()
+            {
+                ApplicationUser = user,
+                Game = game,
+                Rating = ratedGame.Rating
+            };
 
-            userGameRatings.ApplicationUserId = userId;
-            userGameRatings.GameId = gameId;
-            userGameRatings.Rating = rating;
+            _unitOfWork.UserGameRatings.Attach(userGameRatings);
 
             _unitOfWork.UserGameRatings.Create(userGameRatings);
 
-            await _unitOfWork.SaveAsync();
+            var result = await _unitOfWork.SaveAsync();
 
-            var userRating =
-                (await _unitOfWork.UserGameRatings.GetAllAsync()).FirstOrDefault(g =>
-                    g.GameId == gameId && g.ApplicationUserId == userId);
-
-            return Ok(new
-            {
-                Rating = rating
-            });
+            return result > 0
+                ? (IHttpActionResult)Ok(new
+                {
+                    Rating = ratedGame.Rating
+                })
+                : InternalServerError();
         }
     }
 }

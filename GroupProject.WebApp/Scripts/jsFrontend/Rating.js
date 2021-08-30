@@ -5,11 +5,22 @@
 
 function AddRating(userId, gameId, rating, element) {
 
-    let url = `https://localhost:44369/api/UserGameRatings/AddRating?userId=${userId}&gameId=${gameId}&rating=${rating}`;
+    let ratedGame = {
+        ApplicationUser: {
+            Id : userId
+        },
+        Game: {
+            GameId: gameId
+        },
+        Rating:rating
+    }
+
+    let url = 'https://localhost:44369/api/UserGameRatings/AddRating';
     $.ajax({
         type: "POST",
         url: url,
         dataType: "json",
+        data: ratedGame,
         success: function(response) {
             element.addClass('text-success');
             $(element.parent().parent().siblings('.count-box').removeAttr('hidden'));

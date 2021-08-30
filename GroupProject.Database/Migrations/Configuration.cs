@@ -24,24 +24,24 @@ namespace GroupProject.Database.Migrations
 
             if (!context.Roles.Any(x => x.Name == "Admin"))
             {
-                var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(roleStore);
                 var role = new IdentityRole { Name = "Admin" };
                 manager.Create(role);
             }
 
             if (!context.Roles.Any(x => x.Name == "Subscriber"))
             {
-                var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(roleStore);
                 var role = new IdentityRole { Name = "Subscriber" };
                 manager.Create(role);
             }
 
             if (!context.Roles.Any(x => x.Name == "Unsubscribed"))
             {
-                var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(roleStore);
                 var role = new IdentityRole { Name = "Unsubscribed" };
                 manager.Create(role);
             }
@@ -50,110 +50,391 @@ namespace GroupProject.Database.Migrations
 
             #region Adding Admins 
 
-            if (!context.Users.Any(x => x.UserName == "GameMaster"))
+            var passwordHash = new PasswordHasher();
+            var store = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(store);
+
+            var user1 = new ApplicationUser()
             {
-                var passwordHash = new PasswordHasher();
-                var store = new UserStore<ApplicationUser>(context);
-                var manager = new UserManager<ApplicationUser>(store);
+                UserName = "GameMaster",
+                Email = "admin@instagames.com",
+                PasswordHash = passwordHash.HashPassword("Admin1"),
+                RegistrationDate = DateTime.Now,
+                FirstName = "Super",
+                LastName = "Gamer",
+                PhotoUrl = "/Content/images/user/Admin.png",
+                DateOfBirth = new DateTime(1990, 10, 28),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello fellow admins I am testing the Message section!" } }
+            };
 
-                var user = new ApplicationUser()
-                {
-                    UserName = "GameMaster",
-                    Email = "admin@instagames.com",
-                    PasswordHash = passwordHash.HashPassword("Admin1"),
-                    RegistrationDate = DateTime.Now,
-                    FirstName = "Super",
-                    LastName = "Gamer",
-                    PhotoUrl = "/Content/images/user/Admin.png",
-                    DateOfBirth = new DateTime(1990, 10, 28),
-                    IsSubscribed = true,
-                    EmailConfirmed = true,
-                    Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now , Text = "Hello fellow admins I am testing the Message section!"} }
-                };
+            if (!context.Users.Any(x => x.UserName == user1.UserName))
+            {
+                userManager.Create(user1);
+                userManager.AddToRole(user1.Id, "Admin");
+            }
 
-                manager.Create(user);
+            var user2 = new ApplicationUser()
+            {
+                UserName = "mikedalpha",
+                Email = "mikedalpha@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = DateTime.Now,
+                FirstName = "Michael",
+                LastName = "Athanasoglou",
+                PhotoUrl = "/Content/images/user/Michael.jpg",
+                DateOfBirth = new DateTime(1991, 2, 22),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello fellow admins I am Mike and I am testing the Message section!" } }
+            };
 
-                manager.AddToRole(user.Id, "Admin");
+            if (!context.Users.Any(x => x.UserName == user2.UserName))
+            {
+                userManager.Create(user2);
+                userManager.AddToRole(user2.Id, "Admin");
+
+            }
+
+            var user3 = new ApplicationUser()
+            {
+                UserName = "kwstaskor",
+                Email = "kwstaskor@hotmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = DateTime.Now,
+                FirstName = "Kostas",
+                LastName = "Korliaftis",
+                PhotoUrl = "/Content/images/user/Kostas.jpg",
+                DateOfBirth = new DateTime(1991, 2, 28),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello fellow admins I am Kostas and I am testing the Message section!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user3.UserName))
+            {
+                userManager.Create(user3);
+                userManager.AddToRole(user3.Id, "Admin");
+
+            }
+
+            var user4 = new ApplicationUser()
+            {
+                UserName = "konstantinala",
+                Email = "klakoumenta@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = DateTime.Now,
+                FirstName = "Konstantina",
+                LastName = "Lakoumenta",
+                PhotoUrl = "/Content/images/user/Konstantina.jpg",
+                DateOfBirth = new DateTime(1998, 9, 8),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello fellow admins I am Kostantina and I am testing the Message section!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user4.UserName))
+            {
+                userManager.Create(user4);
+                userManager.AddToRole(user4.Id, "Admin");
+
+            }
+
+            var user5 = new ApplicationUser()
+            {
+                UserName = "LittlePlump",
+                Email = "littlePlump@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = DateTime.Now,
+                FirstName = "Nikos",
+                LastName = "Korobos",
+                DateOfBirth = new DateTime(1998, 9, 8),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                SubscribePlan = Plan.Basic,
+                SubscriptionDay = DateTime.Now,
+                ExpireDate = DateTime.Now.AddDays(30),
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user5.UserName))
+            {
+                userManager.Create(user5);
+                userManager.AddToRole(user5.Id, "Subscriber");
+
+            }
+
+            var user6 = new ApplicationUser()
+            {
+                UserName = "Papaki",
+                Email = "Papaki@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = DateTime.Now,
+                FirstName = "Petros",
+                LastName = "Ioulios",
+                DateOfBirth = new DateTime(1998, 9, 8),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                SubscribePlan = Plan.Basic,
+                SubscriptionDay = DateTime.Now,
+                ExpireDate = DateTime.Now.AddDays(30),
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user6.UserName))
+            {
+                userManager.Create(user6);
+                userManager.AddToRole(user6.Id, "Subscriber");
+
+            }
+
+            var user7 = new ApplicationUser()
+            {
+                UserName = "Trixotos",
+                Email = "Trixotos@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = DateTime.Now,
+                FirstName = "Giannis",
+                LastName = "Ioannou",
+                DateOfBirth = new DateTime(1995, 9, 8),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                SubscribePlan = Plan.Basic,
+                SubscriptionDay = DateTime.Now,
+                ExpireDate = DateTime.Now.AddDays(30),
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user7.UserName))
+            {
+                userManager.Create(user7);
+                userManager.AddToRole(user7.Id, "Subscriber");
+
+            }
+
+            var user8 = new ApplicationUser()
+            {
+                UserName = "DarthVader",
+                Email = "DarthVader123@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = DateTime.Now,
+                FirstName = "George",
+                LastName = "Ioannou",
+                DateOfBirth = new DateTime(1995, 10, 28),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                SubscribePlan = Plan.Premium,
+                SubscriptionDay = DateTime.Now,
+                ExpireDate = DateTime.Now.AddDays(90),
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user8.UserName))
+            {
+                userManager.Create(user8);
+                userManager.AddToRole(user8.Id, "Subscriber");
+
+            }
+
+            var user9 = new ApplicationUser()
+            {
+                UserName = "StarDestroyer",
+                Email = "StarDestroyer123@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = DateTime.Now,
+                FirstName = "Nick",
+                LastName = "TheGreek",
+                DateOfBirth = new DateTime(1985, 10, 28),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                SubscribePlan = Plan.Premium,
+                SubscriptionDay = DateTime.Now,
+                ExpireDate = DateTime.Now.AddDays(90),
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user9.UserName))
+            {
+                userManager.Create(user9);
+                userManager.AddToRole(user9.Id, "Subscriber");
+
+            }
+
+            var user10 = new ApplicationUser()
+            {
+                UserName = "Asos",
+                Email = "Asos123@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = new DateTime(2021, 6, 28),
+                FirstName = "Kostas",
+                LastName = "Papakostas",
+                DateOfBirth = new DateTime(1985, 10, 28),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                SubscribePlan = Plan.Premium,
+                SubscriptionDay = new DateTime(2021, 6, 28),
+                ExpireDate = new DateTime(2021, 6, 28).AddDays(90),
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user10.UserName))
+            {
+                userManager.Create(user10);
+                userManager.AddToRole(user10.Id, "Subscriber");
+
+            }
+
+            var user11 = new ApplicationUser()
+            {
+                UserName = "Asterix",
+                Email = "Asterix@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = new DateTime(2021, 6, 28),
+                FirstName = "Nikos",
+                LastName = "Kotsidas",
+                DateOfBirth = new DateTime(1985, 10, 28),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                SubscribePlan = Plan.Basic,
+                SubscriptionDay = new DateTime(2021, 6, 28),
+                ExpireDate = new DateTime(2021, 6, 28).AddDays(30),
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user11.UserName))
+            {
+                userManager.Create(user11);
+                userManager.AddToRole(user11.Id, "Subscriber");
+            }
+
+            var user12 = new ApplicationUser()
+            {
+                UserName = "Obelix",
+                Email = "Obelix@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = new DateTime(2021, 6, 28),
+                FirstName = "Miltos",
+                LastName = "Gatsoulis",
+                DateOfBirth = new DateTime(1985, 10, 28),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                SubscribePlan = Plan.Basic,
+                SubscriptionDay = new DateTime(2021, 6, 28),
+                ExpireDate = new DateTime(2021, 6, 28).AddDays(30),
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user12.UserName))
+            {
+                userManager.Create(user12);
+                userManager.AddToRole(user12.Id, "Subscriber");
+            }
+
+            var user13 = new ApplicationUser()
+            {
+                UserName = "Indefix",
+                Email = "Indefix@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = new DateTime(2021, 7, 28),
+                FirstName = "Giannis",
+                LastName = "Astrogiannis",
+                DateOfBirth = new DateTime(1995, 10, 28),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                SubscribePlan = Plan.Basic,
+                SubscriptionDay = new DateTime(2021, 7, 28),
+                ExpireDate = new DateTime(2021, 7, 28).AddDays(30),
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user13.UserName))
+            {
+                userManager.Create(user13);
+                userManager.AddToRole(user13.Id, "Subscriber");
+            }
+
+            var user14 = new ApplicationUser()
+            {
+                UserName = "Papastroumf",
+                Email = "Papastroumf@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = new DateTime(2021, 7, 12),
+                FirstName = "Aggelos",
+                LastName = "Aggelou",
+                DateOfBirth = new DateTime(1991, 10, 28),
+                IsSubscribed = true,
+                EmailConfirmed = true,
+                SubscribePlan = Plan.Premium,
+                SubscriptionDay = new DateTime(2021, 7, 12),
+                ExpireDate = new DateTime(2021, 7, 12).AddDays(90),
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user14.UserName))
+            {
+                userManager.Create(user14);
+                userManager.AddToRole(user14.Id, "Subscriber");
+            }
+
+            var user15 = new ApplicationUser()
+            {
+                UserName = "Stroumfita",
+                Email = "Stroumfita@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = new DateTime(2021, 7, 12),
+                FirstName = "Niki",
+                LastName = "Nikou",
+                DateOfBirth = new DateTime(1990, 1, 28),
+                EmailConfirmed = true,
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user15.UserName))
+            {
+                userManager.Create(user15);
+                userManager.AddToRole(user15.Id, "Unsubscribed");
+            }
+
+            var user16 = new ApplicationUser()
+            {
+                UserName = "Princess",
+                Email = "Princess@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = new DateTime(2021, 6, 12),
+                FirstName = "Xristina",
+                LastName = "Xristou",
+                DateOfBirth = new DateTime(1990, 1, 28),
+                EmailConfirmed = true,
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user16.UserName))
+            {
+                userManager.Create(user16);
+                userManager.AddToRole(user16.Id, "Unsubscribed");
+            }
+
+            var user17 = new ApplicationUser()
+            {
+                UserName = "Prince",
+                Email = "Prince@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = new DateTime(2021, 6, 12),
+                FirstName = "Xristos",
+                LastName = "Papaxristou",
+                DateOfBirth = new DateTime(1992, 1, 28),
+                EmailConfirmed = true,
+                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user17.UserName))
+            {
+                userManager.Create(user17);
+                userManager.AddToRole(user17.Id, "Unsubscribed");
             }
 
 
-            if (!context.Users.Any(x => x.UserName == "mikedalpha"))
-            {
-                var passwordHash = new PasswordHasher();
-                var store = new UserStore<ApplicationUser>(context);
-                var manager = new UserManager<ApplicationUser>(store);
-
-                var user = new ApplicationUser()
-                {
-                    UserName = "mikedalpha",
-                    Email = "mikedalpha@gmail.com",
-                    PasswordHash = passwordHash.HashPassword("GroupProject21"),
-                    RegistrationDate = DateTime.Now,
-                    FirstName = "Michael",
-                    LastName = "Athanasoglou",
-                    PhotoUrl = "/Content/images/user/Michael.jpg",
-                    DateOfBirth = new DateTime(1991, 2, 22),
-                    IsSubscribed = true,
-                    EmailConfirmed = true,
-                    Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello fellow admins I am Mike and I am testing the Message section!" } }
-                };
-
-                manager.Create(user);
-
-                manager.AddToRole(user.Id, "Admin");
-            }
-
-            if (!context.Users.Any(x => x.UserName == "kwstaskor"))
-            {
-                var passwordHash = new PasswordHasher();
-                var store = new UserStore<ApplicationUser>(context);
-                var manager = new UserManager<ApplicationUser>(store);
-
-                var user = new ApplicationUser()
-                {
-                    UserName = "kwstaskor",
-                    Email = "kwstaskor@hotmail.com",
-                    PasswordHash = passwordHash.HashPassword("GroupProject21"),
-                    RegistrationDate = DateTime.Now,
-                    FirstName = "Kostas",
-                    LastName = "Korliaftis",
-                    PhotoUrl = "/Content/images/user/Kostas.jpg",
-                    DateOfBirth = new DateTime(1991, 2, 28),
-                    IsSubscribed = true,
-                    EmailConfirmed = true,
-                    Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello fellow admins I am Kostas and I am testing the Message section!" } }
-                };
-
-                manager.Create(user);
-
-                manager.AddToRole(user.Id, "Admin");
-            }
-
-            if (!context.Users.Any(x => x.UserName == "konstantinala"))
-            {
-                var passwordHash = new PasswordHasher();
-                var store = new UserStore<ApplicationUser>(context);
-                var manager = new UserManager<ApplicationUser>(store);
-
-                var user = new ApplicationUser()
-                {
-                    UserName = "konstantinala",
-                    Email = "klakoumenta@gmail.com",
-                    PasswordHash = passwordHash.HashPassword("GroupProject21"),
-                    RegistrationDate = DateTime.Now,
-                    FirstName = "Konstantina",
-                    LastName = "Lakoumenta",
-                    PhotoUrl = "/Content/images/user/Konstantina.jpg",
-                    DateOfBirth = new DateTime(1998, 9, 8),
-                    IsSubscribed = true,
-                    EmailConfirmed = true,
-                    Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello fellow admins I am Kostantina and I am testing the Message section!" } }
-                };
-
-                manager.Create(user);
-
-                manager.AddToRole(user.Id, "Admin");
-            }
 
             #endregion
 
@@ -190,7 +471,11 @@ namespace GroupProject.Database.Migrations
             var developers = new List<Developer>() { d1, d2, d3, d4 };
             foreach (var developer in developers)
             {
-                context.Developers.AddOrUpdate(d => new { d.FirstName, d.LastName }, developer);
+                context.Developers.AddOrUpdate(d => new
+                {
+                    d.FirstName,
+                    d.LastName
+                }, developer);
             }
             #endregion
 
@@ -290,7 +575,8 @@ namespace GroupProject.Database.Migrations
                 Photo = "/Content/images/Games/BrickBreaker.png",
                 GameUrl = "https://i.simmer.io/@InstaGames/brick-breaker",
                 GameCategories = new Collection<Category>() { c1, c3, c4 },
-                GameDevelopers = new Collection<Developer>() { d1 }
+                GameDevelopers = new Collection<Developer>() { d1 },
+                Subscribers = new Collection<ApplicationUser>() { user1, user11, user13, user14 }
             };
 
             var g2 = new Game()
@@ -305,7 +591,8 @@ namespace GroupProject.Database.Migrations
                 Photo = "/Content/images/Games/Space-Wars.png",
                 GameUrl = "https://i.simmer.io/@InstaGames/space-wars",
                 GameCategories = new Collection<Category>() { c5, c7 },
-                GameDevelopers = new Collection<Developer>() { d1 }
+                GameDevelopers = new Collection<Developer>() { d1 },
+                Subscribers = new Collection<ApplicationUser>() { user1, user2, user12, user16, user14, user17, user7 }
             };
 
             var g3 = new Game()
@@ -320,7 +607,8 @@ namespace GroupProject.Database.Migrations
                 Photo = "/Content/images/Games/ObstacleAvoiding.png",
                 GameUrl = "https://i.simmer.io/@InstaGames/obstacle-avoiding-aplha",
                 IsEarlyAccess = true,
-                GameDevelopers = new Collection<Developer>() { d1 }
+                GameDevelopers = new Collection<Developer>() { d1 },
+                Subscribers = new Collection<ApplicationUser>() { user1, user2, user9, user17 }
             };
 
             var g4 = new Game()
@@ -334,7 +622,8 @@ namespace GroupProject.Database.Migrations
                 GameCategories = new Collection<Category>() { c4, c6 },
                 Photo = "/Content/images/Games/ProphetImage.png",
                 GameUrl = @"https://i.simmer.io/@InstaGames/the-prophet",
-                GameDevelopers = new Collection<Developer>() { d2 }
+                GameDevelopers = new Collection<Developer>() { d2 },
+                Subscribers = new Collection<ApplicationUser>() { user1, user2, user3, user4, user5 }
             };
 
             var g5 = new Game()
@@ -348,7 +637,8 @@ namespace GroupProject.Database.Migrations
                 GameCategories = new Collection<Category>() { c2, c3, c4 },
                 Photo = "/Content/images/Games/tictactoe.png",
                 GameUrl = @"https://i.simmer.io/@InstaGames/tictactoe",
-                GameDevelopers = new Collection<Developer>() { d1, d3 }
+                GameDevelopers = new Collection<Developer>() { d1, d3 },
+                Subscribers = new Collection<ApplicationUser>() { user1, user2, user3, user4, user5, user13 }
             };
 
             var g6 = new Game()
@@ -362,7 +652,8 @@ namespace GroupProject.Database.Migrations
                 Photo = "/Content/images/Games/NumberWizzard.png",
                 GameUrl = "https://i.simmer.io/@InstaGames/guessing-game",
                 GameCategories = new Collection<Category>() { c3, c4, c2 },
-                GameDevelopers = new Collection<Developer>() { d1 }
+                GameDevelopers = new Collection<Developer>() { d1 },
+                Subscribers = new Collection<ApplicationUser>() { user1, user2 }
             };
 
             var g7 = new Game()
@@ -375,7 +666,8 @@ namespace GroupProject.Database.Migrations
                 Pegi = p3,
                 GameCategories = new Collection<Category>() { c5, c3 },
                 Photo = "/Content/images/Games/overcooked.jpg",
-                GameDevelopers = new Collection<Developer>() { d1, d2 }
+                GameDevelopers = new Collection<Developer>() { d1, d2 },
+                Subscribers = new Collection<ApplicationUser>() { user10, user12, user13, user1 }
             };
 
             var g8 = new Game()
@@ -388,7 +680,8 @@ namespace GroupProject.Database.Migrations
                 Pegi = p18,
                 GameCategories = new Collection<Category>() { c8, c7 },
                 Photo = "/Content/images/Games/UntilDawn.png",
-                GameDevelopers = new Collection<Developer>() { d4, d1 }
+                GameDevelopers = new Collection<Developer>() { d4, d1 },
+                Subscribers = new Collection<ApplicationUser>() { user10, user12, user13, user1 }
             };
 
             var g9 = new Game()
@@ -401,7 +694,8 @@ namespace GroupProject.Database.Migrations
                 Pegi = p18,
                 GameCategories = new Collection<Category>() { c8, c7 },
                 Photo = "/Content/images/Games/Outlast.jpg",
-                GameDevelopers = new Collection<Developer>() { d3, d4 }
+                GameDevelopers = new Collection<Developer>() { d3, d4 },
+                Subscribers = new Collection<ApplicationUser>() { user9, user7, user17, user13 }
             };
 
             var g10 = new Game()
@@ -466,7 +760,8 @@ namespace GroupProject.Database.Migrations
                 Photo = "/Content/images/Games/Assassins.jpg",
                 Trailer = "/Content/video/Assassins-Creed.mp4",
                 GameCategories = new Collection<Category>() { c5, c7 },
-                GameDevelopers = new Collection<Developer>() { d3 }
+                GameDevelopers = new Collection<Developer>() { d3 },
+                Subscribers = new Collection<ApplicationUser>() { user9, user7, user17, user13, user16 }
             };
             var g15 = new Game()
             {
@@ -591,13 +886,9 @@ namespace GroupProject.Database.Migrations
 
             #region Seed UserGameRatings
 
-            var user1 = context.Users.First(u => u.UserName == "GameMaster");
-            var user2 = context.Users.First(u => u.UserName == "mikedalpha");
-            var user3 = context.Users.First(u => u.UserName == "kwstaskor");
-            var user4 = context.Users.First(u => u.UserName == "konstantinala");
-
             var ugr1 = new UserGameRatings
             {
+                UserGameRatingsId = 1,
                 ApplicationUser = user1,
                 Game = g1,
                 Rating = 4
@@ -605,100 +896,244 @@ namespace GroupProject.Database.Migrations
 
             var ugr2 = new UserGameRatings
             {
-                ApplicationUser = user2,
-                Game = g1,
-                Rating = 3
+                UserGameRatingsId = 2,
+                ApplicationUser = user1,
+                Game = g14,
+                Rating = 5
             };
 
             var ugr3 = new UserGameRatings
             {
-                ApplicationUser = user3,
-                Game = g1,
-                Rating = 5
-            };
-
-            var ugr4 = new UserGameRatings
-            {
+                UserGameRatingsId = 3,
                 ApplicationUser = user1,
                 Game = g2,
                 Rating = 5
             };
 
+            var ugr4 = new UserGameRatings
+            {
+                UserGameRatingsId = 4,
+                ApplicationUser = user1,
+                Game = g6,
+                Rating = 1
+            };
+
             var ugr5 = new UserGameRatings
             {
+                UserGameRatingsId = 5,
                 ApplicationUser = user2,
-                Game = g2,
-                Rating = 5
+                Game = g1,
+                Rating = 3
             };
 
             var ugr6 = new UserGameRatings
             {
-                ApplicationUser = user4,
+                UserGameRatingsId = 6,
+                ApplicationUser = user2,
                 Game = g2,
                 Rating = 5
             };
 
             var ugr7 = new UserGameRatings
             {
-                ApplicationUser = user4,
-                Game = g4,
+                UserGameRatingsId = 7,
+                ApplicationUser = user2,
+                Game = g5,
                 Rating = 5
             };
 
             var ugr8 = new UserGameRatings
             {
+                UserGameRatingsId = 8,
+                ApplicationUser = user2,
+                Game = g6,
+                Rating = 5
+            };
+
+            var ugr9 = new UserGameRatings
+            {
+                UserGameRatingsId = 9,
+                ApplicationUser = user2,
+                Game = g14,
+                Rating = 4
+            };
+
+            var ugr10 = new UserGameRatings
+            {
+                UserGameRatingsId = 10,
+                ApplicationUser = user3,
+                Game = g1,
+                Rating = 5
+            };
+
+            var ugr11 = new UserGameRatings
+            {
+                UserGameRatingsId = 11,
                 ApplicationUser = user3,
                 Game = g4,
                 Rating = 4
             };
 
-            var ugr9 = new UserGameRatings
+            var ugr12 = new UserGameRatings
             {
-                ApplicationUser = user2,
-                Game = g5,
-                Rating = 5
-            };
-
-            var ugr10 = new UserGameRatings
-            {
+                UserGameRatingsId = 12,
                 ApplicationUser = user3,
                 Game = g5,
                 Rating = 4
             };
 
-            var ugr11 = new UserGameRatings
-            {
-                ApplicationUser = user4,
-                Game = g5,
-                Rating = 5
-            };
-
-            var ugr12 = new UserGameRatings
-            {
-                ApplicationUser = user1,
-                Game = g6,
-                Rating = 1
-            }; 
-            
-            
             var ugr13 = new UserGameRatings
             {
-                ApplicationUser = user2,
-                Game = g6,
+                UserGameRatingsId = 13,
+                ApplicationUser = user4,
+                Game = g2,
                 Rating = 5
             };
 
             var ugr14 = new UserGameRatings
             {
+                UserGameRatingsId = 14,
+                ApplicationUser = user4,
+                Game = g4,
+                Rating = 5
+            };
+
+            var ugr15 = new UserGameRatings
+            {
+                UserGameRatingsId = 15,
+                ApplicationUser = user4,
+                Game = g5,
+                Rating = 5
+            };
+
+            var ugr16 = new UserGameRatings
+            {
+                UserGameRatingsId = 16,
                 ApplicationUser = user4,
                 Game = g6,
                 Rating = 4
             };
 
-            var userGameRatings = new List<UserGameRatings> { ugr1, ugr2, ugr3, ugr4, ugr5, ugr6, ugr7, ugr8, ugr9, ugr10, ugr11, ugr12, ugr13 };
+            var ugr17 = new UserGameRatings
+            {
+                UserGameRatingsId = 17,
+                ApplicationUser = user6,
+                Game = g12,
+                Rating = 3
+            };
+
+            var ugr18 = new UserGameRatings
+            {
+                UserGameRatingsId = 18,
+                ApplicationUser = user6,
+                Game = g2,
+                Rating = 5
+            };
+
+            var ugr19 = new UserGameRatings
+            {
+                UserGameRatingsId = 19,
+                ApplicationUser = user7,
+                Game = g8,
+                Rating = 4
+            };
+
+            var ugr20 = new UserGameRatings
+            {
+                UserGameRatingsId = 20,
+                ApplicationUser = user7,
+                Game = g14,
+                Rating = 5
+            };
+
+            var ugr21 = new UserGameRatings
+            {
+                UserGameRatingsId = 21,
+                ApplicationUser = user8,
+                Game = g8,
+                Rating = 3
+            };
+
+            var ugr22 = new UserGameRatings
+            {
+                UserGameRatingsId = 22,
+                ApplicationUser = user9,
+                Game = g12,
+                Rating = 2
+            };
+
+            var ugr23 = new UserGameRatings
+            {
+                UserGameRatingsId = 23,
+                ApplicationUser = user10,
+                Game = g6,
+                Rating = 2
+            };
+
+            var ugr24 = new UserGameRatings
+            {
+                UserGameRatingsId = 24,
+                ApplicationUser = user10,
+                Game = g12,
+                Rating = 4
+            };
+
+            var ugr25 = new UserGameRatings
+            {
+                UserGameRatingsId = 25,
+                ApplicationUser = user11,
+                Game = g2,
+                Rating = 5
+            };
+
+            var ugr26 = new UserGameRatings
+            {
+                UserGameRatingsId = 26,
+                ApplicationUser = user12,
+                Game = g2,
+                Rating = 5
+            };
+
+
+            var ugr27 = new UserGameRatings
+            {
+                UserGameRatingsId = 27,
+                ApplicationUser = user12,
+                Game = g6,
+                Rating = 4
+            };
+
+
+            var ugr28 = new UserGameRatings
+            {
+                UserGameRatingsId = 28,
+                ApplicationUser = user16,
+                Game = g2,
+                Rating = 5
+            };
+
+            var ugr29 = new UserGameRatings
+            {
+                UserGameRatingsId = 29,
+                ApplicationUser = user16,
+                Game = g1,
+                Rating = 4
+            };
+
+            var ugr30 = new UserGameRatings
+            {
+                UserGameRatingsId = 30,
+                ApplicationUser = user17,
+                Game = g2,
+                Rating = 5
+            };
+
+            var userGameRatings = new List<UserGameRatings> { ugr1, ugr2, ugr3, ugr4, ugr5, ugr6, ugr7, ugr8, ugr9, ugr10,
+                ugr11, ugr12, ugr13, ugr14, ugr15, ugr16, ugr17, ugr18, ugr19, ugr20,
+                ugr21, ugr22 , ugr23, ugr24,ugr25,ugr26,ugr27,ugr28,ugr29,ugr30};
             foreach (var userGameRating in userGameRatings)
             {
-                context.UserGameRatings.AddOrUpdate(g => new { g.ApplicationUserId, g.GameId, g.Rating }, userGameRating);
+                context.UserGameRatings.AddOrUpdate(g => new {g.UserGameRatingsId}, userGameRating);
             }
 
             #endregion

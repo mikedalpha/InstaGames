@@ -33,6 +33,7 @@ namespace GroupProject.Database
             modelBuilder.Configurations.Add(new CategoryConfig());
             modelBuilder.Configurations.Add(new MessageConfig());
             modelBuilder.Configurations.Add(new PegiConfig());
+            modelBuilder.Configurations.Add(new UserGameRatingConfig());
         }
     }
 }
