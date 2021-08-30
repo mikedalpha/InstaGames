@@ -6,16 +6,16 @@
 function AddRating(userId, gameId, rating, element) {
 
     let ratedGame = {
+        Rating: rating,
         ApplicationUser: {
             Id : userId
         },
         Game: {
             GameId: gameId
-        },
-        Rating:rating
+        }
     }
 
-    let url = 'https://localhost:44369/api/UserGameRatings/AddRating';
+    let url = 'https://localhost:44369/api/UserGameRatings/AddRating=';
     $.ajax({
         type: "POST",
         url: url,

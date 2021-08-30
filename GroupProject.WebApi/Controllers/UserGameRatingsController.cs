@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using GroupProject.Database;
 using GroupProject.Entities.Domain_Models;
 using GroupProject.RepositoryService;
 using Microsoft.AspNet.Identity.Owin;
@@ -13,10 +15,12 @@ namespace GroupProject.WebApi.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext context;
 
         public UserGameRatingsController()
         {
             _unitOfWork = new UnitOfWork();
+            context = new ApplicationDbContext();
         }
 
         public UserGameRatingsController(ApplicationUserManager userManager,
@@ -49,29 +53,29 @@ namespace GroupProject.WebApi.Controllers
 
             return Ok(games.Select(g => new
             {
-                GameId = g.GameId,
+                g.GameId,
                 GameTitle = g.Title,
                 GamePhoto = g.Photo,
                 TotalRating = g.Rating.ToString("0.0"),
                 TotalRatingFloat = g.Rating,
-                ReleaseDate = g.ReleaseDate,
-                IsReleased = g.IsReleased,
+                g.ReleaseDate,
+                g.IsReleased,
                 Subscribers = g.Subscribers.Select(s => new
                 {
-                    FirstName = s.FirstName,
-                    LastName = s.LastName,
-                    UserName = s.UserName
+                    s.FirstName,
+                    s.LastName,
+                    s.UserName
                 }),
                 UserGameRatings = g.UserGameRatings.Select(ugr => new
                 {
-                    UserGameRatingsId = ugr.UserGameRatingsId,
+                    ugr.UserGameRatingsId,
                     UserId = ugr.ApplicationUser.Id,
-                    UserName = ugr.ApplicationUser.UserName,
-                    Rating = ugr.Rating
+                    ugr.ApplicationUser.UserName,
+                    ugr.Rating
                 }),
                 GameCategories = g.GameCategories.Select(c => new
                 {
-                    Type = c.Type,
+                    c.Type
 
                 })
             }).ToList().OrderBy(x => x.TotalRatingFloat));
@@ -87,7 +91,7 @@ namespace GroupProject.WebApi.Controllers
 
             return Ok(new
             {
-                GameId = game.GameId,
+                game.GameId,
                 GameTitle = game.Title,
                 GamePhoto = game.Photo,
                 GameDescription = game.Description,
@@ -95,10 +99,10 @@ namespace GroupProject.WebApi.Controllers
                 TotalRatingFloat = game.Rating,
                 UserGameRatings = game.UserGameRatings.Select(ugr => new
                 {
-                    UserGameRatingsId = ugr.UserGameRatingsId,
+                    ugr.UserGameRatingsId,
                     UserId = ugr.ApplicationUser.Id,
-                    UserName = ugr.ApplicationUser.UserName,
-                    Rating = ugr.Rating
+                    ugr.ApplicationUser.UserName,
+                    ugr.Rating
                 }).ToList()
             });
         }
@@ -107,32 +111,42 @@ namespace GroupProject.WebApi.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> AddRating(UserGameRatings ratedGame)
         {
-            var game = await _unitOfWork.Games.FindByIdAsync(ratedGame.Game.GameId);
+            var game = await context.Games.FindAsync(ratedGame.Game.GameId);
+
             if (game == null) return NotFound();
 
-            var user = await UserManager.FindByIdAsync(ratedGame.ApplicationUser.Id);
+            var user = context.Users.Find(ratedGame.ApplicationUser.Id);
             if (user == null) return NotFound();
 
-           
-            var userGameRatings = new UserGameRatings()
+            var userGameRatings = new UserGameRatings
             {
                 ApplicationUser = user,
                 Game = game,
                 Rating = ratedGame.Rating
             };
 
-            _unitOfWork.UserGameRatings.Attach(userGameRatings);
+            context.Entry(userGameRatings).State = EntityState.Added;
 
-            _unitOfWork.UserGameRatings.Create(userGameRatings);
-
-            var result = await _unitOfWork.SaveAsync();
+            var result = await context.SaveChangesAsync();
 
             return result > 0
-                ? (IHttpActionResult)Ok(new
+                ? (IHttpActionResult) Ok(new
                 {
-                    Rating = ratedGame.Rating
+                    ratedGame.Rating
                 })
                 : InternalServerError();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _userManager != null)
+            {
+                _userManager.Dispose();
+                context.Dispose();
+                _userManager = null;
+            }
+
+            base.Dispose(disposing);
         }
     }
 }
