@@ -20,11 +20,24 @@ namespace GroupProject.RepositoryService.Repositories
             return DbContext.Games.Count(g => g.GameId == id) > 0;
         }
 
+        public void AttachDevs(Game game)
+        {
+            
+            Context.Entry(game).Collection("GameDevelopers").Load();
+        }
+
+        public void AttachCategories(Game game)
+        {
+            Context.Entry(game).Collection("GameCategories").Load();
+        }
+
         public void AssignGameCategories(Game game, Category[] categories)
         {
             if (categories is null) return;
 
             game.GameCategories.Clear();
+
+            AttachCategories(game);
 
             foreach (var cat in categories)
             {
@@ -44,6 +57,8 @@ namespace GroupProject.RepositoryService.Repositories
 
             game.GameDevelopers.Clear();
 
+            AttachDevs(game);
+
             foreach (var dev in developers)
             {
                 var developer = DbContext.Developers.Find(dev.DeveloperId);
@@ -58,6 +73,7 @@ namespace GroupProject.RepositoryService.Repositories
 
         public void AssignGamePegi(Game game, int pegiId)
         {
+
             var pegi = DbContext.Pegi.Find(pegiId);
             
             if (pegi != null)
@@ -67,6 +83,7 @@ namespace GroupProject.RepositoryService.Repositories
 
             DbContext.SaveChanges();
         }
+
 
     }
 }

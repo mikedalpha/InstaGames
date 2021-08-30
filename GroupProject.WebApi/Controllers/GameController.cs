@@ -75,15 +75,18 @@ namespace GroupProject.WebApi.Controllers
                 GameUrl = game.GameUrl,
                 Description = game.Description,
                 Pegi = game.Pegi.PegiPhoto,
-                ReleaseDate = game.ReleaseDate,
+                PegiId = game.Pegi.PegiId,
+                ReleaseDate = game.ReleaseDate.ToString("yyyy-MM-dd"),
                 Rating = game.Rating,
                 IsReleased = game.IsReleased,
                 IsEarlyAccess = game.IsEarlyAccess,
                 Tag = game.Tag.ToString(),
+                SelectedCategories= game.GameCategories.Select(c => c.CategoryId),
                 Categories = game.GameCategories.Select(c => new
                 {
                     Type = c.Type
                 }),
+                SelectedDevelopers = game.GameDevelopers.Select(c => c.DeveloperId),
                 Developers = game.GameDevelopers.Select(d => new
                 {
                     Name = $"{d.FirstName + " " + d.LastName}"
@@ -95,6 +98,11 @@ namespace GroupProject.WebApi.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutGame(int id, Game game)
         {
+            unitOfWork.Games.Attach(game);
+            unitOfWork.Games.AssignGamePegi(game, game.Pegi.PegiId);
+            unitOfWork.Games.AssignGameCategories(game, game.GameCategories.ToArray());
+            unitOfWork.Games.AssignGameDevelopers(game, game.GameDevelopers.ToArray());
+
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
 
