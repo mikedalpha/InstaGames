@@ -444,6 +444,7 @@ Index Of Script
                 Active Class for Pricing Table
               -----------------------------------------------------------------------*/
         jQuery("#my-table tr th").on("click", function () {
+
             jQuery('#my-table tr th').children().removeClass('active');
             jQuery(this).children().addClass('active');
             jQuery("#my-table td").each(function () {
@@ -454,6 +455,18 @@ Index Of Script
             var col = jQuery(this).index();
             jQuery("#my-table tr td:nth-child(" + parseInt(col + 1) + ")").addClass('active');
         });
+
+        $("#prem").on("click",
+            function() {
+                $("#radioChoice").prop("checked", false);
+                $("#radioChoice1").prop("checked", true);
+            });
+
+        $("#bas").on("click",
+            function() {
+                $("#radioChoice1").prop("checked", false);
+                $("#radioChoice").prop("checked", true);
+            });
 
         /*---------------------------------------------------------------------
             Select 2 Dropdown
@@ -511,7 +524,7 @@ Index Of Script
             ! function (e) {
                 if (e.files && e.files[0]) {
                     var t = new FileReader;
-                    t.onload = function(e) {
+                    t.onload = function (e) {
                         jQuery(".profile-pic").attr("src", e.target.result);
                     }, t.readAsDataURL(e.files[0])
                 }
