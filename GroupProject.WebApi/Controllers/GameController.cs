@@ -133,7 +133,6 @@ namespace GroupProject.WebApi.Controllers
         [HttpPost]
         public IHttpActionResult PostGame(Game game)
         {
-
             unitOfWork.Games.AssignGamePegi(game, game.Pegi.PegiId);
             unitOfWork.Games.AssignGameCategories(game, game.GameCategories.ToArray());
             unitOfWork.Games.AssignGameDevelopers(game, game.GameDevelopers.ToArray());

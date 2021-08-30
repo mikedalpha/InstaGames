@@ -37,8 +37,6 @@ namespace GroupProject.RepositoryService.Repositories
 
             game.GameCategories.Clear();
 
-            AttachCategories(game);
-
             foreach (var cat in categories)
             {
                 var category = DbContext.Categories.Find(cat.CategoryId);
@@ -57,8 +55,6 @@ namespace GroupProject.RepositoryService.Repositories
 
             game.GameDevelopers.Clear();
 
-            AttachDevs(game);
-
             foreach (var dev in developers)
             {
                 var developer = DbContext.Developers.Find(dev.DeveloperId);
@@ -73,7 +69,6 @@ namespace GroupProject.RepositoryService.Repositories
 
         public void AssignGamePegi(Game game, int pegiId)
         {
-
             var pegi = DbContext.Pegi.Find(pegiId);
             
             if (pegi != null)

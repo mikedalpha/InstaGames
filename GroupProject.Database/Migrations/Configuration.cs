@@ -48,7 +48,7 @@ namespace GroupProject.Database.Migrations
 
             #endregion
 
-            #region Adding Admins 
+            #region Adding Users 
 
             var passwordHash = new PasswordHasher();
             var store = new UserStore<ApplicationUser>(context);
