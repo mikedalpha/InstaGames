@@ -95,6 +95,7 @@ namespace GroupProject.WebApi.Controllers
                 UserName = user.UserName,
                 Email = user.Email,
                 Role = UserManager.GetRoles(user.Id).FirstOrDefault(),
+                RoleId = user.Roles.FirstOrDefault().RoleId,
                 DateOfBirth = user.DateOfBirth.ToString("yyyy-MM-dd"),
                 FirstName = user.FirstName,
                 LastName = user.LastName,
@@ -114,9 +115,9 @@ namespace GroupProject.WebApi.Controllers
         {
             var store = new RoleStore<IdentityRole>(context);
             var manager = new RoleManager<IdentityRole>(store);
-            var roles = await manager.Roles.Select(r=>new
+            var roles = await manager.Roles.Select(r => new
             {
-                Id= r.Id,
+                Id = r.Id,
                 Name = r.Name
             }).ToListAsync();
 
@@ -400,7 +401,7 @@ namespace GroupProject.WebApi.Controllers
 
             var store = new RoleStore<IdentityRole>(context);
             var manager = new RoleManager<IdentityRole>(store);
-            var role = await  manager.FindByIdAsync(extUser.Roles.Select(r => r.RoleId).First());
+            var role = await manager.FindByIdAsync(extUser.Roles.Select(r => r.RoleId).First());
             var user = await UserManager.FindByIdAsync(id);
 
             user.UserName = extUser.UserName;
@@ -408,17 +409,31 @@ namespace GroupProject.WebApi.Controllers
             user.LastName = extUser.LastName;
             user.Email = extUser.Email;
             user.DateOfBirth = extUser.DateOfBirth;
-            user.PhotoUrl = extUser.PhotoUrl;
 
             var userRoles = await UserManager.GetRolesAsync(user.Id);
 
             foreach (var userRole in userRoles)
             {
-                 UserManager.RemoveFromRole(user.Id, userRole);
+                if (userRole == "Subscriber")
+                {
+                    user.IsSubscribed = false;
+                    user.SubscribePlan = null;
+                    user.SubscriptionDay = null;
+                    user.ExpireDate = null;
+                }
+                UserManager.RemoveFromRole(user.Id, userRole);
             }
 
             await UserManager.AddToRoleAsync(user.Id, role.Name);
-            
+
+            if (role.Name == "Subscriber")
+            {
+                user.IsSubscribed = true;
+                user.SubscribePlan = Plan.Basic;
+                user.SubscriptionDay = DateTime.Now;
+                user.ExpireDate = DateTime.Now.AddDays(30);
+            }
+
 
             var result = await UserManager.UpdateAsync(user);
 
