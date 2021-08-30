@@ -4684,3 +4684,11 @@ AddRating Tooltip
     border-radius: 7px;
     color: var(--iq-white);
 }
+
+#prem:hover {
+    cursor:pointer
+}
+
+#bas:hover {
+    cursor: pointer
+}
