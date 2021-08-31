@@ -39,8 +39,8 @@
                         <table id="my-table" class="table" data-active="premium">
                             <thead>
                                 <tr>
-                                    <th class="text-center iq-price-head">
-                                    </th>
+                                    <th class="text-center text-primary iq-price-head">Choose your plan</th>
+                                    
                                     <th id="prem" class="text-center iq-price-head premium">
                                         <div class="iq-price-box active">
                                             <h3 class="iq-price-rate text-white">€39<small> / 3 Months</small></h3>
@@ -118,13 +118,13 @@
                                 @using (@Html.BeginForm("SubscriptionPlan", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                                 {
                                     @Html.AntiForgeryToken()
-                                    <tr>
-                                        <th class="text-center iq-price-footer text-secondary">Choose your plan</th>
+                                    <tr style="display: none">
+                                        @*<th class="text-center iq-price-footer text-secondary">Choose your plan</th>*@
                                         <td class="text-center iq-price-footer active">
                                             <div class="container">
                                                 <div class="align-items-center r-mb-23 " data-animation-in="fadeInUp" data-delay-in="1.3" style="margin-right: 30px">
                                                     <div class="form-group">
-                                                        @Html.RadioButtonFor(vm => vm.SubscribePlan, Plan.Premium, new { @class = "form-control", style = "width:35px; display:inline-block;", @checked = true , id= "radioChoice1" })
+                                                        @Html.RadioButtonFor(vm => vm.SubscribePlan, Plan.Premium, new { @class = "form-control", style = "width:35px; display:none;", @checked = true , id= "radioChoice1" })
                                                         <br />
                                                         @Html.ValidationMessageFor(vm => vm.SubscribePlan, "", new { @class = "text-danger" })
                                                     </div>
@@ -135,7 +135,7 @@
                                             <div class="container form-group">
                                                 <div class="align-items-center r-mb-23" data-animation-in="fadeInUp" data-delay-in="1.3">
                                                     <div class="form-group">
-                                                        @Html.RadioButtonFor(vm => vm.SubscribePlan, Plan.Basic, new { @class = "form-control", style = "width:35px; display:inline-block;" , id= "radioChoice" })
+                                                        @Html.RadioButtonFor(vm => vm.SubscribePlan, Plan.Basic, new { @class = "form-control", style = "width:35px; display:none;", id= "radioChoice" })
                                                         <br />
                                                         @Html.ValidationMessageFor(vm => vm.SubscribePlan, "", new { @class = "text-danger" })
                                                     </div>
@@ -143,9 +143,10 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td class="align-items-center iq-price-footer">
-                                            <button type="submit" class="btn btn-hover my-2">Subscribe</button>
+                                    <tr >
+                                        <td></td>
+                                        <td colspan="1" class="text-center iq-price-footer">
+                                            <button type="submit" class="btn btn-hover text-center my-2">Subscribe</button>
                                         </td>
                                     </tr>
                                 }
