@@ -81,7 +81,7 @@ namespace GroupProject.WebApi.Controllers
                 IsReleased = game.IsReleased,
                 IsEarlyAccess = game.IsEarlyAccess,
                 Tag = game.Tag.ToString(),
-                SelectedCategories= game.GameCategories.Select(c => c.CategoryId),
+                SelectedCategories = game.GameCategories.Select(c => c.CategoryId),
                 Categories = game.GameCategories.Select(c => new
                 {
                     Type = c.Type
@@ -96,17 +96,36 @@ namespace GroupProject.WebApi.Controllers
 
         // PUT: api/Games/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutGame(int id, Game game)
+        public async Task<IHttpActionResult> PutGame(int id, Game postedGame)
         {
-            unitOfWork.Games.Attach(game);
-            unitOfWork.Games.AssignGamePegi(game, game.Pegi.PegiId);
-            unitOfWork.Games.AssignGameCategories(game, game.GameCategories.ToArray());
-            unitOfWork.Games.AssignGameDevelopers(game, game.GameDevelopers.ToArray());
-
             if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (id != postedGame.GameId) return BadRequest();
+
+            var catIds = postedGame.GameCategories.Select(c => c.CategoryId).ToArray();
+            var devIds = postedGame.GameDevelopers.Select(d => d.DeveloperId).ToArray();
+            var pegiId = postedGame.Pegi.PegiId;
 
 
-            if (id != game.GameId) return BadRequest();
+             var game =   await unitOfWork.Games.FindByIdAsync(id);
+             game.Title = postedGame.Title;
+             game.Description = postedGame.Description;
+             game.ReleaseDate = postedGame.ReleaseDate;
+             game.Photo = postedGame.Photo;
+             game.Trailer = postedGame.Trailer;
+             game.IsEarlyAccess = postedGame.IsEarlyAccess;
+             game.IsReleased = postedGame.IsReleased;
+             game.Tag = postedGame.Tag;
+             game.GameUrl = postedGame.GameUrl;
+             
+            unitOfWork.Games.LoadCategories(game);
+            unitOfWork.Games.AssignGameCategories(game, catIds);
+
+            unitOfWork.Games.LoadDevelopers(game);
+            unitOfWork.Games.AssignGameDevelopers(game, devIds);
+
+            unitOfWork.Games.Attach(game);
+            unitOfWork.Games.AssignGamePegi(game, pegiId);
+           
 
             unitOfWork.Games.Edit(game);
 
@@ -133,9 +152,12 @@ namespace GroupProject.WebApi.Controllers
         [HttpPost]
         public IHttpActionResult PostGame(Game game)
         {
+            var catIds = game.GameCategories.Select(c => c.CategoryId).ToArray();
+            var devIds = game.GameDevelopers.Select(d => d.DeveloperId).ToArray();
+
             unitOfWork.Games.AssignGamePegi(game, game.Pegi.PegiId);
-            unitOfWork.Games.AssignGameCategories(game, game.GameCategories.ToArray());
-            unitOfWork.Games.AssignGameDevelopers(game, game.GameDevelopers.ToArray());
+            unitOfWork.Games.AssignGameCategories(game, catIds);
+            unitOfWork.Games.AssignGameDevelopers(game, devIds);
 
             if (!ModelState.IsValid)
             {
@@ -149,7 +171,7 @@ namespace GroupProject.WebApi.Controllers
 
             unitOfWork.Games.Create(game);
             unitOfWork.Save();
-
+            
             return CreatedAtRoute("DefaultApi", new { id = game.GameId }, new { Title = game.Title });
         }
 
