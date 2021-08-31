@@ -94,7 +94,6 @@ namespace GroupProject.Database.Migrations
             {
                 userManager.Create(user2);
                 userManager.AddToRole(user2.Id, "Admin");
-
             }
 
             var user3 = new ApplicationUser()
@@ -116,7 +115,6 @@ namespace GroupProject.Database.Migrations
             {
                 userManager.Create(user3);
                 userManager.AddToRole(user3.Id, "Admin");
-
             }
 
             var user4 = new ApplicationUser()
@@ -138,7 +136,6 @@ namespace GroupProject.Database.Migrations
             {
                 userManager.Create(user4);
                 userManager.AddToRole(user4.Id, "Admin");
-
             }
 
             var user5 = new ApplicationUser()
@@ -146,15 +143,15 @@ namespace GroupProject.Database.Migrations
                 UserName = "LittlePlump",
                 Email = "littlePlump@gmail.com",
                 PasswordHash = passwordHash.HashPassword("GroupProject21"),
-                RegistrationDate = DateTime.Now,
+                RegistrationDate = new DateTime(2021, 7, 24),
                 FirstName = "Nikos",
                 LastName = "Korobos",
                 DateOfBirth = new DateTime(1998, 9, 8),
                 IsSubscribed = true,
                 EmailConfirmed = true,
-                SubscribePlan = Plan.Basic,
-                SubscriptionDay = DateTime.Now,
-                ExpireDate = DateTime.Now.AddDays(30),
+                SubscribePlan = Plan.Premium,
+                SubscriptionDay = new DateTime(2021, 7, 24),
+                ExpireDate = DateTime.Now.AddDays(90),
                 Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
             };
 
@@ -162,7 +159,6 @@ namespace GroupProject.Database.Migrations
             {
                 userManager.Create(user5);
                 userManager.AddToRole(user5.Id, "Subscriber");
-
             }
 
             var user6 = new ApplicationUser()
@@ -170,23 +166,21 @@ namespace GroupProject.Database.Migrations
                 UserName = "Papaki",
                 Email = "Papaki@gmail.com",
                 PasswordHash = passwordHash.HashPassword("GroupProject21"),
-                RegistrationDate = DateTime.Now,
+                RegistrationDate = new DateTime(2021, 6, 5),
                 FirstName = "Petros",
                 LastName = "Ioulios",
                 DateOfBirth = new DateTime(1998, 9, 8),
-                IsSubscribed = true,
+                IsSubscribed = false,
                 EmailConfirmed = true,
-                SubscribePlan = Plan.Basic,
-                SubscriptionDay = DateTime.Now,
-                ExpireDate = DateTime.Now.AddDays(30),
+                SubscriptionDay = new DateTime(2021, 7, 24),
+                ExpireDate = new DateTime(2021, 7, 24).AddDays(30),
                 Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
             };
 
             if (!context.Users.Any(x => x.UserName == user6.UserName))
             {
                 userManager.Create(user6);
-                userManager.AddToRole(user6.Id, "Subscriber");
-
+                userManager.AddToRole(user6.Id, "Unsubscribed");
             }
 
             var user7 = new ApplicationUser()
@@ -194,14 +188,14 @@ namespace GroupProject.Database.Migrations
                 UserName = "Trixotos",
                 Email = "Trixotos@gmail.com",
                 PasswordHash = passwordHash.HashPassword("GroupProject21"),
-                RegistrationDate = DateTime.Now,
+                RegistrationDate = new DateTime(2021, 6, 5),
                 FirstName = "Giannis",
                 LastName = "Ioannou",
+                PhotoUrl = "/Content/images/user/Trixotos.jpg",
                 DateOfBirth = new DateTime(1995, 9, 8),
-                IsSubscribed = true,
+                IsSubscribed = false,
                 EmailConfirmed = true,
-                SubscribePlan = Plan.Basic,
-                SubscriptionDay = DateTime.Now,
+                SubscriptionDay = new DateTime(2021, 6, 5),
                 ExpireDate = DateTime.Now.AddDays(30),
                 Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
             };
@@ -209,8 +203,7 @@ namespace GroupProject.Database.Migrations
             if (!context.Users.Any(x => x.UserName == user7.UserName))
             {
                 userManager.Create(user7);
-                userManager.AddToRole(user7.Id, "Subscriber");
-
+                userManager.AddToRole(user7.Id, "Unsubscribed");
             }
 
             var user8 = new ApplicationUser()
@@ -218,15 +211,16 @@ namespace GroupProject.Database.Migrations
                 UserName = "DarthVader",
                 Email = "DarthVader123@gmail.com",
                 PasswordHash = passwordHash.HashPassword("GroupProject21"),
-                RegistrationDate = DateTime.Now,
+                RegistrationDate = new DateTime(2021, 9, 3),
                 FirstName = "George",
                 LastName = "Ioannou",
+                PhotoUrl = "/Content/images/user/DarthVader.jpg",
                 DateOfBirth = new DateTime(1995, 10, 28),
                 IsSubscribed = true,
                 EmailConfirmed = true,
                 SubscribePlan = Plan.Premium,
-                SubscriptionDay = DateTime.Now,
-                ExpireDate = DateTime.Now.AddDays(90),
+                SubscriptionDay = new DateTime(2021, 9, 3),
+                ExpireDate = new DateTime(2021, 9, 3).AddDays(90),
                 Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
             };
 
@@ -234,7 +228,6 @@ namespace GroupProject.Database.Migrations
             {
                 userManager.Create(user8);
                 userManager.AddToRole(user8.Id, "Subscriber");
-
             }
 
             var user9 = new ApplicationUser()
@@ -242,15 +235,16 @@ namespace GroupProject.Database.Migrations
                 UserName = "StarDestroyer",
                 Email = "StarDestroyer123@gmail.com",
                 PasswordHash = passwordHash.HashPassword("GroupProject21"),
-                RegistrationDate = DateTime.Now,
+                RegistrationDate = new DateTime(2021, 8, 20),
                 FirstName = "Nick",
                 LastName = "TheGreek",
+                PhotoUrl = "/Content/images/user/StarDestroyer.jpg",
                 DateOfBirth = new DateTime(1985, 10, 28),
                 IsSubscribed = true,
                 EmailConfirmed = true,
                 SubscribePlan = Plan.Premium,
-                SubscriptionDay = DateTime.Now,
-                ExpireDate = DateTime.Now.AddDays(90),
+                SubscriptionDay = new DateTime(2021, 8, 20),
+                ExpireDate = new DateTime(2021, 8, 20).AddDays(90),
                 Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
             };
 
@@ -269,6 +263,7 @@ namespace GroupProject.Database.Migrations
                 RegistrationDate = new DateTime(2021, 6, 28),
                 FirstName = "Kostas",
                 LastName = "Papakostas",
+                PhotoUrl = "/Content/images/user/Asos.jpg",
                 DateOfBirth = new DateTime(1985, 10, 28),
                 IsSubscribed = true,
                 EmailConfirmed = true,
@@ -290,15 +285,15 @@ namespace GroupProject.Database.Migrations
                 UserName = "Asterix",
                 Email = "Asterix@gmail.com",
                 PasswordHash = passwordHash.HashPassword("GroupProject21"),
-                RegistrationDate = new DateTime(2021, 6, 28),
+                RegistrationDate = new DateTime(2021, 8, 18),
                 FirstName = "Nikos",
                 LastName = "Kotsidas",
                 DateOfBirth = new DateTime(1985, 10, 28),
                 IsSubscribed = true,
                 EmailConfirmed = true,
                 SubscribePlan = Plan.Basic,
-                SubscriptionDay = new DateTime(2021, 6, 28),
-                ExpireDate = new DateTime(2021, 6, 28).AddDays(30),
+                SubscriptionDay = new DateTime(2021, 8, 28),
+                ExpireDate = new DateTime(2021, 8, 28).AddDays(30),
                 Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
             };
 
@@ -316,10 +311,10 @@ namespace GroupProject.Database.Migrations
                 RegistrationDate = new DateTime(2021, 6, 28),
                 FirstName = "Miltos",
                 LastName = "Gatsoulis",
+                PhotoUrl = "/Content/images/user/Obelix.jpg",
                 DateOfBirth = new DateTime(1985, 10, 28),
-                IsSubscribed = true,
+                IsSubscribed = false,
                 EmailConfirmed = true,
-                SubscribePlan = Plan.Basic,
                 SubscriptionDay = new DateTime(2021, 6, 28),
                 ExpireDate = new DateTime(2021, 6, 28).AddDays(30),
                 Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
@@ -328,7 +323,7 @@ namespace GroupProject.Database.Migrations
             if (!context.Users.Any(x => x.UserName == user12.UserName))
             {
                 userManager.Create(user12);
-                userManager.AddToRole(user12.Id, "Subscriber");
+                userManager.AddToRole(user12.Id, "Unsubscribed");
             }
 
             var user13 = new ApplicationUser()
@@ -339,8 +334,9 @@ namespace GroupProject.Database.Migrations
                 RegistrationDate = new DateTime(2021, 7, 28),
                 FirstName = "Giannis",
                 LastName = "Astrogiannis",
+                PhotoUrl = "/Content/images/user/Idefix.jpg",
                 DateOfBirth = new DateTime(1995, 10, 28),
-                IsSubscribed = true,
+                IsSubscribed = false,
                 EmailConfirmed = true,
                 SubscribePlan = Plan.Basic,
                 SubscriptionDay = new DateTime(2021, 7, 28),
@@ -387,7 +383,7 @@ namespace GroupProject.Database.Migrations
                 LastName = "Nikou",
                 DateOfBirth = new DateTime(1990, 1, 28),
                 EmailConfirmed = true,
-                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+                Messages = new List<Message> { new Message() { SubmitDate = new DateTime(2021, 9, 1), Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
             };
 
             if (!context.Users.Any(x => x.UserName == user15.UserName))
@@ -404,9 +400,10 @@ namespace GroupProject.Database.Migrations
                 RegistrationDate = new DateTime(2021, 6, 12),
                 FirstName = "Xristina",
                 LastName = "Xristou",
+                PhotoUrl = "/Content/images/user/Princess.jpg",
                 DateOfBirth = new DateTime(1990, 1, 28),
                 EmailConfirmed = true,
-                Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+                Messages = new List<Message> { new Message() { SubmitDate = new DateTime(2021, 6, 12), Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
             };
 
             if (!context.Users.Any(x => x.UserName == user16.UserName))
@@ -423,6 +420,7 @@ namespace GroupProject.Database.Migrations
                 RegistrationDate = new DateTime(2021, 6, 12),
                 FirstName = "Xristos",
                 LastName = "Papaxristou",
+                PhotoUrl = "/Content/images/user/Prince.jpg",
                 DateOfBirth = new DateTime(1992, 1, 28),
                 EmailConfirmed = true,
                 Messages = new List<Message> { new Message() { SubmitDate = DateTime.Now, Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
@@ -434,7 +432,116 @@ namespace GroupProject.Database.Migrations
                 userManager.AddToRole(user17.Id, "Unsubscribed");
             }
 
+            var user18 = new ApplicationUser()
+            {
+                UserName = "Trololo",
+                Email = "Trololo@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = new DateTime(2021, 8, 24),
+                FirstName = "Vasilis",
+                LastName = "Kolias",
+                PhotoUrl = "/Content/images/user/Trololo.jpg",
+                IsSubscribed = true,
+                SubscribePlan = Plan.Basic,
+                SubscriptionDay = new DateTime(2021, 8, 25),
+                ExpireDate = new DateTime(2021, 8, 25).AddDays(30),
+                DateOfBirth = new DateTime(1990, 7, 1),
+                EmailConfirmed = true,
+                Messages = new List<Message> { new Message() { SubmitDate = new DateTime(2021, 8, 25), Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
 
+            if (!context.Users.Any(x => x.UserName == user18.UserName))
+            {
+                userManager.Create(user18);
+                userManager.AddToRole(user18.Id, "Subscriber");
+            }
+
+            var user19 = new ApplicationUser()
+            {
+                UserName = "Aetomatis",
+                Email = "Aetomatis@gmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = new DateTime(2021, 6, 12),
+                FirstName = "Angelos",
+                LastName = "Kaskanis",
+                PhotoUrl = "/Content/images/user/Aetomatis.jpg",
+                DateOfBirth = new DateTime(1990, 2, 8),
+                EmailConfirmed = false,
+                Messages = new List<Message> { new Message() { SubmitDate = new DateTime(2021, 6, 12), Text = "Hello I really enjoy play games here , is there any chance for a free month please?It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user19.UserName))
+            {
+                userManager.Create(user19);
+                userManager.AddToRole(user19.Id, "Unsubscribed");
+            }
+
+            var user20 = new ApplicationUser()
+            {
+                UserName = "Provider",
+                Email = "Provider1234567@hotmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = new DateTime(2021, 9, 4),
+                FirstName = "Spyridon",
+                LastName = "Providas",
+                IsSubscribed = true,
+                SubscribePlan = Plan.Premium,
+                SubscriptionDay = new DateTime(2021, 9, 4),
+                ExpireDate = new DateTime(2021, 9, 4).AddDays(90),
+                DateOfBirth = new DateTime(1987, 7, 19),
+                EmailConfirmed = true,
+                Messages = new List<Message> { new Message() { SubmitDate = new DateTime(2021, 9, 4), Text = "Hello I really enjoy play games here , is there any chance for a free month please? It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user20.UserName))
+            {
+                userManager.Create(user20);
+                userManager.AddToRole(user20.Id, "Subscriber");
+            }
+
+            var user21 = new ApplicationUser()
+            {
+                UserName = "Megaz0rd",
+                Email = "Megaz0rdz0r@hotmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = new DateTime(2021, 6, 1),
+                FirstName = "Vasilis",
+                LastName = "Notas",
+                PhotoUrl = "/Content/images/user/Megaz0rd.jpg",
+                IsSubscribed = false,
+                SubscriptionDay = new DateTime(2021, 6, 1),
+                ExpireDate = new DateTime(2021, 6, 1).AddDays(30),
+                DateOfBirth = new DateTime(1989, 3, 11),
+                EmailConfirmed = true,
+                Messages = new List<Message> { new Message() { SubmitDate = new DateTime(2021, 6, 1), Text = "Hello I really enjoy play games here , is there any chance for a free month please? It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user21.UserName))
+            {
+                userManager.Create(user21);
+                userManager.AddToRole(user21.Id, "Unsubscribed");
+            }
+
+            var user22 = new ApplicationUser()
+            {
+                UserName = "Gandalf",
+                Email = "GandalfTheGrayz0r@hotmail.com",
+                PasswordHash = passwordHash.HashPassword("GroupProject21"),
+                RegistrationDate = new DateTime(2021, 6, 25),
+                FirstName = "Vasilis",
+                LastName = "Notas",
+                PhotoUrl = "/Content/images/user/Gandalf.jpg",
+                IsSubscribed = false,
+                DateOfBirth = new DateTime(1993, 11, 8),
+                EmailConfirmed = false,
+                Messages = new List<Message> { new Message() { SubmitDate = new DateTime(2021, 6, 25), Text = "Hello I really enjoy play games here , is there any chance for a free month please? It's my birthday and i want it!" } }
+            };
+
+            if (!context.Users.Any(x => x.UserName == user22.UserName))
+            {
+                userManager.Create(user22);
+                userManager.AddToRole(user22.Id, "Unsubscribed");
+            }
 
             #endregion
 
@@ -468,7 +575,21 @@ namespace GroupProject.Database.Migrations
                 IsInstaGamesDev = false
             };
 
-            var developers = new List<Developer>() { d1, d2, d3, d4 };
+            var d5 = new Developer()
+            {
+                FirstName = "Todd",
+                LastName = "Howard",
+                IsInstaGamesDev = false
+            };
+
+            var d6 = new Developer()
+            {
+                FirstName = "Johan",
+                LastName = "Andersson",
+                IsInstaGamesDev = false
+            };
+
+            var developers = new List<Developer>() { d1, d2, d3, d4, d5, d6 };
             foreach (var developer in developers)
             {
                 context.Developers.AddOrUpdate(d => new
@@ -760,7 +881,7 @@ namespace GroupProject.Database.Migrations
                 Photo = "/Content/images/Games/Assassins.jpg",
                 Trailer = "/Content/video/Assassins-Creed.mp4",
                 GameCategories = new Collection<Category>() { c5, c7 },
-                GameDevelopers = new Collection<Developer>() { d3 },
+                GameDevelopers = new Collection<Developer>() { d2 },
                 Subscribers = new Collection<ApplicationUser>() { user9, user7, user17, user13, user16 }
             };
             var g15 = new Game()
@@ -877,7 +998,182 @@ namespace GroupProject.Database.Migrations
                 GameDevelopers = new Collection<Developer>() { d2, d3 }
             };
 
-            var games = new List<Game>() { g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23 };
+            var g24 = new Game()
+            {
+                Title = "Catastrophe",
+                ReleaseDate = new DateTime(2021, 8, 19),
+                Description = "Action packed game, when you level up you can pick which defenders you want. One of the top played games.",
+                Tag = Tag.Singleplayer,
+                IsReleased = true,
+                Pegi = p16,
+                Photo = "/Content/images/Games/catastrophe.jpg",
+                GameUrl = @"https://i.simmer.io/@Erus/catastrophe",
+                GameCategories = new Collection<Category>() { c5, c7 },
+                GameDevelopers = new Collection<Developer>() { d1, d2 },
+                Subscribers = new Collection<ApplicationUser>() { user17, user21, user22 }
+            };
+
+            var g25 = new Game()
+            {
+                Title = "Slope",
+                ReleaseDate = new DateTime(2021, 8, 15),
+                Description = "Arcade game based on the old arcade classics.",
+                Tag = Tag.Singleplayer,
+                IsReleased = true,
+                Pegi = p7,
+                Photo = "/Content/images/Games/slope.jpg",
+                GameUrl = "https://i.simmer.io/@ClumsyPanda/slope",
+                GameCategories = new Collection<Category>() { c1, c4 },
+                GameDevelopers = new Collection<Developer>() { d4 },
+                Subscribers = new Collection<ApplicationUser>() { user18, user19, user2 }
+            };
+
+
+            var g26 = new Game()
+            {
+                Title = "The Moon 2050",
+                ReleaseDate = new DateTime(2020, 11, 18),
+                Description = "Navigate an unfriendly extraterrestrial wasteland, avoiding enemies and mines as you go!",
+                Tag = Tag.Singleplayer,
+                IsReleased = true,
+                Pegi = p16,
+                Photo = "/Content/images/Games/themoon2050.jpg",
+                GameUrl = "https://i.simmer.io/@amatory22220000/the-moon-2050",
+                GameCategories = new Collection<Category>() { c5 },
+                GameDevelopers = new Collection<Developer>() { d2, d5 },
+                Subscribers = new Collection<ApplicationUser>() { user1, user3, user22, user18, user19, user21 }
+            };
+
+            var g27 = new Game()
+            {
+                Title = "Noob Paradise",
+                ReleaseDate = new DateTime(2021, 7, 30),
+                Description = "First person shooter featuring several levels, a selection of weapons and a plethora of enemies!",
+                Tag = Tag.Singleplayer,
+                IsReleased = true,
+                Pegi = p18,
+                Trailer = "/Content/video/NoobParadiseTrailer.mp4",
+                Photo = "/Content/images/Games/NoobParadise.jpg",
+                GameUrl = "https://i.simmer.io/@Badal/noob-paradise",
+                GameCategories = new Collection<Category>() { c4, c5 },
+                GameDevelopers = new Collection<Developer>() { d3, d5 },
+                Subscribers = new Collection<ApplicationUser>() { user1, user19, user20, user21, user22 }
+            };
+
+            var g28 = new Game()
+            {
+                Title = "Galaxy Blaster",
+                ReleaseDate = new DateTime(2021, 8, 5),
+                Description = "Blast your way through twelve increasingly difficult waves of enemies to face the ultimate power in the universe: the dreaded Galaxy Blaster!",
+                Tag = Tag.Singleplayer,
+                IsReleased = true,
+                Pegi = p12,
+                Photo = "/Content/images/Games/GalaxyBlaster.jpg",
+                GameUrl = "https://i.simmer.io/@eMeLDi/galaxy-blaster",
+                GameCategories = new Collection<Category>() { c1, c5 },
+                GameDevelopers = new Collection<Developer>() { d5 },
+                Subscribers = new Collection<ApplicationUser>() { user5, user8, user13, user16, user18 }
+            };
+
+            var g29 = new Game()
+            {
+                Title = "Powered By Peanut Butter",
+                ReleaseDate = new DateTime(2021, 6, 29),
+                Description = "800 years in the future Peanut Butter has been declared illegal! On a hostile planet you must defend the last Real Peanut Butter factory" +
+                              " which sells its product on the galactic black market to fund the Colonial Resistance. The fate of the galaxy rests in your hands. " +
+                              "This is a demo game, with 4 levels so far.More to come.",
+                Tag = Tag.Singleplayer,
+                IsReleased = true,
+                Pegi = p7,
+                Trailer = "/Content/video/PoweredByPeanutTrailer.mp4",
+                Photo = "/Content/images/Games/PoweredByPeanutButter.jpg",
+                GameUrl = "https://i.simmer.io/@DPulcifer/powered-by-peanut-butter",
+                GameCategories = new Collection<Category>() { c3 },
+                GameDevelopers = new Collection<Developer>() { d6 },
+                Subscribers = new Collection<ApplicationUser>() { user1, user3, user11, user13, user17, user15 }
+            };
+
+            var g30 = new Game()
+            {
+                Title = "Kingdom Runner",
+                ReleaseDate = new DateTime(2021, 5, 19),
+                Description = "A 2D and Platformer, in which the player has the power to change gravity and thus apart from going through the ground, he can also" +
+                              " go through the ceiling. Beware of enemies and try not to fall into the holes!",
+                Tag = Tag.Singleplayer,
+                IsReleased = true,
+                Pegi = p18,
+                Photo = "/Content/images/Games/KingdomRunner.jpg",
+                GameUrl = "https://i.simmer.io/@MiniRoxy/kingdom-runner",
+                GameCategories = new Collection<Category>() { c1 },
+                GameDevelopers = new Collection<Developer>() { d5, d6 },
+                Subscribers = new Collection<ApplicationUser>() { user2, user7, user10 }
+            };
+
+            var g31 = new Game()
+            {
+                Title = "GridXDash",
+                ReleaseDate = new DateTime(2021, 6, 7),
+                Description = "Main goal: Collect as many green points as possible! Tips: Avoid hitting red triangles, pick up green squares for points, and don't let squares " +
+                              "get by you! (This will damage your health bar)",
+                Tag = Tag.Singleplayer,
+                IsReleased = true,
+                Pegi = p7,
+                Photo = "/Content/images/Games/gridxdash.jpg",
+                GameUrl = "https://i.simmer.io/@mkmerino/grid-x-dash",
+                GameCategories = new Collection<Category>() { c7 },
+                GameDevelopers = new Collection<Developer>() { d3 },
+                Subscribers = new Collection<ApplicationUser>() { user1, user3, user9, user15 }
+            };
+
+            var g32 = new Game()
+            {
+                Title = "Leave Her Johnny",
+                ReleaseDate = new DateTime(2021, 6, 7),
+                Description = "Leave Her Johnny is a game about a captain named Johnny who looks for his love, he finds out she was staying at a lighthouse and she's been kidnapped by pirates.",
+                Tag = Tag.Singleplayer,
+                IsReleased = true,
+                Pegi = p3,
+                Trailer = "/Content/video/LeaveHerJohnny.mp4",
+                Photo = "/Content/images/Games/LeaveHerJohnny.jpg",
+                GameUrl = "https://i.simmer.io/@EmirRedz/leave-her-johnny",
+                GameCategories = new Collection<Category>() { c5 },
+                GameDevelopers = new Collection<Developer>() { d3 },
+                Subscribers = new Collection<ApplicationUser>() { user1, user3, user9, user15 }
+            };
+
+            var g33 = new Game()
+            {
+                Title = "Push The Box",
+                ReleaseDate = new DateTime(2021, 4, 18),
+                Description = "In this isometric game, you push around crates to reach the end diamond. Crates can be used to cross water or to trigger buttons or to reach higher places. " +
+                              "In some instances, you have to think smart to utilize a crate. The player and crates can make use of a lift-block that takes you to a higher place in the level.",
+                Tag = Tag.Singleplayer,
+                IsReleased = true,
+                Pegi = p7,
+                Photo = "/Content/images/Games/PushTheBox.jpg",
+                GameUrl = "https://i.simmer.io/@Nannings/push-the-box",
+                GameCategories = new Collection<Category>() { c3 },
+                GameDevelopers = new Collection<Developer>() { d1 },
+                Subscribers = new Collection<ApplicationUser>() { user1, user2, user3, user4, user10, user11, user13, user15 }
+            };
+
+            var g34 = new Game()
+            {
+                Title = "Connected Towers",
+                ReleaseDate = new DateTime(2020, 12, 22),
+                Description = "Connected towers is a puzzle game where you connect or disconnect towers from their power supply. You play as a little robot, who pushes towers trying " +
+                              "to make his way through each puzzle. He needs to overcome obstacles such as gates, mazes, moving platforms and lava to make it to the end goal.",
+                Tag = Tag.Singleplayer,
+                IsReleased = true,
+                Pegi = p7,
+                Photo = "/Content/images/Games/ConnectedTowers.jpg",
+                GameUrl = "https://i.simmer.io/@Nannings/connected-towers",
+                GameCategories = new Collection<Category>() { c3 },
+                GameDevelopers = new Collection<Developer>() { d2 },
+                Subscribers = new Collection<ApplicationUser>() { user3, user6, user9, user12, user15, user18, user21 }
+            };
+
+            var games = new List<Game>() { g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23, g24, g25, g26, g27, g28, g29, g30, g31, g32, g33, g34 };
             foreach (var game in games)
             {
                 context.Games.AddOrUpdate(c => c.Title, game);
@@ -1128,9 +1424,228 @@ namespace GroupProject.Database.Migrations
                 Rating = 5
             };
 
+            var ugr31 = new UserGameRatings
+            {
+                UserGameRatingsId = 31,
+                ApplicationUser = user18,
+                Game = g24,
+                Rating = 4
+            };
+
+            var ugr32 = new UserGameRatings
+            {
+                UserGameRatingsId = 32,
+                ApplicationUser = user19,
+                Game = g24,
+                Rating = 2
+            };
+
+            var ugr33 = new UserGameRatings
+            {
+                UserGameRatingsId = 33,
+                ApplicationUser = user20,
+                Game = g24,
+                Rating = 4
+            };
+
+            var ugr34 = new UserGameRatings
+            {
+                UserGameRatingsId = 34,
+                ApplicationUser = user20,
+                Game = g25,
+                Rating = 4
+            };
+
+            var ugr35 = new UserGameRatings
+            {
+                UserGameRatingsId = 35,
+                ApplicationUser = user21,
+                Game = g25,
+                Rating = 1
+            };
+
+            var ugr36 = new UserGameRatings
+            {
+                UserGameRatingsId = 36,
+                ApplicationUser = user22,
+                Game = g25,
+                Rating = 5
+            };
+
+            var ugr37 = new UserGameRatings
+            {
+                UserGameRatingsId = 37,
+                ApplicationUser = user22,
+                Game = g26,
+                Rating = 2
+            };
+
+            var ugr38 = new UserGameRatings
+            {
+                UserGameRatingsId = 38,
+                ApplicationUser = user14,
+                Game = g26,
+                Rating = 4
+            };
+
+            var ugr39 = new UserGameRatings
+            {
+                UserGameRatingsId = 39,
+                ApplicationUser = user18,
+                Game = g27,
+                Rating = 5
+            };
+
+            var ugr40 = new UserGameRatings
+            {
+                UserGameRatingsId = 40,
+                ApplicationUser = user20,
+                Game = g27,
+                Rating = 3
+            };
+
+            var ugr41 = new UserGameRatings
+            {
+                UserGameRatingsId = 41,
+                ApplicationUser = user21,
+                Game = g28,
+                Rating = 5
+            };
+
+            var ugr42 = new UserGameRatings
+            {
+                UserGameRatingsId = 42,
+                ApplicationUser = user22,
+                Game = g28,
+                Rating = 2
+            };
+
+            var ugr43 = new UserGameRatings
+            {
+                UserGameRatingsId = 43,
+                ApplicationUser = user11,
+                Game = g28,
+                Rating = 4
+            };
+
+            var ugr44 = new UserGameRatings
+            {
+                UserGameRatingsId = 44,
+                ApplicationUser = user11,
+                Game = g29,
+                Rating = 3
+            };
+
+            var ugr45 = new UserGameRatings
+            {
+                UserGameRatingsId = 45,
+                ApplicationUser = user14,
+                Game = g29,
+                Rating = 4
+            };
+
+            var ugr46 = new UserGameRatings
+            {
+                UserGameRatingsId = 46,
+                ApplicationUser = user17,
+                Game = g30,
+                Rating = 2
+            };
+
+            var ugr47 = new UserGameRatings
+            {
+                UserGameRatingsId = 47,
+                ApplicationUser = user19,
+                Game = g31,
+                Rating = 3
+            };
+
+            var ugr48 = new UserGameRatings
+            {
+                UserGameRatingsId = 48,
+                ApplicationUser = user20,
+                Game = g31,
+                Rating = 1
+            };
+
+            var ugr49 = new UserGameRatings
+            {
+                UserGameRatingsId = 49,
+                ApplicationUser = user2,
+                Game = g32,
+                Rating = 3
+            };
+
+            var ugr50 = new UserGameRatings
+            {
+                UserGameRatingsId = 50,
+                ApplicationUser = user7,
+                Game = g33,
+                Rating = 5
+            };
+
+            var ugr51 = new UserGameRatings
+            {
+                UserGameRatingsId = 51,
+                ApplicationUser = user14,
+                Game = g33,
+                Rating = 4
+            };
+
+            var ugr52 = new UserGameRatings
+            {
+                UserGameRatingsId = 52,
+                ApplicationUser = user20,
+                Game = g33,
+                Rating = 3
+            };
+
+            var ugr53 = new UserGameRatings
+            {
+                UserGameRatingsId = 53,
+                ApplicationUser = user21,
+                Game = g34,
+                Rating = 3
+            };
+
+            var ugr54 = new UserGameRatings
+            {
+                UserGameRatingsId = 54,
+                ApplicationUser = user16,
+                Game = g34,
+                Rating = 4
+            };
+
+            var ugr55 = new UserGameRatings
+            {
+                UserGameRatingsId = 55,
+                ApplicationUser = user18,
+                Game = g34,
+                Rating = 5
+            };
+
+            var ugr56 = new UserGameRatings
+            {
+                UserGameRatingsId = 56,
+                ApplicationUser = user21,
+                Game = g34,
+                Rating = 2
+            };
+
+            var ugr57 = new UserGameRatings
+            {
+                UserGameRatingsId = 57,
+                ApplicationUser = user18,
+                Game = g34,
+                Rating = 4
+            };
+
             var userGameRatings = new List<UserGameRatings> { ugr1, ugr2, ugr3, ugr4, ugr5, ugr6, ugr7, ugr8, ugr9, ugr10,
                 ugr11, ugr12, ugr13, ugr14, ugr15, ugr16, ugr17, ugr18, ugr19, ugr20,
-                ugr21, ugr22 , ugr23, ugr24,ugr25,ugr26,ugr27,ugr28,ugr29,ugr30};
+                ugr21, ugr22 , ugr23, ugr24,ugr25,ugr26,ugr27,ugr28,ugr29,ugr30, ugr31, ugr32, ugr33, ugr34, ugr35,
+                ugr36, ugr37, ugr38, ugr39, ugr40, ugr41, ugr42, ugr43, ugr44, ugr45, ugr46, ugr47, ugr48, ugr49,
+                ugr50, ugr51, ugr52, ugr53, ugr54, ugr55, ugr56, ugr57
+            };
             foreach (var userGameRating in userGameRatings)
             {
                 context.UserGameRatings.AddOrUpdate(g => new {g.UserGameRatingsId}, userGameRating);
