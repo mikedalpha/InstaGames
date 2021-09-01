@@ -238,7 +238,7 @@ namespace GroupProject.Database.Migrations
                 RegistrationDate = new DateTime(2021, 8, 20),
                 FirstName = "Nick",
                 LastName = "TheGreek",
-                PhotoUrl = "/Content/images/user/StarDestroyer.jpg",
+                PhotoUrl = "/Content/images/user/StarDestroyer.jpeg",
                 DateOfBirth = new DateTime(1985, 10, 28),
                 IsSubscribed = true,
                 EmailConfirmed = true,
