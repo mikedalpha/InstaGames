@@ -58,20 +58,15 @@ namespace GroupProject.WebApp.Controllers
             var games = await unitOfWork.Games.GetAllAsync();
             if (games == null) return RedirectToAction("InternalServerError", "Error");
 
-           
-          
-
-            
-
             var categories = await unitOfWork.Category.GetAllAsync();
             if(categories == null) return RedirectToAction("InternalServerError", "Error");
 
             var appuser = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (appuser == null) return RedirectToAction("InternalServerError", "Error");
 
-            var ratedGame = await unitOfWork.UserGameRatings.GetAllAsync();
+            var ratedGames = await unitOfWork.UserGameRatings.GetAllAsync();
 
-            var vm = new SinglePlayerViewModel(games.ToList() , categories.ToList() , appuser, ratedGame.ToList());
+            var vm = new SinglePlayerViewModel(games.ToList() , categories.ToList() , appuser, ratedGames.ToList());
 
             var index = new Random().Next(vm.GamesWeRecommend.ToArray().Length);
             var randomGame = await unitOfWork.Games.FindByIdAsync(vm.GamesWeRecommend[index].GameId);

@@ -60,8 +60,6 @@ namespace GroupProject.WebApp.Controllers
             var games = await unitOfWork.Games.GetAllAsync();
             if (games == null) return RedirectToAction("InternalServerError", "Error");
 
-           
-
             var appuser = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (appuser == null) return RedirectToAction("InternalServerError", "Error");
 

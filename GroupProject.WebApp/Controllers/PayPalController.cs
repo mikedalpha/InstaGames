@@ -26,7 +26,6 @@ namespace GroupProject.WebApp.Controllers
             UserManager = userManager;
         }
 
-
         public ApplicationUserManager UserManager
         {
             get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
@@ -91,7 +90,6 @@ namespace GroupProject.WebApp.Controllers
 
             return payment.Create(apiContext);
         }
-
 
         //Execute Payment method
         private Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)

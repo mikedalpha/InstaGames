@@ -10,10 +10,12 @@ namespace GroupProject.RepositoryService.Repositories
         {
             get { return Context as ApplicationDbContext; }
         }
+
         public CategoryRepos(ApplicationDbContext context) : base(context)
         {
 
         }
+
         public bool CategoryExists(int id)
         {
             return DbContext.Categories.Count(g => g.CategoryId == id) > 0;

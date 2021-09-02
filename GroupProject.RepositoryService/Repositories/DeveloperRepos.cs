@@ -21,6 +21,5 @@ namespace GroupProject.RepositoryService.Repositories
             return DbContext.Developers.Count(d => d.DeveloperId == id) > 0;
         }
 
-
     }
 }
