@@ -143,14 +143,12 @@ namespace GroupProject.WebApp.Controllers
             }
         }
 
-
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
-
 
         // POST: /Account/Register
         [HttpPost]
@@ -193,8 +191,6 @@ namespace GroupProject.WebApp.Controllers
                 }
                 return await SendEmail(user);
             }
-
-
 
             AddErrors(result);
 
@@ -434,9 +430,6 @@ namespace GroupProject.WebApp.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
-
-
-
 
         // POST: /Account/LogOff
         [HttpPost]

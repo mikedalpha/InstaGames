@@ -188,9 +188,6 @@ namespace GroupProject.WebApp.Controllers
             return RedirectToAction("PaymentWithPaypal", "PayPal", user);
         }
 
-
-
-
         // POST: /Manage/UploadPhoto
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -228,7 +225,6 @@ namespace GroupProject.WebApp.Controllers
             return RedirectToAction("Index");
         }
 
-
         // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -252,13 +248,11 @@ namespace GroupProject.WebApp.Controllers
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
-
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber()
         {
             return View();
         }
-
 
         // POST: /Manage/AddPhoneNumber
         [HttpPost]
@@ -283,7 +277,6 @@ namespace GroupProject.WebApp.Controllers
             return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
         }
 
-
         // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -297,7 +290,6 @@ namespace GroupProject.WebApp.Controllers
             }
             return RedirectToAction("Index", "Manage");
         }
-
 
         // POST: /Manage/DisableTwoFactorAuthentication
         [HttpPost]
@@ -321,7 +313,6 @@ namespace GroupProject.WebApp.Controllers
             // Send an SMS through the SMS provider to verify the phone number
             return phoneNumber == null ? (ActionResult)Redirect("~/Error/InternalServerError") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
         }
-
 
         //  POST: /Manage/VerifyPhoneNumber
         [HttpPost]
@@ -347,7 +338,6 @@ namespace GroupProject.WebApp.Controllers
             return View(model);
         }
 
-
         // POST: /Manage/RemovePhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -365,7 +355,6 @@ namespace GroupProject.WebApp.Controllers
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
-
 
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
@@ -405,7 +394,6 @@ namespace GroupProject.WebApp.Controllers
             return View();
         }
 
-
         // POST: /Manage/SetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -430,7 +418,7 @@ namespace GroupProject.WebApp.Controllers
             return View(model);
         }
 
-        //
+   
         // GET: /Manage/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
@@ -453,7 +441,6 @@ namespace GroupProject.WebApp.Controllers
             });
         }
 
-
         // POST: /Manage/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -462,8 +449,6 @@ namespace GroupProject.WebApp.Controllers
             // Request a redirect to the external login provider to link a login for the current user
             return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), User.Identity.GetUserId());
         }
-
- 
 
         // GET: /Manage/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback()

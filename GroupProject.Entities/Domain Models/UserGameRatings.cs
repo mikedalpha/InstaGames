@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace GroupProject.Entities.Domain_Models
+﻿namespace GroupProject.Entities.Domain_Models
 {
     public class UserGameRatings
     {
