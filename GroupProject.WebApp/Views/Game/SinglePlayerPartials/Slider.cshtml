@@ -4,13 +4,13 @@
     <div>
         <div class="shows-img">
 
-            @if (!string.IsNullOrEmpty(@Model.SelectedGame.Trailer))
+            @if (!string.IsNullOrEmpty(@Model.RandomGame.Trailer))
             {
                 <div class="video-background">
                     <div class="video-wrap">
                         <div id="video">
                             <video id="bgvid" autoplay loop muted playsinline>
-                                <source src="https://localhost:44369/@Model.SelectedGame.Trailer" type="video/mp4" />
+                                <source src="https://localhost:44369/@Model.RandomGame.Trailer" type="video/mp4" />
                             </video>
                         </div>
                     </div>
@@ -18,21 +18,21 @@
             }
             else
             {
-                <img src="https://localhost:44369/@Model.SelectedGame.Photo" class="w-100" alt="">
+                <img src="https://localhost:44369/@Model.RandomGame.Photo" class="w-100" alt="">
             }
 
             <div class="shows-content">
                 <div class="d-flex align-items-center r-mb-23" data-animation-in="fadeInUp" data-delay-in="1.2">
                     <div class="hover-buttons">
-                        @if (Model.SelectedGame.IsReleased || Model.SelectedGame.IsEarlyAccess.HasValue)
+                        @if (Model.RandomGame.IsReleased || Model.RandomGame.IsEarlyAccess.HasValue)
                         {
-                            <a href="~/game/play/@Model.SelectedGame.GameId" class="btn btn-hover iq-button">
+                            <a href="~/game/play/@Model.RandomGame.GameId" class="btn btn-hover iq-button">
                                 <i class="fa fa-play mr-2"
                                    aria-hidden="true"></i>Play Now
                             </a>
-                            <a href="#" data-id="@Model.SelectedGame.GameId" class="detailsView btn btn-link">More info</a>
-                            <a href="javascript:void(0);" class="btn-link addToList" tabindex="0" data-id="@Model.SelectedGame.GameId">
-                                @if (Model.MyList.Any(g => g.GameId == Model.SelectedGame.GameId))
+                            <a href="#" data-id="@Model.RandomGame.GameId" class="detailsView btn btn-link">More info</a>
+                            <a href="javascript:void(0);" class="btn-link addToList" tabindex="0" data-id="@Model.RandomGame.GameId">
+                                @if (Model.MyList.Any(g => g.GameId == Model.RandomGame.GameId))
                                 {
                                     <i class="fa fa-check-circle-o"></i>
                                 }
@@ -44,7 +44,7 @@
                         }
                         else
                         {
-                            <a href="#" data-id="@Model.SelectedGame.GameId" class="detailsView btn btn-hover">
+                            <a href="#" data-id="@Model.RandomGame.GameId" class="detailsView btn btn-hover">
                                 <i class="fa fa-info mr-2"
                                    aria-hidden="true"></i>More info
                             </a>
@@ -56,21 +56,21 @@
                 </div>
                 <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft"
                     data-delay-in="0.6">
-                    @Model.SelectedGame.Title
+                    @Model.RandomGame.Title
                 </h1>
                 <div class="movie-time d-flex align-items-center">
-                    <img src="https://localhost:44369/@Model.SelectedGame.Pegi.PegiPhoto" alt="Alternate Text" class="p-2 " width="50" />
-                    <span class="text-white">@Model.SelectedGame.Tag.ToString() &nbsp;</span>
+                    <img src="https://localhost:44369/@Model.RandomGame.Pegi.PegiPhoto" alt="Alternate Text" class="p-2 " width="50" />
+                    <span class="text-white">@Model.RandomGame.Tag.ToString() &nbsp;</span>
                     <ul class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
-                        @if (Model.SelectedGame.Rating > 0)
+                        @if (Model.RandomGame.Rating > 0)
                         {
-                            for (int i = 0; i < @Math.Round(Model.SelectedGame.Rating); i++)
+                            for (int i = 0; i < @Math.Round(Model.RandomGame.Rating); i++)
                             {
                                 <li>
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </li>
                             }
-                            for (int i = 0; i < 5 - @Math.Round(Model.SelectedGame.Rating); i++)
+                            for (int i = 0; i < 5 - @Math.Round(Model.RandomGame.Rating); i++)
                             {
                                 <li>
                                     <i class="fa fa-star-o" aria-hidden="true"></i>
@@ -86,9 +86,9 @@
                             <i class="fa fa-star-o" aria-hidden="true"></i>
                         }
                     </ul>
-                    @if (Model.SelectedGame.Rating > 0)
+                    @if (Model.RandomGame.Rating > 0)
                     {
-                        <span class="text-white ml-2">@Model.SelectedGame.Rating.ToString("0.0") <small style="font-size:10px">(User Score)</small></span>
+                        <span class="text-white ml-2">@Model.RandomGame.Rating.ToString("0.0") <small style="font-size:10px">(User Score)</small></span>
                     }
                     else
                     {

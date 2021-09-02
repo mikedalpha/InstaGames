@@ -6,14 +6,14 @@
 
             @if (Model.Photo == null)
             {
-                <img src="~/Content/images/user/user.jpg" class="rounded-circle img-fluid d-block mx-auto mb-3" alt="user" height="150" width="150">
+                <img src="~/Content/images/user/user.jpg" class="img-fluid img-thumbnail d-block mx-auto mb-3" alt="user" height="150" width="150">
             }
             else
             {
-                <img src="@Model.Photo" class="rounded-circle profile-pic img-fluid d-block mx-auto mb-3" alt="user" height="150" width="150">
+                <img src="@Model.Photo" class="profile-pic img-thumbnail img-fluid d-block mx-auto mb-3" alt="user" height="150" width="150">
             }
             <div class="p-image">
-                <i id="submit-form" class="ri-pencil-line upload-button"></i>
+                <i id="submit-form" class="ri-pencil-line upload-button" title="Upload your image",></i>
 
                 @using (Html.BeginForm("UploadPhoto", "Manage", FormMethod.Post, new { id = "photo-form", enctype = "multipart/form-data" }))
                 {

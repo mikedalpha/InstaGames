@@ -1,4 +1,5 @@
-﻿@model GroupProject.WebApp.Models.HomeViewModel.IndexViewModel
+﻿@using Microsoft.AspNet.Identity
+@model GroupProject.WebApp.Models.HomeViewModel.IndexViewModel
 
 @{
     ViewBag.Title = "My List – InstaGames";
@@ -20,56 +21,75 @@
         <div class="tab-content">
             <div class="tab-pane fade active show" role="tabpanel">
                 <div class="block-space">
-                    <h5 class="iq-view-all mt-5">My List</h5>
+                    <h3 class="iq-view-all mt-5">My List</h3>
                     <div class="row mb-5 mt-5">
-                        @foreach (var game in Model.MyList)
+                        @if (Model.MyList.Count > 0)
                         {
-                            <div class="col-1-5 col-md-6 iq-mb-30">
-                                <div class="epi-box">
-                                    <div class="epi-img position-relative">
-                                        <img src="https://localhost:44369/@game.Photo" class="img-fluid img-zoom" alt="">
-                                        <div class="episode-number text-center">@game.Title</div>
-                                        <div class="episode-play-info">
+                            foreach (var game in Model.MyList)
+                            {
+                                <div class="col-1-5 col-md-6 iq-mb-30">
+                                    <div class="epi-box">
+                                        <div class="epi-img position-relative">
+                                            <img src="https://localhost:44369/@game.Photo" class="img-fluid img-zoom" alt="">
+                                            <div class="episode-number text-center">@game.Title</div>
+                                            <div class="episode-play-info">
 
-                                            @if (game.IsReleased)
-                                            {
-                                                <div id="playBtn" class="episode-play">
-                                                    <a href="/game/play/@game.GameId"><i class="fa fa-play"></i></a>
-                                                </div>
-                                            }
+                                                @if (game.IsReleased)
+                                                {
+                                                    <div id="playBtn" class="episode-play">
+                                                        <a href="/game/play/@game.GameId"><i class="fa fa-play"></i></a>
+                                                    </div>
+                                                }
 
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="epi-desc p-3">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <span class="text-white">@game.ReleaseDate.ToString("d")</span>
-                                            <img src="https://localhost:44369/@game.Pegi.PegiPhoto" width="20" />
+                                        <div class="epi-desc p-3">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <span class="text-white">Released: @game.ReleaseDate.ToString("d")</span>
+                                                <img src="https://localhost:44369/@game.Pegi.PegiPhoto" width="20" />
+                                            </div>
+                                            <h6 class="epi-name text-white mb-0 pt-2">
+                                                <a class="detailsView" data-id="@game.GameId" href="#">@game.Description</a>
+                                            </h6>
+                                            <ul class="list-inline p-0 m-0 music-play-lists pull-right">
+                                                <li class="share">
+                                                    @if (Model.MyList.Any(g => g.GameId == game.GameId))
+                                                    {
+                                                        <span data-id="@game.GameId" class="addToList mylist pull-right" style="--text:'Remove from My List'"><i class="fa fa-check-circle-o"></i></span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span data-id="@game.GameId" class="addToList mylist pull-right" style="--text:'Add to My List'"><i class="ri-add-line"></i></span>
+                                                    }
+                                                </li>
+                                            </ul>
+                                            <!--Rating Logic -->
+                                            <ul class="ratting-start p-1 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
+                                                @for (int i = 0; i < Math.Floor(game.Rating); i++)
+                                                {
+                                                    <li>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                    </li>
+                                                }
+                                                @for (int i = 0; i < 5 - game.Rating; i++)
+                                                {
+                                                    <li>
+                                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    </li>
+                                                }
+                                            </ul>
                                         </div>
-                                        <h6 class="epi-name text-white mb-0 pt-2">
-                                            <a class="detailsView" data-id="@game.GameId" href="#">@game.Description</a>
-                                        </h6>
-                                        <!--Rating Logic -->
-                                        <ul class="ratting-start p-1 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
-                                            @for (int i = 0; i < Math.Floor(game.Rating); i++)
-                                            {
-                                                <li>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                </li>
-                                            }
-                                            @for (int i = 0; i < 5 -game.Rating; i++)
-                                            {
-                                                <li>
-                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                </li>
-                                            }
-                                        </ul>
 
                                     </div>
                                 </div>
-                            </div>
+                            }
+
                         }
-
-
+                        else
+                        {
+                            <div class="container text-center"><span class="text-secondary">You haven't added any titles to your list yet.</span></div>
+                            
+                        }
                     </div>
                 </div>
             </div>
@@ -79,4 +99,6 @@
 
 @section scripts{
     @Scripts.Render("~/bundles/DetailsModalScript")
+    <script> var userId = "@HttpContext.Current.User.Identity.GetUserId()"; </script> 
+    @Scripts.Render("~/bundles/MyList")
 }
