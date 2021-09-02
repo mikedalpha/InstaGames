@@ -25,6 +25,9 @@ function AddRating(userId, gameId, rating, element) {
             element.addClass('text-success');
             $(element.parent().parent().siblings('.count-box').removeAttr('hidden'));
             $(".show-rating").text(response.Rating);
+            element.siblings().removeClass('addRating');
+            element.siblings().removeClass('btn-link');
+            element.parent().parent().attr('style',`--text:'Successfully rated! Your rating :${response.Rating}'`);
         }
     });
 }
