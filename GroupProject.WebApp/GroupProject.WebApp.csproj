@@ -225,6 +225,7 @@
     <Compile Include="Models\AccountViewModels\ExternalLoginListViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ForgotViewModel.cs" />
     <Compile Include="Models\AccountViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\AccountViewModels\Validations\DateMinimumAgeAttribute.cs" />
     <Compile Include="Models\GameViewModels\SinglePlayerViewModel.cs" />
     <Compile Include="Models\HomeViewModel\ContactViewModel.cs" />
     <Compile Include="Models\HomeViewModel\IndexViewModel.cs" />
@@ -263,6 +264,7 @@
     <Content Include="Content\fonts\remixicon.svg" />
     <Content Include="Content\images\about-us\Konstantina.jpg" />
     <Content Include="Content\images\about-us\Michael.jpg" />
+    <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\error\404.png" />
     <Content Include="Content\images\error\500.png" />
     <Content Include="Content\images\about-us\about.jpeg" />
@@ -272,6 +274,11 @@
     <Content Include="Content\images\about-us\html5-without-wordmark-black-white.svg" />
     <Content Include="Content\images\about-us\javascript.svg" />
     <Content Include="Content\images\user\Admin.png" />
+    <Content Include="Content\images\user\Aetomatis.jpg" />
+    <Content Include="Content\images\user\Asos.jpg" />
+    <Content Include="Content\images\user\DarthVader.jpg" />
+    <Content Include="Content\images\user\Gandalf.jpg" />
+    <Content Include="Content\images\user\Idefix.jpg" />
     <Content Include="Content\images\user\Konstantina.jpg" />
     <Content Include="Content\images\about-us\Kostas.jpg" />
     <Content Include="Content\images\about-us\unityWhite.svg" />
@@ -289,7 +296,14 @@
     <Content Include="Content\images\SimpleBlackBackround.png" />
     <Content Include="Content\images\texure.jpg" />
     <Content Include="Content\images\user\Kostas.jpg" />
+    <Content Include="Content\images\user\Megaz0rd.jpg" />
     <Content Include="Content\images\user\Michael.jpg" />
+    <Content Include="Content\images\user\Obelix.jpg" />
+    <Content Include="Content\images\user\Prince.jpg" />
+    <Content Include="Content\images\user\Princess.jpg" />
+    <Content Include="Content\images\user\StarDestroyer.jpeg" />
+    <Content Include="Content\images\user\Trixotos.jpg" />
+    <Content Include="Content\images\user\Trololo.jpg" />
     <Content Include="Content\images\user\user.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
