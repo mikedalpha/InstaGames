@@ -97,35 +97,51 @@ namespace GroupProject.WebApp.Controllers
             };
             return View(model);
         }
-        
+
 
         //Edit User
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Index(IndexViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+
+                var isEmailAlreadyExists = UserManager.Users.Any(x => x.Email == model.Email);
+                var isUserNameAlreadyExists = UserManager.Users.Any(x => x.UserName == model.Username);
+
+                if (isEmailAlreadyExists)
+                {
+                    ModelState.AddModelError("Email", @"This Email is already in use try a different one.");
+                    return View(model);
+                }
+
+                if (isUserNameAlreadyExists)
+                {
+                    ModelState.AddModelError("UserName", @"This Username is already in use try a different one.");
+                    return View(model);
+                }
+
+
+                user.UserName = model.Username;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.DateOfBirth = model.DateOfBirth;
+                user.Email = model.Email;
+
+                var result = await UserManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    AddErrors(result);
+                    return View(model);
+                }
+
+                return RedirectToAction("Index");
             }
 
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-
-            user.UserName = model.Username;
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.DateOfBirth = model.DateOfBirth;
-            user.Email = model.Email;
-
-            var result = await UserManager.UpdateAsync(user);
-
-            if (!result.Succeeded)
-            {
-                AddErrors(result);
-                return View(model);
-            }
-
-            return RedirectToAction("Index");
+            return View(model);
         }
 
         // POST: /Manage/SubscriptionPlan
@@ -138,7 +154,7 @@ namespace GroupProject.WebApp.Controllers
 
             if (user == null) Redirect("~/Error/InternalServerError");
 
-            user.SubscribePlan = model.SubscribePlan; 
+            user.SubscribePlan = model.SubscribePlan;
             await UserManager.UpdateAsync(user);
 
             if (user.PasswordHash == null || user.FirstName == null || user.LastName == null)
@@ -167,25 +183,32 @@ namespace GroupProject.WebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> GetExternalUserData(ExternalUserDataViewModel model)
         {
-
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("PricingPlan", "Home", model);
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user == null) Redirect("~/Error/InternalServerError");
+
+                var isUserNameAlreadyExists = UserManager.Users.Any(x => x.UserName == model.UserName);
+
+                if (isUserNameAlreadyExists)
+                {
+                    ModelState.AddModelError("UserName", @"This Username is already in use try a different one.");
+                    return View(model);
+                }
+
+                user.UserName = model.UserName;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                await UserManager.AddPasswordAsync(user.Id, model.Password);
+
+                var result = await UserManager.UpdateAsync(user);
+
+                if (!result.Succeeded) Redirect("~/Error/InternalServerError");
+
+                return RedirectToAction("PaymentWithPaypal", "PayPal", user);
             }
 
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            if (user == null) Redirect("~/Error/InternalServerError");
-
-            user.UserName = model.UserName;
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName; 
-            await UserManager.AddPasswordAsync(user.Id, model.Password);
-
-            var result = await UserManager.UpdateAsync(user);
-
-            if (!result.Succeeded) Redirect("~/Error/InternalServerError");
-
-            return RedirectToAction("PaymentWithPaypal", "PayPal", user);
+            return RedirectToAction("PricingPlan", "Home", model);
         }
 
         // POST: /Manage/UploadPhoto
@@ -367,24 +390,26 @@ namespace GroupProject.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
-            }
+                var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
 
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-
-            if (result.Succeeded)
-            {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
+                if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    if (user != null)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    }
+
+                    TempData["ShowAlert"] = true;
+                    return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+
+                AddErrors(result);
             }
 
-            AddErrors(result);
+
             return View(model);
         }
 
@@ -418,7 +443,7 @@ namespace GroupProject.WebApp.Controllers
             return View(model);
         }
 
-   
+
         // GET: /Manage/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
@@ -495,7 +520,7 @@ namespace GroupProject.WebApp.Controllers
 
         private bool HasPassword(ApplicationUser user)
         {
-            return user.PasswordHash !=null;
+            return user.PasswordHash != null;
         }
 
         private bool HasPhoneNumber()

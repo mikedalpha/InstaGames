@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using GroupProject.Entities;
+using GroupProject.WebApp.Models.AccountViewModels.Validations;
 using Microsoft.AspNet.Identity;
 
 namespace GroupProject.WebApp.Models.ManageViewModels
@@ -38,6 +39,7 @@ namespace GroupProject.WebApp.Models.ManageViewModels
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DateMinimumAge(18, ErrorMessage = "{0} must be at least {1} years of age")]
         [Display(Name = "Date Of Birth")]
         public DateTime DateOfBirth { get; set; }
 

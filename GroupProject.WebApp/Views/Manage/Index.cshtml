@@ -29,6 +29,35 @@
                             <p class="mb-0">@Model.Username</p>
                         </div>
                     </div>
+                    
+                    
+                    <!-- Alert Message    -->
+
+                    @if (TempData.ContainsKey("ShowAlert"))
+                    {
+                        if ((bool)TempData["ShowAlert"])
+                        {
+                            <div class="container">
+                                <div class="col-sm-2 col-lg-4 position-fixed flipOutX fixed-center">
+                                    <div class="alert alert-primary showAlert bg-success" role="alert">
+                                        <div class="iq-alert-text">
+                                            <button type="button" class="close text-muted" data-dismiss="alert" aria-label="Close">
+                                                <i class="ri-close-line text-success"></i>
+                                            </button>
+                                            <h5 class="alert-heading text-white text-center">@User.Identity.Name!</h5>
+                                            <hr />
+                                            <p class="text-white text-center">
+                                                <i class="ri-information-line"></i>
+                                               Your password was successfully Changed!
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                    <!-- Alert Message End   -->
 
                     <div class="row justify-content-between mb-3">
                         <div class="col-md-8">
@@ -263,7 +292,7 @@
 
                                                    <div class="form-group">
                                                        @Html.LabelFor(vm => vm.DateOfBirth, new { @class = "text-primary" })
-                                                       @Html.EditorFor(vm => vm.DateOfBirth, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off", placeholder = "Last Name" } })
+                                                       @Html.EditorFor(vm => vm.DateOfBirth, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off" } })
                                                        @Html.ValidationMessageFor(vm => vm.DateOfBirth, "", new { @class = "text-danger" })
                                                    </div>
 

@@ -17,15 +17,21 @@ namespace GroupProject.WebApp.Controllers
         private Payment payment;
         private ILog iLog;
         private ApplicationUserManager _userManager;
+        private ApplicationSignInManager _signInManager;
 
         public PayPalController() { }
 
-        public PayPalController(ApplicationUserManager userManager)
+        public PayPalController(ApplicationUserManager userManager,ApplicationSignInManager signInManager)
         {
             iLog = Log.GetInstance;
             UserManager = userManager;
+            SignInManager = signInManager;
         }
-
+        public ApplicationSignInManager SignInManager
+        {
+            get{ return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>(); }
+            private set { _signInManager = value; }
+        }
         public ApplicationUserManager UserManager
         {
             get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
@@ -171,6 +177,9 @@ namespace GroupProject.WebApp.Controllers
             {
                 await UserManager.UpdateAsync(user);
             }
+
+            
+            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
             return View("PaymentSuccess");
         }

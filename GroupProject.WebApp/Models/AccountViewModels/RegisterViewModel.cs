@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using GroupProject.WebApp.Models.AccountViewModels.Validations;
 
 namespace GroupProject.WebApp.Models.AccountViewModels
 {
@@ -35,6 +36,7 @@ namespace GroupProject.WebApp.Models.AccountViewModels
         [Required(ErrorMessage = "This field is required")]
         [DataType(DataType.Date)]
         [Display(Name = "Date Of Birth")]
+        [DateMinimumAge(18, ErrorMessage = "{0} must be at least {1} years of age")]
         public DateTime DateOfBirth { get; set; }
 
 
@@ -42,6 +44,7 @@ namespace GroupProject.WebApp.Models.AccountViewModels
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
+        
         public string Password { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
