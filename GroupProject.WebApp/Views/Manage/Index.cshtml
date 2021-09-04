@@ -11,6 +11,7 @@
     <div id="loading-center">
     </div>
 </div>
+
 <!-- loader END -->
 <!-- MainContent -->
 <section class="m-profile setting-wrapper">
@@ -29,9 +30,9 @@
                             <p class="mb-0">@Model.Username</p>
                         </div>
                     </div>
-                    
-                    
-                    <!-- Alert Message    -->
+
+
+                    <!-- Alert Messages -->
 
                     @if (TempData.ContainsKey("ShowAlert"))
                     {
@@ -39,16 +40,40 @@
                         {
                             <div class="container">
                                 <div class="col-sm-2 col-lg-4 position-fixed flipOutX fixed-center">
-                                    <div class="alert alert-primary showAlert bg-success" role="alert">
+                                    <div class="alert alert-primary showAlert bg-primary" role="alert">
                                         <div class="iq-alert-text">
                                             <button type="button" class="close text-muted" data-dismiss="alert" aria-label="Close">
-                                                <i class="ri-close-line text-success"></i>
+                                                <i class="ri-close-line text-dark"></i>
                                             </button>
                                             <h5 class="alert-heading text-white text-center">@User.Identity.Name!</h5>
                                             <hr />
                                             <p class="text-white text-center">
                                                 <i class="ri-information-line"></i>
-                                               Your password was successfully Changed!
+                                                Your password was successfully Changed!
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                    @if (TempData.ContainsKey("ShowEditAlert"))
+                    {
+                        if ((bool)TempData["ShowEditAlert"])
+                        {
+                            <div class="container">
+                                <div class="col-sm-2 col-lg-4 position-fixed flipOutX fixed-center">
+                                    <div class="alert alert-primary showAlert bg-dark" role="alert">
+                                        <div class="iq-alert-text">
+                                            <button type="button" class="close text-muted" data-dismiss="alert" aria-label="Close">
+                                                <i class="ri-close-line text-primary"></i>
+                                            </button>
+                                            <h5 class="alert-heading text-white text-center">@User.Identity.Name!</h5>
+                                            <hr />
+                                            <p class="text-white text-center">
+                                                <i class="ri-information-line"></i>
+                                                Your Profile has been edited successfully!
                                             </p>
                                         </div>
                                     </div>
@@ -67,7 +92,7 @@
                         @if (!Model.HasConfirmedEmail)
                         {
                             <div class="col-md-4 text-md-right text-left">
-                                @Html.ActionLink("Confirm Email", "SendEmail", "Account",new {UserId =User.Identity.GetUserId()}, new { @class = "text-primary" })
+                                @Html.ActionLink("Confirm Email", "SendEmail", "Account", new { UserId = User.Identity.GetUserId() }, new { @class = "text-primary" })
                             </div>
                         }
 
@@ -119,14 +144,12 @@
                         </div>
                     </div>
 
-                        <div class="row justify-content-between mb-3">
-                            <div class="col-md-12 text-md-right text-left">
-                              
-                                <a href="#" class="text-primary" onclick="EditModal()">Edit Profile</a>
-                            </div>
+                    <div class="row justify-content-between mb-3">
+                        <div class="col-md-12 text-md-right text-left">
+
+                            <a href="~/manage/edituser" class="text-primary">Edit Profile</a>
                         </div>
-                 
-                  
+                    </div>
 
 
                     @if (Model.ExpireDate != null)
@@ -200,14 +223,14 @@
 
                     }
 
-                    @*<h5 class="mb-3 pb-3 mt-4 a-border">Setting</h5>
-                        <div class="row">
-                            <div class="col-12 setting">
-                                <a href="#" class="text-body d-block mb-1">Recent device streaming activity</a>
-                                <a href="#" class="text-body d-block mb-1">Sign out of all devices </a>
-                                <a href="#" class="text-body d-block">Download your person information</a>
-                            </div>
-                        </div>*@
+                    <!-- <h5 class="mb-3 pb-3 mt-4 a-border">Setting</h5>
+                    <div class="row">
+                        <div class="col-12 setting">
+                            <a href="#" class="text-body d-block mb-1">Recent device streaming activity</a>
+                            <a href="#" class="text-body d-block mb-1">Sign out of all devices </a>
+                            <a href="#" class="text-body d-block">Download your person information</a>
+                        </div>
+                    </div>-->
 
                 </div>
             </div>
@@ -215,91 +238,8 @@
     </div>
 </section>
 <!-- MainContent End-->
-<!--Modal-->
-<div class="modal fade" id="manageModal" tabindex="-1" role="dialog" aria-labelledby="manageModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-primary" id="manageModalCenterTitle">Edit User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div id="modalBody" class="modal-body">
-
-            </div>
-        </div>
-    </div>
-</div>
-<!--Modal End-->
 <!-- back-to-top -->
 <div id="back-to-top">
     <a class="top" href="#top" id="top"> <i class="fa fa-angle-up"></i> </a>
 </div>
 <!-- back-to-top End -->
-
-@Scripts.Render("~/bundles/jqueryval")
-@section scripts
-{
-    <script>
-
-        //EDIT USER
-
-        function EditModal() {
-
-            $(document).ready(function () {
-                $("#manageModal").modal();
-            });
-
-            EditProfile();
-
-            $(".close").click(function () { $("#manageModal").modal("hide"); });
-
-        }
-
-        $("#manageModal").hide();
-
-        function EditProfile() {
-            $("#modalBody").html(`
-                                    @using (Html.BeginForm("Index", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                                    {
-                                           @Html.AntiForgeryToken()
-
-                                                   <div class="form-group">
-                                                       @Html.LabelFor(vm => vm.Username, new { @class = "text-primary"})
-                                                       @Html.EditorFor(vm => vm.Username, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off", placeholder = "Enter Username" } })
-                                                       @Html.ValidationMessageFor(vm => vm.Username, "", new { @class = "text-danger" })
-                                                   </div>
-
-
-                                                   <div class="form-group">
-                                                       @Html.LabelFor(vm => vm.Email, new { @class = "text-primary" })
-                                                       @Html.EditorFor(vm => vm.Email, new { htmlAttributes = new { @class = "form-control mb-0", placeholder = "Enter email" } })
-                                                       @Html.ValidationMessageFor(vm => vm.Email, "", new { @class = "text-danger" })
-                                                   </div>
-
-                                                   <div class="form-group">
-                                                       @Html.LabelFor(vm => vm.FirstName, new { @class = "text-primary" })
-                                                       @Html.EditorFor(vm => vm.FirstName, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off", placeholder = "First Name" } })
-                                                       @Html.ValidationMessageFor(vm => vm.FirstName, "", new { @class = "text-danger" })
-                                                   </div>
-
-                                                   <div class="form-group">
-                                                       @Html.LabelFor(vm => vm.LastName, new { @class = "text-primary" })
-                                                       @Html.EditorFor(vm => vm.LastName, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off", placeholder = "Last Name" } })
-                                                       @Html.ValidationMessageFor(vm => vm.LastName, "", new { @class = "text-danger" })
-                                                   </div>
-
-                                                   <div class="form-group">
-                                                       @Html.LabelFor(vm => vm.DateOfBirth, new { @class = "text-primary" })
-                                                       @Html.EditorFor(vm => vm.DateOfBirth, new { htmlAttributes = new { @class = "form-control mb-0", autocomplete = "off" } })
-                                                       @Html.ValidationMessageFor(vm => vm.DateOfBirth, "", new { @class = "text-danger" })
-                                                   </div>
-
-                                           <button type="submit" class="btn btn-hover my-2">Save Changes</button>
-                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                          }
-                                            `);}
-
-    </script>
-}

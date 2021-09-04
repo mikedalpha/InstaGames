@@ -67,15 +67,6 @@ namespace GroupProject.WebApp.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
-
             var userId = User.Identity.GetUserId();
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             var model = new IndexViewModel
@@ -98,31 +89,62 @@ namespace GroupProject.WebApp.Controllers
             return View(model);
         }
 
+        // GET: /Manage/EditUser
+        public async Task<ActionResult> EditUser(ManageMessageId? message)
+        {
+            var userId = User.Identity.GetUserId();
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            var model = new IndexViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.UserName,
+                Email = user.Email,
+                DateOfBirth = user.DateOfBirth,
+                HasPassword = HasPassword(user),
+                HasConfirmedEmail = user.EmailConfirmed,
+                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+                Logins = await UserManager.GetLoginsAsync(userId),
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                ExpireDate = user.ExpireDate,
+                SubscribePlan = user.SubscribePlan,
+                RegistrationDate = user.RegistrationDate,
+                Photo = user.PhotoUrl
+            };
+            return View(model);
+        }
 
         //Edit User
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Index(IndexViewModel model)
+        public async Task<ActionResult> EditUser(IndexViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
 
-                var isEmailAlreadyExists = UserManager.Users.Any(x => x.Email == model.Email);
-                var isUserNameAlreadyExists = UserManager.Users.Any(x => x.UserName == model.Username);
-
-                if (isEmailAlreadyExists)
+                if (model.Email != user.Email)
                 {
-                    ModelState.AddModelError("Email", @"This Email is already in use try a different one.");
-                    return View(model);
+                    var isEmailAlreadyExists = UserManager.Users.Any(x => x.Email == model.Email);
+                    if (isEmailAlreadyExists)
+                    {
+                        ModelState.AddModelError("Email", @"This Email is already in use try a different one.");
+                        return View(model);
+                    }
                 }
 
-                if (isUserNameAlreadyExists)
+                if (user.UserName != model.Username)
                 {
-                    ModelState.AddModelError("UserName", @"This Username is already in use try a different one.");
-                    return View(model);
-                }
+                    var isUserNameAlreadyExists = UserManager.Users.Any(x => x.UserName == model.Username);
 
+
+
+                    if (isUserNameAlreadyExists)
+                    {
+                        ModelState.AddModelError("UserName", @"This Username is already in use try a different one.");
+                        return View(model);
+                    }
+                }
 
                 user.UserName = model.Username;
                 user.FirstName = model.FirstName;
@@ -138,11 +160,15 @@ namespace GroupProject.WebApp.Controllers
                     return View(model);
                 }
 
+                TempData["ShowEditAlert"] = true;
                 return RedirectToAction("Index");
             }
 
             return View(model);
         }
+
+
+
 
         // POST: /Manage/SubscriptionPlan
         [HttpPost]

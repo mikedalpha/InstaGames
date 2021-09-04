@@ -547,6 +547,7 @@
     <Content Include="Views\Game\SinglePlayerPartials\GamesReleased2021.cshtml" />
     <Content Include="Views\Home\MyList.cshtml" />
     <Content Include="Views\Shared\_NavbarOnlyLayout.cshtml" />
+    <Content Include="Views\Manage\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
