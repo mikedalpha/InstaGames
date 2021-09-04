@@ -5,10 +5,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using GroupProject.WebApp.Models;
 using GroupProject.Database;
 using GroupProject.Entities;
-using Microsoft.Owin.Security.Facebook;
 
 namespace GroupProject.WebApp
 {
