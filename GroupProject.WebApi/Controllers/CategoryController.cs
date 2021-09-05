@@ -1,9 +1,10 @@
-﻿using System.Data.Entity.Infrastructure;
+﻿using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using ExceptionLogger;
 using GroupProject.Entities.Domain_Models;
 using GroupProject.RepositoryService;
 
@@ -12,10 +13,11 @@ namespace GroupProject.WebApi.Controllers
     public class CategoryController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
-
+        private ILog iLog;
         public CategoryController()
         {
             unitOfWork = new UnitOfWork();
+            iLog = Log.GetInstance;
         }
 
         // GET: api/Category
@@ -54,7 +56,7 @@ namespace GroupProject.WebApi.Controllers
                 return NotFound();
             }
 
-            return Ok(  new
+            return Ok(new
             {
                 CategoryId = category.CategoryId,
                 Type = category.Type,
@@ -80,23 +82,17 @@ namespace GroupProject.WebApi.Controllers
         [ResponseType(typeof(Category))]
         public async Task<IHttpActionResult> PostCategory(Category category)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             unitOfWork.Category.Create(category);
             await unitOfWork.SaveAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = category.CategoryId }, category);
+            return CreatedAtRoute("DefaultApi", new { id = category.CategoryId }, new { Type = category.Type });
         }
-
-
-
 
         // PUT: api/Category/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> Put(int id, Category category)
+        public async Task<IHttpActionResult> PutCategory(int id, Category category)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -105,11 +101,12 @@ namespace GroupProject.WebApi.Controllers
 
             unitOfWork.Category.Edit(category);
 
+            var result = 0;
             try
             {
-                await unitOfWork.SaveAsync();
+                result = await unitOfWork.SaveAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!unitOfWork.Category.CategoryExists(id))
                 {
@@ -117,27 +114,41 @@ namespace GroupProject.WebApi.Controllers
                 }
                 else
                 {
-                    throw;
+                    iLog.LogException(ex.Message);
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return result > 0 ? (IHttpActionResult)Ok(new { Type = category.Type }) : InternalServerError();
         }
 
         //DELETE: api/Category/4
         [ResponseType(typeof(Category))]
-        public async Task<IHttpActionResult> DeleteCategory (int id)
+        public async Task<IHttpActionResult> DeleteCategory(int id)
         {
             var category = await unitOfWork.Category.FindByIdAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
+
+            if (category is null) return NotFound();
 
             unitOfWork.Category.Remove(category);
-            await unitOfWork.SaveAsync();
+            
+            var result = 0;
+            try
+            {
+                result = await unitOfWork.SaveAsync();
+            }
+            catch (DBConcurrencyException ex)
+            {
+                if (!unitOfWork.Category.CategoryExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    iLog.LogException(ex.Message);
+                }
+            }
 
-            return Ok(category);
+            return result > 0 ? (IHttpActionResult)Ok(new { Type = category.Type }) : InternalServerError();
         }
 
         protected override void Dispose(bool disposing)

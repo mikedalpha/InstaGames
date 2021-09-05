@@ -379,6 +379,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExceptionLogger\ExceptionLogger.csproj">
+      <Project>{3436a4b5-1500-45a6-94be-939e74759f81}</Project>
+      <Name>ExceptionLogger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GroupProject.Database\GroupProject.Database.csproj">
       <Project>{72DA8434-DC6A-4EF1-BA6E-E870B0B3B364}</Project>
       <Name>GroupProject.Database</Name>
@@ -391,6 +395,9 @@
       <Project>{1ADF92F2-67F7-4321-8F6B-A2D35A0C44DF}</Project>
       <Name>GroupProject.RepositoryService</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
