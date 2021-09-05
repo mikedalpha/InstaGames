@@ -7,6 +7,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using ExceptionLogger;
 using GroupProject.Entities.Domain_Models;
 using GroupProject.RepositoryService;
 
@@ -15,10 +16,12 @@ namespace GroupProject.WebApi.Controllers
     public class MessageController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
+        private ILog iLog;
 
         public MessageController()
         {
             unitOfWork = new UnitOfWork();
+            iLog = Log.GetInstance;
         }
 
         // GET: api/Games
@@ -86,16 +89,11 @@ namespace GroupProject.WebApi.Controllers
 
             var result = 0;
 
-            if (!string.IsNullOrEmpty(message.Reply))
-            {
-               await  Task.Run(() => SendAdminsReply(message));
-            }
-
             try
             {
                 result = await unitOfWork.SaveAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!unitOfWork.Message.MessageExists(id))
                 {
@@ -103,8 +101,13 @@ namespace GroupProject.WebApi.Controllers
                 }
                 else
                 {
-                    throw;
+                    iLog.LogException(ex.Message);
                 }
+            }
+
+            if (!string.IsNullOrEmpty(message.Reply))
+            {
+                await Task.Run(() => SendAdminsReply(message));
             }
 
             return result > 0 ? (IHttpActionResult)StatusCode(HttpStatusCode.NoContent) : InternalServerError();

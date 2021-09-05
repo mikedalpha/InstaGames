@@ -59,8 +59,14 @@ function MainTemplate() {
                                  <div class="tab-content">
                                      <div class="tab-pane fade active show" role="tabpanel">
                                          <div class="block-space">
-                                             <a class="iq-view-all mt-5" href="/game/singleplayer">View All</a>
-                                             <div id="gamesSection" class="row mb-5">
+                                            <nav aria-label="breadcrumb">
+                                              <ol class="breadcrumb bg-dark">
+                                                 <li class="breadcrumb-item"><a class="text-danger" href="/home/Index">Back</a></li>
+                                                 <li class="breadcrumb-item active" aria-current="page">All Games</li>
+                                              </ol>
+                                           </nav>
+                                             <a class="iq-view-all mt-5 mb-5 text-primary" href="/game/singleplayer">View All</a>
+                                             <div id="gamesSection" class="row mt-2 mb-5">
 
                                              </div>
                                           </div>

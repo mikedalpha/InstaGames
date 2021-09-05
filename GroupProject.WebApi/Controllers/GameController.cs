@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using System.Web.Http.Description;
+using ExceptionLogger;
 using GroupProject.Entities.Domain_Models;
 using GroupProject.RepositoryService;
 
@@ -18,10 +15,12 @@ namespace GroupProject.WebApi.Controllers
     public class GameController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
+        private ILog iLog;
 
         public GameController()
         {
             unitOfWork = new UnitOfWork();
+            iLog = Log.GetInstance;
         }
 
         // GET: api/Games
@@ -47,11 +46,11 @@ namespace GroupProject.WebApi.Controllers
                 Categories = g.GameCategories.Select(c => new
                 {
                     Type = c.Type
-                }),
+                }).ToList(),
                 Developers = g.GameDevelopers.Select(d => new
                 {
                     Name = $"{d.FirstName + " " + d.LastName}"
-                })
+                }).ToList()
             }).ToList());
         }
 
@@ -61,10 +60,7 @@ namespace GroupProject.WebApi.Controllers
         {
             var game = await unitOfWork.Games.FindByIdAsync(id);
 
-            if (game == null)
-            {
-                return NotFound();
-            }
+            if (game is null) return NotFound();
 
             return Ok(new
             {
@@ -81,16 +77,16 @@ namespace GroupProject.WebApi.Controllers
                 IsReleased = game.IsReleased,
                 IsEarlyAccess = game.IsEarlyAccess,
                 Tag = game.Tag.ToString(),
-                SelectedCategories = game.GameCategories.Select(c => c.CategoryId),
+                SelectedCategories = game.GameCategories.Select(c => c.CategoryId).ToList(),
                 Categories = game.GameCategories.Select(c => new
                 {
                     Type = c.Type
-                }),
-                SelectedDevelopers = game.GameDevelopers.Select(c => c.DeveloperId),
+                }).ToList(),
+                SelectedDevelopers = game.GameDevelopers.Select(c => c.DeveloperId).ToList(),
                 Developers = game.GameDevelopers.Select(d => new
                 {
                     Name = $"{d.FirstName + " " + d.LastName}"
-                })
+                }).ToList()
             });
         }
 
@@ -133,7 +129,7 @@ namespace GroupProject.WebApi.Controllers
             {
                 await unitOfWork.SaveAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!unitOfWork.Games.GameExists(id))
                 {
@@ -141,11 +137,11 @@ namespace GroupProject.WebApi.Controllers
                 }
                 else
                 {
-                    throw;
+                    iLog.LogException(ex.Message);
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(new { Title = game.Title });
         }
 
         // POST: api/Games
@@ -187,15 +183,32 @@ namespace GroupProject.WebApi.Controllers
 
             await Task.Run(() => DeleteFile(game.Photo));
 
+
             if (game.Trailer != null)
             {
                 await Task.Run(() => DeleteFile(game.Trailer));
             }
 
             unitOfWork.Games.Remove(game);
-            var result = await unitOfWork.SaveAsync();
 
-            return result > 0 ? (IHttpActionResult)Ok() : InternalServerError();
+            var result = 0;
+            try
+            {
+               result = await unitOfWork.SaveAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                if (!unitOfWork.Games.GameExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    iLog.LogException(ex.Message);
+                }
+            }
+
+            return result > 0 ? (IHttpActionResult)Ok(new { Title = game.Title }) : InternalServerError();
         }
 
 
@@ -230,9 +243,9 @@ namespace GroupProject.WebApi.Controllers
                 {
                     fileInfo.Delete();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    throw e;
+                    iLog.LogException(ex.Message);
                 }
             }
         }

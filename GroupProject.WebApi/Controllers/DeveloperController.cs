@@ -1,9 +1,9 @@
 ﻿using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using ExceptionLogger;
 using GroupProject.Entities.Domain_Models;
 using GroupProject.RepositoryService;
 
@@ -12,11 +12,14 @@ namespace GroupProject.WebApi.Controllers
     public class DeveloperController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
+        private ILog iLog;
         public DeveloperController()
         {
             unitOfWork = new UnitOfWork();
+            iLog = Log.GetInstance;
         }
 
+        //Get api/Developer
         public async Task<IHttpActionResult> GetDevs()
         {
             var developers = await unitOfWork.Developer.GetAllAsync();
@@ -45,6 +48,7 @@ namespace GroupProject.WebApi.Controllers
             }).ToList());
         }
 
+        //Get api/Developer/5
         public async Task<IHttpActionResult> GetDev(int? id)
         {
             var developer = await unitOfWork.Developer.FindByIdAsync(id);
@@ -86,7 +90,7 @@ namespace GroupProject.WebApi.Controllers
             unitOfWork.Developer.Create(developer);
             await unitOfWork.SaveAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = developer.DeveloperId }, developer);
+            return CreatedAtRoute("DefaultApi", new { id = developer.DeveloperId }, new { FirstName = developer.FirstName, LastName = developer.LastName });
         }
 
         // PUT: api/Developer/5
@@ -100,11 +104,13 @@ namespace GroupProject.WebApi.Controllers
 
             unitOfWork.Developer.Edit(developer);
 
+            var result = 0;
+
             try
             {
-                await unitOfWork.SaveAsync();
+               result = await unitOfWork.SaveAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!unitOfWork.Developer.DeveloperExists(id))
                 {
@@ -112,13 +118,12 @@ namespace GroupProject.WebApi.Controllers
                 }
                 else
                 {
-                    throw;
+                    iLog.LogException(ex.Message);
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return result > 0 ? (IHttpActionResult)Ok(new { FirstName = developer.FirstName, LastName = developer.LastName }) : InternalServerError();
         }
-
 
         // DELETE: api/Developer/5
         [ResponseType(typeof(Developer))]
@@ -131,9 +136,25 @@ namespace GroupProject.WebApi.Controllers
             }
 
             unitOfWork.Developer.Remove(developer);
-            var result = await unitOfWork.SaveAsync();
 
-            return result > 0 ? (IHttpActionResult)Ok() : InternalServerError();
+            var result = 0;
+            try
+            {
+               result = await unitOfWork.SaveAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                if (!unitOfWork.Developer.DeveloperExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    iLog.LogException(ex.Message);
+                }
+            }
+
+            return result > 0 ? (IHttpActionResult)Ok(new{FirstName = developer.FirstName , LastName = developer.LastName}) : InternalServerError();
         }
 
         protected override void Dispose(bool disposing)
