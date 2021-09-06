@@ -9,6 +9,7 @@ using GroupProject.RepositoryService;
 
 namespace GroupProject.WebApi.Controllers
 {
+    [AllowAnonymous]
     public class DeveloperController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
@@ -42,7 +43,7 @@ namespace GroupProject.WebApi.Controllers
                     IsReleased = dg.IsReleased,
                     IsEarlyAccess = dg.IsEarlyAccess,
                     Rating = dg.Rating,
-                    Tag=dg.Tag
+                    Tag=dg.Tag.ToString()
                 })
 
             }).ToList());
@@ -73,7 +74,7 @@ namespace GroupProject.WebApi.Controllers
                     IsReleased = dg.IsReleased,
                     IsEarlyAccess = dg.IsEarlyAccess,
                     Rating = dg.Rating,
-                    Tag = dg.Tag
+                    Tag = dg.Tag.ToString()
                 })
             });
         }

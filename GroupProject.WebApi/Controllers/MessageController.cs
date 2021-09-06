@@ -13,6 +13,8 @@ using GroupProject.RepositoryService;
 
 namespace GroupProject.WebApi.Controllers
 {
+
+    [AllowAnonymous]
     public class MessageController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
@@ -24,8 +26,7 @@ namespace GroupProject.WebApi.Controllers
             iLog = Log.GetInstance;
         }
 
-        // GET: api/Games
-        [AllowAnonymous]
+        // GET: api/Message
         public async Task<IHttpActionResult> GetMessages()
         {
             var messages = await unitOfWork.Message.GetAllAsync();

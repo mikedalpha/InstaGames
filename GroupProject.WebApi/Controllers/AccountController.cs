@@ -24,6 +24,7 @@ using GroupProject.WebApi.Models.AccountViewModels;
 
 namespace GroupProject.WebApi.Controllers
 {
+    [AllowAnonymous]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -107,6 +108,26 @@ namespace GroupProject.WebApi.Controllers
                 RegistrationDate = user.RegistrationDate,
                 EmailConfirmed = user.EmailConfirmed
             });
+        }
+
+        [HttpGet]
+        [Route("Claims")]
+        public LogInViewModel Claims()
+        {
+
+            var identityClaims = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identityClaims.Claims;
+            LogInViewModel model = new LogInViewModel()
+            {
+                Id = identityClaims.FindFirst("Id").Value,
+                UserName = identityClaims.FindFirst("Username").Value,
+                Email = identityClaims.FindFirst("Email").Value,
+                FirstName = identityClaims.FindFirst("FirstName").Value,
+                LastName = identityClaims.FindFirst("LastName").Value,
+                PhotoUrl = identityClaims.FindFirst("PhotoUrl").Value,
+                Role = identityClaims.FindFirst("Role").Value
+            };
+            return model;
         }
 
         //GET: api/Account/GetRoles

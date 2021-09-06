@@ -8,8 +8,6 @@ namespace GroupProject.WebApi
     {
         public static void Register(HttpConfiguration config)
         {
-            var corsAttr = new EnableCorsAttribute("*", "*", "*");
-            config.EnableCors(corsAttr);
 
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
@@ -24,6 +22,8 @@ namespace GroupProject.WebApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Filters.Add(new AuthorizeAttribute());
         }
     }
 }

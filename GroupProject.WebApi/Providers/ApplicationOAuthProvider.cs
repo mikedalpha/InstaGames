@@ -7,6 +7,8 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using GroupProject.Entities;
+using System.Linq;
+using Microsoft.AspNet.Identity;
 
 namespace GroupProject.WebApi.Providers
 {
@@ -24,11 +26,16 @@ namespace GroupProject.WebApi.Providers
             _publicClientId = publicClientId;
         }
 
+        public ApplicationOAuthProvider()
+        {
+        }
+
+
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
+
 
             if (user == null)
             {
@@ -45,6 +52,22 @@ namespace GroupProject.WebApi.Providers
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
+
+            if (user != null)
+            {
+                var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+                identity.AddClaim(new Claim("Id", user.Id));
+                identity.AddClaim(new Claim("Username", user.UserName));
+                identity.AddClaim(new Claim("Email", user.Email));
+                identity.AddClaim(new Claim("FirstName", user.FirstName));
+                identity.AddClaim(new Claim("LastName", user.LastName));
+                identity.AddClaim(new Claim("PhotoUrl", user.PhotoUrl));
+                identity.AddClaim(new Claim("Role", userManager.GetRoles(user.Id).FirstOrDefault()));
+
+                context.Validated(identity);
+            }
+            else
+                return;
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
@@ -91,5 +114,7 @@ namespace GroupProject.WebApi.Providers
             };
             return new AuthenticationProperties(data);
         }
+
+
     }
 }

@@ -10,6 +10,7 @@ using GroupProject.RepositoryService;
 
 namespace GroupProject.WebApi.Controllers
 {
+    [AllowAnonymous]
     public class CategoryController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
@@ -21,7 +22,6 @@ namespace GroupProject.WebApi.Controllers
         }
 
         // GET: api/Category
-        [AllowAnonymous]
         public async Task<IHttpActionResult> GetCategories()
         {
             var categories = await unitOfWork.Category.GetAllAsync();
@@ -44,11 +44,11 @@ namespace GroupProject.WebApi.Controllers
                     IsEarlyAccess = g.IsEarlyAccess,
                     Rating = g.Rating,
                     Tag = g.Tag.ToString()
-                }),
+                })
             }).ToList());
         }
 
-        public async Task<IHttpActionResult> GetCategories(int id)
+        public async Task<IHttpActionResult> GetCategory(int id)
         {
             var category = await unitOfWork.Category.FindByIdAsync(id);
             if (category == null)

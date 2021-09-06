@@ -12,6 +12,8 @@ using GroupProject.RepositoryService;
 
 namespace GroupProject.WebApi.Controllers
 {
+
+    [AllowAnonymous]
     public class GameController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
@@ -24,7 +26,6 @@ namespace GroupProject.WebApi.Controllers
         }
 
         // GET: api/Games
-        [AllowAnonymous]
         public async Task<IHttpActionResult> GetGames()
         {
             var games = await unitOfWork.Games.GetAllAsync();

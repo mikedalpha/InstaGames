@@ -57,6 +57,9 @@
     <Reference Include="Microsoft.Owin, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.2.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.4.2.0\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.2.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
@@ -225,6 +228,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels\EditUserBindingViewModel.cs" />
+    <Compile Include="Models\AccountViewModels\LogInViewModel.cs" />
     <Compile Include="Models\AccountViewModels\SetPasswordBindingModel.cs" />
     <Compile Include="Models\AccountViewModels\UserLoginInfoViewModel.cs" />
     <Compile Include="Models\AccountViewModels\AddExternalLoginBindingModel.cs" />
@@ -287,6 +291,11 @@
     <Content Include="Content\images\Pegi\3.jpg" />
     <Content Include="Content\images\Pegi\7.jpg" />
     <Content Include="Content\images\Pegi\pegi.jpg" />
+    <Content Include="Content\images\user\Admin.png" />
+    <Content Include="Content\images\user\Konstantina.jpg" />
+    <Content Include="Content\images\user\Kostas.jpg" />
+    <Content Include="Content\images\user\Michael.jpg" />
+    <Content Include="Content\images\user\user.jpg" />
     <Content Include="Content\video\Assassins-Creed.mp4" />
     <Content Include="Content\video\Background-Video-1.mp4" />
     <Content Include="Content\video\Background-Video.mp4" />
