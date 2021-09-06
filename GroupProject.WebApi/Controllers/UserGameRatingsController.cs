@@ -11,7 +11,7 @@ using Microsoft.Owin.Security;
 
 namespace GroupProject.WebApi.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     public class UserGameRatingsController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;

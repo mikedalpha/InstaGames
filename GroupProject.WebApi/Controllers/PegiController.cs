@@ -5,7 +5,7 @@ using GroupProject.RepositoryService;
 
 namespace GroupProject.WebApi.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     public class PegiController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;

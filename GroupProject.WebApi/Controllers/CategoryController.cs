@@ -10,7 +10,7 @@ using GroupProject.RepositoryService;
 
 namespace GroupProject.WebApi.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     public class CategoryController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
