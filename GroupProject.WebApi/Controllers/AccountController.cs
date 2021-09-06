@@ -24,7 +24,7 @@ using GroupProject.WebApi.Models.AccountViewModels;
 
 namespace GroupProject.WebApi.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -60,7 +60,6 @@ namespace GroupProject.WebApi.Controllers
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // GET: api/Account
-        [AllowAnonymous]
         public async Task<IHttpActionResult> GetUsers()
         {
             var users = await UserManager.Users.ToListAsync();
