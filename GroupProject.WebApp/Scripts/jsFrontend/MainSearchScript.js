@@ -6,6 +6,7 @@ $('#MainSearchMobile').on('input', function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('User-Token')}` },
         url: "https://localhost:44369/api/Game",
         dataType: "json"
     }).done((data) => StartSearch(data, searchInput)).fail((error) => alert(error));
@@ -26,6 +27,7 @@ $('#MainSearch').on('input',
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('User-Token')}` },
             url: "https://localhost:44369/api/Game",
             dataType: "json"
         }).done((data) => StartSearch(data, searchInput));

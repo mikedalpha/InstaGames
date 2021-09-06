@@ -10,6 +10,7 @@ function AddToList(id, gameId, element) {
     let url = `https://localhost:44369/api/Account/?id=${id}&gameid=${gameId}`;
     $.ajax({
         type: "PUT",
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('User-Token')}` },
         url: url,
         dataType: "json",
         success: function (response) {
