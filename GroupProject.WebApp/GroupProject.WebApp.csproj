@@ -370,6 +370,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsFrontend\ApiToken.js" />
     <Content Include="Scripts\jsFrontend\CategorySection.js" />
     <Content Include="Scripts\jsFrontend\DetailsModalScript.js" />
     <Content Include="Scripts\jsFrontend\MainSearchScript.js" />

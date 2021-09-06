@@ -18,6 +18,7 @@ function AddRating(userId, gameId, rating, element) {
     let url = 'https://localhost:44369/api/UserGameRatings/AddRating=';
     $.ajax({
         type: "POST",
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('User-Token')}` },
         url: url,
         dataType: "json",
         data: ratedGame,

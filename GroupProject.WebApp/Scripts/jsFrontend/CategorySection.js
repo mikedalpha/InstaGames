@@ -2,6 +2,7 @@
 $.ajax({
     type: "GET",
     contentType: "application/json; charset=utf-8",
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('User-Token')}` },
     url: "https://localhost:44369/api/Category",
     dataType: "json",
     success: function (response) {
@@ -21,6 +22,7 @@ function GetCategory(id) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('User-Token')}` },
         url: "https://localhost:44369/api/Category",
         dataType: "json",
         data: { "id": id },

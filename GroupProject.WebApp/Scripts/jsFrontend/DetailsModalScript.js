@@ -10,6 +10,7 @@ function FindGame(id) {
     let url = "https://localhost:44369/api/game/?";
     $.ajax({
         type: "Get",
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('User-Token')}` },
         url: url,
         data: { "id": id },
         dataType: "json",
@@ -134,6 +135,7 @@ function ModalBodyTemplating(game) {
     //More Like This template
     $.ajax({
         type: "GET",
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('User-Token')}` },
         url: "https://localhost:44369/api/game/",
         dataType: "json",
         success: function (response) {

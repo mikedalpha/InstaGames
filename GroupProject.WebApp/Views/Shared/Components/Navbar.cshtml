@@ -158,16 +158,20 @@
                                                                 </div>
                                                             </div>
                                                         </a>
-                                                        <a href="~/account/login" class="iq-sub-card setting-dropdown">
-                                                            <div class="media align-items-center">
-                                                                <div class="right-icon">
-                                                                    <i class="ri-logout-circle-line text-primary"></i>
+                                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logOff"}))
+                                                        {
+                                                            @Html.AntiForgeryToken()
+                                                            <a href="#" onclick="document.getElementById('logOff').submit(); localStorage.removeItem('User-Token');" class="iq-sub-card setting-dropdown">
+                                                                <div class="media align-items-center">
+                                                                    <div class="right-icon">
+                                                                        <i class="ri-logout-circle-line text-primary"></i>
+                                                                    </div>
+                                                                    <div class="media-body ml-3">
+                                                                        <h6 class="my-0 ">Logout</h6>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="media-body ml-3">
-                                                                    <h6 class="mb-0">Logout</h6>
-                                                                </div>
-                                                            </div>
-                                                        </a>
+                                                            </a>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -283,7 +287,7 @@
                                                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logOff"}))
                                                 {
                                                     @Html.AntiForgeryToken()
-                                                    <a href="#" onclick="document.getElementById('logOff').submit()" class="iq-sub-card setting-dropdown">
+                                                    <a href="#" onclick="document.getElementById('logOff').submit(); localStorage.removeItem('User-Token');" class="iq-sub-card setting-dropdown">
                                                         <div class="media align-items-center">
                                                             <div class="right-icon">
                                                                 <i class="ri-logout-circle-line text-primary"></i>

@@ -11,8 +11,8 @@
     <div class="video-background">
         <div class="video-wrap">
             <div id="video">
-                <video id="bgvid"autoplay loop muted playsinline>
-                    <source src="https://localhost:44369//Content/video/starships-game.mp4" type="video/mp4"/>
+                <video id="bgvid" autoplay loop muted playsinline>
+                    <source src="https://localhost:44369//Content/video/starships-game.mp4" type="video/mp4" />
                 </video>
             </div>
         </div>
@@ -32,22 +32,22 @@
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.UserName, new { @class = "col-md-2" })
 
-                                    @Html.EditorFor(m => m.UserName, new { @class = "form-control" })
+                                    @Html.EditorFor(m => m.UserName, new { @class = "form-control", id = "UserName" })
                                     @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Password, new { @class = "col-md-2 " })
 
-                                    @Html.EditorFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.EditorFor(m => m.Password, new { @class = "form-control", id = "Password" })
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                 </div>
 
                                 <div class="sign-info">
-                                    <button type="submit" class="btn btn-hover">Sign in</button>
+                                    <button id="subBtn" type="submit" class="btn btn-hover">Sign in</button>
                                     <div class="custom-control custom-checkbox d-inline-block">
                                         @Html.CheckBoxFor(m => m.RememberMe, new { @class = "custom-control-input" })
                                         @Html.LabelFor(m => m.RememberMe, new { @class = "custom-control-label" })
-                                      
+
                                     </div>
                                 </div>
                             }
@@ -103,4 +103,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/Token")
 }
