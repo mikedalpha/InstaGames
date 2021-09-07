@@ -16,8 +16,16 @@ function FindGame(id) {
         dataType: "json",
         success: function (response) {
             ModalBodyTemplating(response);
+        }, error: function(error) {
+            Error(error);
         }
     });
+}
+
+//Error
+function Error(error) {
+    console.log(error);
+    window.location.replace("https://localhost:44384/Error/PageNotFound/");
 }
 
 //video template
@@ -146,6 +154,8 @@ function ModalBodyTemplating(game) {
                 return g.Pegi == game.Pegi;
             });
             filteredGamesByPegi.forEach(MoreLikeThisTemplate);
+        }, error: function (error) {
+            Error(error);
         }
     });
 

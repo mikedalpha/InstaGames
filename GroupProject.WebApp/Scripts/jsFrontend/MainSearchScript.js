@@ -9,14 +9,14 @@ $('#MainSearchMobile').on('input', function () {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('User-Token')}` },
         url: "https://localhost:44369/api/Game",
         dataType: "json"
-    }).done((data) => StartSearch(data, searchInput)).fail((error) => alert(error));
+    }).done((data) => StartSearch(data, searchInput)).fail((error) => Error(error));
 });
+
 
 function Error(error) {
     console.log(error);
-    window.location.replace("https://localhost:44369/Error/PageNotFound/");
+    window.location.replace("https://localhost:44384/Error/PageNotFound/");
 }
-
 
 //Get Data on Input from Main search
 $('#MainSearch').on('input',
@@ -30,7 +30,7 @@ $('#MainSearch').on('input',
             headers: { 'Authorization': `Bearer ${localStorage.getItem('User-Token')}` },
             url: "https://localhost:44369/api/Game",
             dataType: "json"
-        }).done((data) => StartSearch(data, searchInput));
+        }).done((data) => StartSearch(data, searchInput)).fail((error) => Error(error));
 
     });
 

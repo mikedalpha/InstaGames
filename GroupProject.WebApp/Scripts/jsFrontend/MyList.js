@@ -24,6 +24,13 @@ function AddToList(id, gameId, element) {
                 element.attr('style', "--text:'Add to My List'");
                
             }
+        }, error: function (error) {
+            Error(error);
         }
     });
+}
+
+function Error(error) {
+    console.log(error);
+    window.location.replace("https://localhost:44384/Error/InternalServerError/");
 }
