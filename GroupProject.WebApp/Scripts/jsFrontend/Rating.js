@@ -29,6 +29,9 @@ function AddRating(userId, gameId, rating, element) {
             element.siblings().removeClass('addRating');
             element.siblings().removeClass('btn-link');
             element.parent().parent().attr('style',`--text:'Successfully rated! Your rating :${response.Rating}'`);
+        }, error: function(error) {
+            Error(error);
         }
     });
 }
+

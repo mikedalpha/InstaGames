@@ -590,8 +590,5 @@ Index Of Script
             document.execCommand('copy');
             document.body.removeChild(elem);
         }
-
-
-
     });
 })(jQuery);
