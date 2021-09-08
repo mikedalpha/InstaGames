@@ -120,9 +120,6 @@ namespace GroupProject.WebApi.Controllers
             {
                 Id = identityClaims.FindFirst("Id").Value,
                 UserName = identityClaims.FindFirst("Username").Value,
-                Email = identityClaims.FindFirst("Email").Value,
-                FirstName = identityClaims.FindFirst("FirstName").Value,
-                LastName = identityClaims.FindFirst("LastName").Value,
                 PhotoUrl = identityClaims.FindFirst("PhotoUrl").Value,
                 Role = identityClaims.FindFirst("Role").Value
             };

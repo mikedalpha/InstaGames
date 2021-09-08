@@ -58,9 +58,6 @@ namespace GroupProject.WebApi.Providers
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                 identity.AddClaim(new Claim("Id", user.Id));
                 identity.AddClaim(new Claim("Username", user.UserName));
-                identity.AddClaim(new Claim("Email", user.Email));
-                identity.AddClaim(new Claim("FirstName", user.FirstName));
-                identity.AddClaim(new Claim("LastName", user.LastName));
                 identity.AddClaim(new Claim("PhotoUrl", user.PhotoUrl));
                 identity.AddClaim(new Claim("Role", userManager.GetRoles(user.Id).FirstOrDefault()));
 
