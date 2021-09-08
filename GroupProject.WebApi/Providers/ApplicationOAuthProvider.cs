@@ -36,7 +36,6 @@ namespace GroupProject.WebApi.Providers
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
 
-
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
@@ -53,18 +52,25 @@ namespace GroupProject.WebApi.Providers
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
 
-            if (user != null)
+
+            if (user.PhotoUrl != null)
             {
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                 identity.AddClaim(new Claim("Id", user.Id));
                 identity.AddClaim(new Claim("Username", user.UserName));
-                identity.AddClaim(new Claim("PhotoUrl", user.PhotoUrl));
+                identity.AddClaim(new Claim("PhotoUrl", user.PhotoUrl ));
                 identity.AddClaim(new Claim("Role", userManager.GetRoles(user.Id).FirstOrDefault()));
-
                 context.Validated(identity);
             }
             else
-                return;
+            {
+                var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+                identity.AddClaim(new Claim("Id", user.Id));
+                identity.AddClaim(new Claim("Username", user.UserName));
+                identity.AddClaim(new Claim("Role", userManager.GetRoles(user.Id).FirstOrDefault()));
+                context.Validated(identity);
+
+            }
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

@@ -1,4 +1,4 @@
-﻿    $("#subBtn").click(function() {
+    $("#subBtn").click(function() {
         let userName = $("#UserName").val();
         let password = $("#Password").val();
 
