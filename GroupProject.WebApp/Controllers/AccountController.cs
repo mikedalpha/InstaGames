@@ -181,7 +181,7 @@ namespace GroupProject.WebApp.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     DateOfBirth = model.DateOfBirth,
-                    RegistrationDate = DateTime.Now,
+                    RegistrationDate = DateTime.Now
                 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -194,7 +194,6 @@ namespace GroupProject.WebApp.Controllers
                         await UserManager.UpdateAsync(user);
                     }
 
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     //IF everything goes well
                     return await SendEmail(user);
                 }
