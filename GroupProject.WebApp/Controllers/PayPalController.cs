@@ -18,6 +18,16 @@ namespace GroupProject.WebApp.Controllers
         private ILog iLog;
         private ApplicationUserManager _userManager;
         private ApplicationSignInManager _signInManager;
+        public ApplicationSignInManager SignInManager
+        {
+            get { return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>(); }
+            private set { _signInManager = value; }
+        }
+        public ApplicationUserManager UserManager
+        {
+            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _userManager = value; }
+        }
 
         public PayPalController() { }
 
@@ -26,16 +36,6 @@ namespace GroupProject.WebApp.Controllers
             iLog = Log.GetInstance;
             UserManager = userManager;
             SignInManager = signInManager;
-        }
-        public ApplicationSignInManager SignInManager
-        {
-            get{ return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>(); }
-            private set { _signInManager = value; }
-        }
-        public ApplicationUserManager UserManager
-        {
-            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
-            private set { _userManager = value; }
         }
 
         protected override void OnException(ExceptionContext filterContext)
@@ -47,15 +47,22 @@ namespace GroupProject.WebApp.Controllers
 
         private Payment CreatePayment(APIContext apiContext, string redirectUrl, ApplicationUser user)
         {
+
             Item item = new Item()
             {
                 name = user.SubscribePlan.ToString(),
                 currency = "EUR",
                 price = user.SubscribePlan == Plan.Basic ? "19" : "39",
                 quantity = "1",
-                sku = "sku"
-
+                //sku = "sku"
             };
+           
+            var itemList = new ItemList()
+            {
+                items = new List<PayPal.Api.Item>()
+            };
+         
+            itemList.items.Add(item);
 
             var payer = new Payer() { payment_method = "paypal" };
 
@@ -81,9 +88,10 @@ namespace GroupProject.WebApp.Controllers
             var transactionList = new List<Transaction>();
             transactionList.Add(new Transaction()
             {
-                description = "InstaGames Testing Transaction System",
+                description = "InstaGames Transaction System",
                 invoice_number = Convert.ToString(new Random().Next(1000000)),
-                amount = amount
+                amount = amount,
+                item_list = itemList
             });
 
             var payment = new Payment()
